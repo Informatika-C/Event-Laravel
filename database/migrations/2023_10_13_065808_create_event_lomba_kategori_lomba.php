@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('event_lomba_kategori_lomba', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_event_lomba');
-            $table->unsignedBigInteger('id_kategori_lomba');
+            $table->unsignedBigInteger('event_lomba_id');
+            $table->unsignedBigInteger('kategori_lomba_id');
             $table->timestamps();
-            $table->foreign('id_event_lomba')->references('id')->on('event_lomba')->onDelete('cascade');
-            $table->foreign('id_kategori_lomba')->references('id')->on('kategori_lomba')->onDelete('cascade');
+            $table->foreign('event_lomba_id')->references('id')->on('event_lomba')->onDelete('cascade');
+            $table->foreign('kategori_lomba_id')->references('id')->on('kategori_lomba')->onDelete('cascade');
         });
     }
 
