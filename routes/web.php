@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,8 +17,8 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+    return view('home');
+});
 
 Route::group(['middleware' => ['auth:admin']], function() {
   Route::get('/dashboard', function () {
@@ -33,5 +35,4 @@ Route::Group(['middleware' => ['guest']], function() {
 });
 
 Route::get('/logout', [AuthController::class, 'logout'])
-                                    ->middleware('auth')
                                     ->name('logout');

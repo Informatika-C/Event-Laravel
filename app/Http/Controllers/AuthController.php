@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -24,8 +25,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return redirect('/dashboard');
         }
-
-        if (Auth::attempt($credentials, $remember_me)) {
+        elseif (Auth::attempt($credentials, $remember_me)) {
             $request->session()->regenerate();
             return redirect('/');
         }
@@ -46,13 +46,8 @@ class AuthController extends Controller
             'npm' => ['required', 'unique:users'],
             'phone' => ['required', 'unique:users'],
             'password' => ['required', 'min:8'],
+            'password_confirmation' => ['required', 'same:password'],
         ]);
-
-        if (!$credentials){
-            return back()->withErrors([   
-                'error' => 'error',  
-            ]);
-        }
 
         User::create([
             'name' => $credentials['name'],
@@ -60,13 +55,22 @@ class AuthController extends Controller
             'npm' => $credentials['npm'],          
             'phone' => $credentials['phone'],
             'password' => $credentials['password'],
-        ])->save();
+        ]);
 
-        return redirect()->intended('home');
+        return redirect('/login');
     }
 
     public function logout(){
-        Auth::logout();   
-        return redirect('/');
+        if(Auth::guard('admin')->check())
+        {
+            Auth::guard('admin')->logout();
+        }
+
+        if(Auth::check())
+        {
+            Auth::logout();
+        }
+
+        return redirect('/login');
     }
 }
