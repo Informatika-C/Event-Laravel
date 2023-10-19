@@ -8,13 +8,16 @@
 <body>
 	@if(Auth::guard('admin')->check())
 		<div>admin</div>
+		<a href="{{route('dashboard')}}">dashboard</a>
 		<a href="{{route('logout')}}">logout</a>
 	@elseif(Auth::check())
 		<div>user</div>
 		<a href="{{route('logout')}}">logout</a>
 	@else
-		please login
+		please
 		<a href="{{route('login')}}">login</a>
+		or
+		<a href="{{route('register')}}">register</a>
 	@endif
 </body>
 </html>
