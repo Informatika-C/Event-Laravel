@@ -1,0 +1,508 @@
+@media (max-width: 290px) {
+    .container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+    }
+    #vantajs {
+        display: none;
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+    }
+    .container > .navbar .nav-menu {
+        padding-right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        gap: 5px;
+    }
+    .container > .navbar .brand a {
+        font-size: 2rem;
+        font-weight: 800;
+        display: block;
+    }
+    .container > .navbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        gap: 0;
+        /* padding-block: 1.2rem; */
+    }
+    .navbar .menu {
+        display: none;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+    }
+    .menu {
+        display: flex;
+        text-align: end;
+        flex-direction: column;
+        background-color: rgba(87, 88, 85, 0.929);
+        backdrop-filter: blur(16px) saturate(100%) contrast(100%);
+        -webkit-backdrop-filter: blur(16px) saturate(100%) contrast(100%);
+        position: absolute;
+        top: 95px;
+        right: 28%;
+        /* left: 50%; */
+        z-index: 1;
+        border-radius: 5px;
+        border: 0.1rem rgb(182, 175, 175) solid;
+    }
+    .menu > li {
+        padding: 12px 10px 0 10px;
+    }
+    .menu.active {
+        display: flex;
+    }
+    .dark-mode-switch,
+    .toggle-btn {
+        display: block;
+    }
+    .tools .toggle-btn {
+        display: flex;
+        cursor: pointer;
+        padding: 18px 10px;
+        border: 0.1rem rgb(182, 175, 175) solid;
+        border-radius: 0.3rem;
+    }
+    .navbar > .tools {
+        gap: 0.3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .welcome h1 {
+        font-size: 2rem;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    .events-text h2 {
+        font-size: 2rem;
+    }
+    .about-text h2 {
+        font-size: 2rem;
+    }
+    .marquee {
+        height: 51px;
+    }
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+    .about-content .video-container video {
+        transform: none;
+    }
+    .events-section .top-content {
+        display: flex;
+        flex-direction: column;
+        padding-inline: 3%;
+    }
+    .events-section .grid-card {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        padding-inline: 1rem;
+        gap: 10rem;
+    }
+
+    .logo {
+        bottom: 20px;
+        right: 0.6rem;
+        width: 30px;
+    }
+
+    .icon-container i {
+        cursor: pointer;
+    }
+    .icon-container {
+        left: 0.6rem;
+        top: 50%;
+    }
+
+    .diagonal-text {
+        font-size: 0.8rem;
+        bottom: 25px;
+        left: 0.6rem;
+    }
+    .sponsor {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .thx h2 {
+        font-size: 2rem;
+    }
+    .sponsor-content {
+        display: flex;
+        justify-content: center;
+    }
+    .sponsor-container {
+        display: flex;
+        margin: 3px;
+        max-width: 200px;
+    }
+
+    .sponsor-logo > img {
+        width: 100%;
+        height: 40px;
+    }
+    .footer-container {
+        flex-direction: column;
+        justify-content: start;
+    }
+
+    .contact,
+    .route {
+        flex: 0 0 100%;
+    }
+    .footer-container h3 {
+        font-size: 0.7em;
+        margin-bottom: 10px;
+    }
+    .contact {
+        margin-bottom: 20px;
+    }
+    .contact-text {
+        font-size: 12px;
+    }
+    .copyright {
+        margin-top: 10px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-align: center;
+    }
+    .img-footer {
+        flex: 0 0 100%;
+    }
+    .img-footer img {
+        max-width: 100%;
+        height: 130px;
+    }
+    .route {
+        display: none;
+    }
+    .route-icons {
+        display: none;
+    }
+}
+
+@media (min-width: 291px) and (max-width: 767px) {
+    body {
+        max-width: 100vw;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    /* #vantajs {
+        display: block;
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+    } */
+    .content {
+        padding-top: 30px;
+        padding-inline: 3%;
+    }
+    .brand a i {
+        rotate: 0deg;
+    }
+
+    .container > .navbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        padding-block: 0.7rem;
+    }
+    .navbar .menu {
+        display: none;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+    }
+    .navbar ul {
+        padding-right: 0;
+    }
+    .menu {
+        display: flex;
+        text-align: end;
+        flex-direction: column;
+        background-color: rgba(87, 88, 85, 0.929);
+        backdrop-filter: blur(16px) saturate(100%) contrast(100%);
+        -webkit-backdrop-filter: blur(16px) saturate(100%) contrast(100%);
+        position: absolute;
+        top: 65px;
+        right: 28%;
+        /* left: 50%; */
+        z-index: 1;
+        border-radius: 7px;
+        border: 0.1rem rgb(182, 175, 175) solid;
+    }
+
+    .menu.active {
+        display: flex;
+    }
+
+    .menu.active li a {
+        /* color: rgb(219, 229, 231); */
+        font-weight: 100;
+    }
+    .menu > li {
+        padding: 10px 12px 7px 12px;
+    }
+
+    .dark-mode-switch,
+    .toggle-btn {
+        display: block;
+    }
+    /* .navbar.horizontal {
+      padding-top: 2rem;
+    } */
+    ul.tools {
+        gap: 0.5rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .tools .toggle-btn {
+        display: flex;
+        cursor: pointer;
+        padding: 20px 12px;
+        border: 0.1rem rgb(182, 175, 175) solid;
+        border-radius: 0.3rem;
+    }
+    p {
+        font-size: 14.5px;
+    }
+
+    a {
+        font-size: 13.4px;
+        border-radius: 6px;
+    }
+    .navbar .brand a {
+        padding: 0;
+        margin: 0;
+        font-size: 2rem;
+        font-weight: 800;
+    }
+
+    .welcome h1 {
+        font-size: 2rem;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    .events-text h2 {
+        font-size: 2rem;
+    }
+    .about-text h2 {
+        font-size: 2rem;
+    }
+    .marquee {
+        height: 51px;
+    }
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+    .about-content .video-container video {
+        transform: none;
+    }
+
+    .events-section .top-content {
+        display: flex;
+        flex-direction: column;
+        padding-inline: 3%;
+    }
+    .events-section .grid-card {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        padding-inline: 1rem;
+        gap: 10rem;
+    }
+    .logo {
+        bottom: 20px;
+        right: 0.6rem;
+        width: 45px;
+    }
+
+    .icon-container i {
+        cursor: pointer;
+    }
+    .icon-container {
+        left: 0.9rem;
+        top: 50%;
+    }
+
+    .diagonal-text {
+        font-size: 0.9rem;
+        bottom: 25px;
+        left: 0.2rem;
+    }
+    .sponsor {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .thx h2 {
+        font-size: 2rem;
+    }
+    .sponsor-content {
+        display: flex;
+        justify-content: center;
+    }
+    .sponsor-container {
+        display: flex;
+        margin: 3px;
+        max-width: 300px;
+    }
+
+    .sponsor-logo > img {
+        width: 100%;
+        height: 65px;
+    }
+    .footer-container {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    .footer-container h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+    .contact {
+        margin-bottom: 20px;
+    }
+    .contact-text {
+        font-size: 17px;
+    }
+    .contact,
+    .route-page {
+        flex: 0 0 100%;
+    }
+
+    .contact {
+        margin-bottom: 20px;
+    }
+
+    .copyright {
+        margin-top: 10px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-align: center;
+    }
+    .img-footer {
+        flex: 0 0 100%;
+    }
+    .img-footer img {
+        max-width: 100%;
+        height: 150px;
+    }
+    .route {
+        display: none;
+    }
+    .route-icons {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar {
+        display: flex;
+        padding: 1rem;
+    }
+    .navbar .brand a {
+        font-size: 3rem;
+        font-weight: 800;
+        display: block;
+    }
+    .navbar ul {
+        gap: 7px;
+    }
+
+    .navbar li {
+        padding: 8px;
+        font-size: 1.1rem;
+    }
+    .menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+    }
+    .menu.active {
+        display: none;
+    }
+    .about-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .top-content {
+        padding-bottom: 6.5rem;
+    }
+    .events-section .grid-card {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10rem 3rem;
+    }
+    .sponsor {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .thx h2 {
+        font-size: 3rem;
+    }
+    .sponsor-content {
+        display: flex;
+        justify-content: stretch;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1500px) {
+    .menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+    }
+    .menu.active {
+        display: none;
+    }
+    .content {
+        padding-inline: 30.5%;
+        /* margin-top: 0; */
+    }
+    .profile img {
+        width: 150px;
+        height: 150px;
+    }
+    .profile h1 {
+        font-size: 36px;
+        margin: 0;
+    }
+    .profile p {
+        font-size: 20px;
+    }
+    .breadcrumb .ttl {
+        font-size: 1.3rem;
+    }
+}

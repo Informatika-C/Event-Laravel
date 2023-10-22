@@ -1,0 +1,108 @@
+body.dark-mode {
+    background-color: #e1dcd1;
+    color: #1e2126;
+}
+body.dark-mode #about-section {
+    background-color: #e1dcd1;
+    color: #1e2126;
+}
+
+body.dark-mode .menu a:hover {
+    color: #3409e0;
+}
+body.dark-mode a > i::after {
+    color: #3409e0;
+}
+
+body.dark-mode .brand a {
+    color: #1e2126;
+}
+body.dark-mode .menu a {
+    color: #1e2126;
+}
+
+body.dark-mode .about-text h2 {
+    color: #bd83b8;
+}
+body.dark-mode .about-text h2:nth-child(2) {
+    color: #1e2126;
+}
+body.dark-mode .events-text h2 {
+    color: #bd83b8;
+}
+body.dark-mode .events-text h2:nth-child(2) {
+    color: #1e2126;
+}
+body.dark-mode .about-section .marquee2 {
+    background-color: #1e2126;
+}
+body.dark-mode .about-section .marquee2 .text {
+    color: #bd83b8;
+}
+
+body.dark-mode .navbar {
+    background-color: rgba(203, 227, 221, 0);
+    backdrop-filter: blur(16px) saturate(120%) contrast(105%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%) contrast(105%);
+}
+
+body.dark-mode .menu a {
+    color: #1e2126;
+}
+body.dark-mode .btn a {
+    color: #fff;
+}
+body.dark-mode .hi-box p {
+    font-weight: 500;
+    color: #000000;
+    background-color: rgba(135, 145, 143, 0.932);
+}
+
+.toggle-btn {
+    cursor: pointer;
+}
+
+.dark-mode-switch {
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    position: relative;
+}
+
+.dark-mode-switch input[type="checkbox"] {
+    display: none;
+}
+.dark-mode-switch label {
+    display: flex;
+    align-items: center;
+    width: 45px;
+    height: 26px;
+    background-color: rgb(30, 255, 128);
+    position: relative;
+    cursor: pointer;
+    border-radius: 13px;
+}
+
+.dark-mode-switch label::before {
+    content: "\2600";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 20px;
+    color: #1e2126;
+    position: absolute;
+    align-items: center;
+    width: 100%;
+    left: 2.5px;
+    border-radius: 50%;
+    transition: transform 0.5s;
+}
+
+.dark-mode-switch input:checked + label {
+    background-color: #9d0ed1;
+}
+.dark-mode-switch input:checked + label::before {
+    content: "\f186";
+    font-family: "Font Awesome 5 Free";
+    color: #fff;
+    transform: translateX(20px);
+}

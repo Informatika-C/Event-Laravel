@@ -1,0 +1,153 @@
+.about-section {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.about-content {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding: 6rem;
+  gap: 3rem;
+}
+
+.Info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  justify-content: space-between;
+}
+
+.about-section p {
+  text-indent: 20px;
+  text-align: justify;
+  padding-top: 5rem;
+  font-size: 16px;
+}
+.about-text {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.about-text h2 {
+  font-size: 3rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  color: #f1916d;
+  animation: moveUp 3s infinite;
+}
+
+.about-text h2:nth-child(2) {
+  color: #f5d7db;
+  top: 0;
+  left: 10px;
+  animation: moveDown 3s infinite;
+}
+
+@keyframes moveUp {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes moveDown {
+  0%,
+  100% {
+    transform: translateY(10px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+}
+
+.video-container {
+  flex: 1.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-size: cover;
+}
+
+.video-container video {
+  transform: perspective(1000px) rotateX(8deg) rotateY(-14deg) rotateZ(4deg);
+  max-width: 100%;
+  max-height: 100%;
+  opacity: 0.9;
+  border-radius: 1.2rem;
+  box-shadow: 10px 10px 29px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 10px 10px 29px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 29px 0px rgba(0, 0, 0, 0.75);
+}
+.marquee {
+  width: 100%;
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 180px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  transform: rotate(-2deg);
+}
+
+.marquee .text {
+  display: inline-block;
+  text-indent: 0;
+  animation: marquee 16s linear infinite;
+}
+.marquee2 {
+  width: 100%;
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 61px;
+  background: #bd83b8;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  transform: rotate(2deg);
+}
+
+.marquee2 .text {
+  display: inline-block;
+  /* padding-left: 3rem; */
+  text-indent: 0;
+  animation: marquee 16s linear infinite;
+  font-weight: 500;
+  font-size: 2.2rem;
+  line-height: 125%;
+  letter-spacing: -0.04;
+  text-transform: uppercase;
+  color: #c3ff00;
+}
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+h1 {
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  text-align: center;
+  color: red;
+}
