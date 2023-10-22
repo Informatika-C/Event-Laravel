@@ -1,0 +1,81 @@
+.welcome {
+  text-align: center;
+}
+.content h1 {
+  position: relative;
+  font-size: 3rem;
+  font-weight: 300;
+  z-index: 1;
+}
+
+.content i {
+  display: block;
+  font-size: 3rem;
+  transform: translateY(10rem);
+}
+
+@keyframes moveUpDown {
+  0%,
+  100% {
+    transform: translateY(10rem);
+  }
+  50% {
+    transform: translateY(11.5rem);
+  }
+}
+
+.content i.animated {
+  animation: moveUpDown 1.5s ease-in-out infinite;
+}
+
+.footer {
+  display: flex;
+  align-items: flex-end;
+}
+
+.logo {
+  position: fixed;
+  bottom: 20px;
+  right: 2rem;
+  width: 50px;
+  opacity: 0.8;
+  z-index: 999;
+}
+
+.icon-container i {
+  cursor: pointer;
+}
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: fixed;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.diagonal-text {
+  font-size: 1.1rem;
+  position: absolute;
+  bottom: 25px;
+  left: 2rem;
+  transform: rotate(180deg);
+  writing-mode: vertical-rl;
+  text-orientation: bottom left;
+}
+
+.outline-css {
+  color: transparent;
+  -webkit-text-stroke: 2px red;
+}
+
+.outline-svg {
+  filter: url(#stroke);
+}
+
+.gradient {
+  background: linear-gradient(90deg, red, blue);
+  color: transparent;
+  -webkit-background-clip: text;
+}

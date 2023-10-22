@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth:admin']], function() {
   Route::get('/dashboard', function () {
-        return "dashboard";
+        return view('dashboard');
     })->name('dashboard');
 });
 
