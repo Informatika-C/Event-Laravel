@@ -20,13 +20,29 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::group(['middleware' => ['auth:admin']], function() {
-  Route::get('/dashboard', function () {
-        return view('dashboard');
+Route::group(['middleware' => ['auth:admin']], function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard.home');
     })->name('dashboard');
+
+    Route::get('/dashboard/contestant', function () {
+        return view('dashboard.contestant');
+    })->name('dashboard.contestant');
+
+    Route::get('/dashboard/events', function () {
+        return view('dashboard.events');
+    })->name('dashboard.events');
+
+    Route::get('/dashboard/schedule', function () {
+        return view('dashboard.schedule');
+    })->name('dashboard.schedule');
+
+    Route::get('/dashboard/sponsor', function () {
+        return view('dashboard.sponsor');
+    })->name('dashboard.sponsor');
 });
 
-Route::Group(['middleware' => ['guest']], function() {
+Route::Group(['middleware' => ['guest']], function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login', [AuthController::class, 'postLogin'])->name('login.post');
 
@@ -35,4 +51,4 @@ Route::Group(['middleware' => ['guest']], function() {
 });
 
 Route::get('/logout', [AuthController::class, 'logout'])
-                                    ->name('logout');
+    ->name('logout');

@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
-    public function login(){
-        return view('auth.login');   
+    public function login()
+    {
+        return view('auth.login');
     }
 
-    public function postLogin(Request $request){
+    public function postLogin(Request $request)
+    {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -24,24 +26,25 @@ class AuthController extends Controller
         if (Auth::guard('admin')->attempt($credentials, $remember_me)) {
             $request->session()->regenerate();
             return redirect('/');
-        }
-        elseif (Auth::attempt($credentials, $remember_me)) {
+        } elseif (Auth::attempt($credentials, $remember_me)) {
             $request->session()->regenerate();
             return redirect('/');
         }
 
         return back()->withErrors([
-          'email' => 'The provided credentials do not match our records.',  
+            'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     }
 
-    public function register(){
-        return view('auth.register');   
+    public function register()
+    {
+        return view('auth.register');
     }
 
-    public function postRegister(Request $request){
+    public function postRegister(Request $request)
+    {
         $credentials = $request->validate([
-            'name' => ['required', 'string'],  
+            'name' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:users'],
             'npm' => ['required', 'unique:users'],
             'phone' => ['required', 'unique:users'],
@@ -51,8 +54,8 @@ class AuthController extends Controller
 
         User::create([
             'name' => $credentials['name'],
-            'email' => $credentials['email'],  
-            'npm' => $credentials['npm'],          
+            'email' => $credentials['email'],
+            'npm' => $credentials['npm'],
             'phone' => $credentials['phone'],
             'password' => $credentials['password'],
         ]);
@@ -60,14 +63,13 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
-    public function logout(){
-        if(Auth::guard('admin')->check())
-        {
+    public function logout()
+    {
+        if (Auth::guard('admin')->check()) {
             Auth::guard('admin')->logout();
         }
 
-        if(Auth::check())
-        {
+        if (Auth::check()) {
             Auth::logout();
         }
 
