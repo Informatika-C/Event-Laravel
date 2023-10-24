@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -11,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}" />
+    <link rel="icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon">
+    <title>Dashboard</title>
 </head>
 
 <body>
@@ -22,12 +22,6 @@
 
         <div class="menu-items">
             <ul class="nav-links">
-                <li>
-                    <a href="/">
-                        <i class="fa-solid fa-house"></i>
-                        <span class="link-name">Home</span>
-                    </a>
-                </li>
                 <li class="{{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}">
                         <i class="fa-solid fa-chalkboard"></i>
@@ -70,10 +64,20 @@
             </ul>
 
             <ul class="logout-mode">
+                @if(Auth::guard('admin')->check())
                 <li>
-                    <a href="#">
+                    <a href="{{route('logout')}}" title="LogOut">
                         <i class="fa-solid fa-right-from-bracket"></i>
                         <span class="link-name">Logout</span>
+                    </a>
+                    @elseif(Auth::check())
+                    <a href="{{route('logout')}}" title="LogOut">LogOut</a>
+                </li>
+                @endif
+                <li>
+                    <a href="/"  title="LogOut">
+                        <i class="fa-solid fa-house"></i>
+                        <span class="link-name" title="Home">Home</span>
                     </a>
                 </li>
             </ul>

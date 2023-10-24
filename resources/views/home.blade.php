@@ -30,7 +30,7 @@
             </div>
             <div class="icon-container" data-aos="fade-right" data-aos-offset="300" data-aos-delay="200" data-aos-duration="1000">
                 <i onclick="window.location.href='https://github.com/'" class="fa-brands fa-twitter"></i>
-                <i onclick="window.location.href='https://github.com/'" class="fa-brands fa-github"></i>
+                <i onclick="window.location.href='https://github.com/Informatika-C/Event-Laravel'" class="fa-brands fa-github" title="Source"></i>
                 <i onclick="window.location.href='https://github.com/'" class="fa-brands fa-instagram"></i>
             </div>
         </div>
@@ -371,7 +371,7 @@
                             <a href="{{route('logout')}}"><i class="fa-solid fa-door-open" title="LogOut"></i></a>
                         </div>
                         @elseif(Auth::check())
-                        <h4>{{ auth()->user()->name }}</h4>
+                        <h4>{{ auth()->user()->name }}.</h4>
                         <a href="{{route('logout')}}" title="LogOut">LogOut</a>
                         @else
                         <a href="{{route('login')}}">LogIn</a>

@@ -60,6 +60,11 @@ section {
     color: rgb(219, 229, 231);
 }
 
+.brand a img {
+    height: 80px;
+    width: 100%;
+}
+
 .navbar .brand a {
     padding-left: 2rem;
     font-size: 2.5rem;
@@ -84,17 +89,18 @@ section {
 }
 .navbar li a {
     text-decoration: none;
+    font-size: 16px;
     font-weight: 500;
     transition: all 0.3s ease-in-out;
 }
 
-.navbar li > a:hover {
-    border-bottom: 4px solid #107ca3;
+.navbar .menu li:not(:nth-child(5)) a:hover {
+    border-bottom: 3px solid #107ca3;
+    text-decoration: underline;
 }
-
-.navbar ul li a.active {
+/* .navbar ul li a.active {
     border-bottom: 6px solid #107ca3;
-}
+} */
 .navbar ~ .content {
     margin-top: 50px;
 }
@@ -146,21 +152,68 @@ ul.menu {
 .menu li {
     padding: 0;
 }
+
+.menu li .nav-dropdown {
+    display: none;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    max-width: 150px;
+    border-radius: 6px;
+    z-index: 999;
+    background-color: #bd83b8;
+    box-shadow: -4px 5px 16px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: -4px 5px 16px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -4px 5px 16px 0px rgba(0, 0, 0, 0.75);
+}
+
+li:hover .nav-dropdown {
+    display: block;
+}
+
+.nav-dropdown li {
+    display: flex;
+    justify-items: baseline;
+    align-items: center;
+    padding: 15px 16px;
+    gap: 8px;
+    margin: 0;
+    border-radius: 6px;
+    list-style: none;
+}
+
+.nav-dropdown li:hover {
+    background-color: #31115b;
+}
+body.dark-mode .nav-dropdown li:hover {
+    background-color: #e1dcd1;
+}
+
+.dropdown-trigger {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.dropdown-trigger i {
+    margin-left: 5px;
+    transition: transform 0.3s;
+}
+
+li:hover .dropdown-trigger i {
+    transform: rotate(90deg);
+    color: #ffa500;
+}
+
+.nav-dropdown:hover + a .fa-sort-down {
+    transform: rotate(90deg);
+    color: #ffa500;
+}
+
 a > i {
     font-size: 18px;
 }
-.route {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 60px;
-    gap: 7px;
-}
-.route-icons {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-}
+
 .route-btm {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -179,11 +232,7 @@ a > i {
     position: relative;
 }
 
-.menu a:hover {
-    text-decoration: underline;
-}
-
-a > i::after {
+/* a > i::after {
     position: absolute;
     opacity: 0;
     left: 0;
@@ -197,4 +246,4 @@ a > i::after {
 a > i:hover::after {
     opacity: 1;
     content: attr(title);
-}
+} */
