@@ -7,8 +7,8 @@
     <div class="detail-header">
         <h2>All</h2>
         <div class="crud">
-            <button><i class="fa-solid fa-pen-clip"></i> <h5>Add</h5></button>
-            <button><i class="fa-solid fa-trash"></i> <h5>Delete</h5></button>
+            <button title="Add" class="show-modal" data-modal="addModal"><i class="fa-solid fa-pen-clip"></i> <h5>Add</h5></button>
+            <button title="Delete" class="show-modal" data-modal="deleteModal"><i class="fa-solid fa-trash"></i> <h5>Delete</h5></button>
         </div>
     </div>
     <table>
@@ -58,17 +58,26 @@
                 <li class="tr-det inf">
                     <strong><i class="fa-solid fa-map-location-dot"></i>Aula Teknokrat</strong>
                     <strong><i class="fa-solid fa-users-line"></i>30</strong>
+                    <strong><i class="fa-solid fa-people-group"></i>HIMA FTIK</strong>
                 </li>
                 <li><strong>Pendaftaran:</strong>11 Apr 2023</li>
                 <li><strong>Penutupan:</strong>20 Aug 2023</li>
                 <li><strong>Pelaksanaan:</strong>1 Sep 2023</li>
-                <li><strong><i class="fa-solid fa-people-group"></i></strong>HIMA FTIK</li>
             </ul>
         </div>
     </div>
     
     
     <div class="modal-overlay"></div>
+
+    <!-- Modal Add -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <h2>add</h2>
+            <p>Informasi untuk tombol Add.</p>
+            <button onclick="closeModal('addModal')">Tutup</button>
+        </div>
+    </div>
 
     <!-- Modal Edit -->
     <div id="editModal" class="modal">

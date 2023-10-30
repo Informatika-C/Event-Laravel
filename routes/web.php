@@ -40,6 +40,16 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/dashboard/sponsor', function () {
         return view('dashboard.sponsor');
     })->name('dashboard.sponsor');
+
+    Route::get('/profile', function () {
+        return view('profile');
+    })->name('profile');
+});
+
+Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function () {
+    Route::get('/profile', function () {
+        return view('profile');
+    })->name('user.profile');
 });
 
 Route::Group(['middleware' => ['guest']], function () {
