@@ -708,7 +708,7 @@ form .row label {
     margin-bottom: 6px;
 }
 form :where(input, textarea) {
-    height: 50px;
+    /* height: 50px; */
     width: 100%;
     outline: none;
     font-size: 17px;
@@ -892,8 +892,58 @@ main {
 .detail table {
     width: 100%;
     border-collapse: collapse;
+    border-spacing: 10px;
 }
-
+.custom-checkbox {
+    position: relative;
+}
+.custom-checkbox input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    margin: 5px 0 0 3px;
+    z-index: 9;
+}
+.custom-checkbox label:before {
+    width: 18px;
+    height: 18px;
+}
+.custom-checkbox label:before {
+    content: "";
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+    background: white;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    box-sizing: border-box;
+    z-index: 2;
+}
+.custom-checkbox input[type="checkbox"]:checked + label:after {
+    content: "";
+    position: absolute;
+    left: 4.5px;
+    top: 1px;
+    width: 6px;
+    height: 11px;
+    border: solid #000;
+    border-width: 0 3px 3px 0;
+    transform: inherit;
+    z-index: 3;
+    transform: rotateZ(45deg);
+}
+.custom-checkbox input[type="checkbox"]:checked + label:before {
+    border-color: #03a9f4;
+    background: #03a9f4;
+}
+.custom-checkbox input[type="checkbox"]:checked + label:after {
+    border-color: #fff;
+}
+.custom-checkbox input[type="checkbox"]:disabled + label:before {
+    color: #b8b8b8;
+    cursor: auto;
+    box-shadow: none;
+    background: #ddd;
+}
 .detail table tr:nth-child(odd) {
     background-color: #f8f8fb;
 }
@@ -908,30 +958,40 @@ main {
 
 .detail table th,
 .detail table td {
-    padding: 0.8rem 0.2rem;
+    padding: 0.6rem 0.2rem;
     text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 140px;
     font-size: 14px;
     transition: all 0.3s ease-out;
 }
 
+.detail table td .banner {
+    width: 150px;
+    height: 100px;
+}
 .detail table tr:hover {
     background-color: #f2f2f2;
-    /* border-bottom: 2px solid #2d2d98; */
 }
 
-.detail table tr td:nth-child(1),
-.detail table tr td:nth-child(5) {
+.detail table tr td:nth-child(7),
+.detail table tr td:nth-child(8),
+.detail table tr td:nth-child(9),
+.detail table tr td:nth-child(10) {
     min-width: 100px;
+    padding-right: 8px;
+    text-align: center;
+    white-space: nowrap;
 }
-
+.descript {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
 .edit-container {
     background-color: #3498db;
     display: inline-block;
     padding: 4px;
+    margin-bottom: 12px;
     border-radius: 4px;
 }
 
@@ -942,11 +1002,15 @@ main {
     border-radius: 4px;
 }
 
+.show-tr-modal {
+    font-weight: 700;
+    white-space: nowrap;
+}
 .show-tr-modal:hover {
     cursor: pointer;
     background-color: var(--box2-color);
+    color: var(--text-color);
     border-radius: 0px 0px 12px 12px;
-    font-weight: 700;
 }
 
 .tooltip-container {
@@ -1078,7 +1142,7 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Latar belakang semi-transparan */
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
 
@@ -1086,29 +1150,79 @@ main {
 .modal {
     display: none;
     position: fixed;
+    background-image: url("../images/3.svg");
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-size: 770px 840px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 20px;
     z-index: 2;
-    max-width: 400px; /* Atur lebar maksimum modal */
+    max-width: 500px;
+    z-index: 9999;
 }
 
-/* CSS untuk tombol "Tutup" dalam modal */
 .modal button {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 8px 16px;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
 }
 
-/* CSS untuk tombol "Tutup" saat dihover */
 .modal button:hover {
     background-color: #0056b3;
+}
+
+.modal button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.modal button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.modal button[type="button"] {
+    background-color: #ccc;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#addModal input:focus {
+    border: 1px solid #201f2b;
+    box-shadow: 10px 9px 18px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 10px 9px 18px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 9px 18px 0px rgba(0, 0, 0, 0.75);
+}
+
+textarea,
+input {
+    border-radius: 6px;
+    border: 1px solid #201f2b;
+    box-shadow: none;
+    color: #201f2b;
+    text-align: start;
+    margin-bottom: 12px;
+    padding: 5px;
+    font-size: 18px;
+    font-weight: 500;
+}
+#addModal label {
+    font-weight: 500;
 }
 
 .status {

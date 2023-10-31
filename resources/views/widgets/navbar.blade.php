@@ -17,20 +17,15 @@
                     HI ! {{ Auth::guard('admin')->check() ? auth()->guard('admin')->user()->name : auth()->user()->name }}
                     <i class="fa-solid fa-caret-right"></i>
                 </a>
-                @if(Auth::guard('admin')->check())
                 <ul class="nav-dropdown">
-                  <li><i class="fa-solid fa-user-tie" title="Profile"></i><a>Profile</a></li>
-                  <li><i class="fa-solid fa-laptop-code" title="Dashboard"></i><a href="{{route('dashboard')}}">Dahsboard</a></li>
-                  <li><i class="fa-solid fa-power-off" title="LogOut"></i><a href="{{route('logout')}}">LogOut</a></li>
+                    <li><i class="fa-solid fa-user" title="Profile"></i><a href="{{ Auth::guard('admin')->check() ? route('profile') : route('user.profile') }}">Profile</a></li>
+                    @if(Auth::guard('admin')->check())
+                        <li><i class="fa-solid fa-laptop-code" title="Dashboard"></i><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                    @endif
+                    <li><i class="fa-solid fa-power-off" title="LogOut"></i><a href="{{ route('logout') }}">LogOut</a></li>
                 </ul>
                 @else
-                <ul class="nav-dropdown">
-                    <li><i class="fa-solid fa-user" title="Profile"></i><a>Profile</a></li>
-                    <li><i class="fa-solid fa-door-open" title="LogOut"></i><a class="name" href="{{ route('logout') }}">LogOut</a></li>
-                </ul>
-                @endif
-                @else
-                please <a href="{{ route('login') }}">LogIn</a>
+                    please <a href="{{ route('login') }}">LogIn</a>
                 @endif
             </li>
         </ul>

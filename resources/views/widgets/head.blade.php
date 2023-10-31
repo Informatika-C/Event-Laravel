@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/events.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/footer.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}" />
     <script src="{{ asset('assets/js/theme.js') }}" type="module"></script>
+    <script src="{{ asset('assets/js/profile.js') }}" ></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script type="module" src="{{ asset('assets/js/animated.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>

@@ -61,7 +61,7 @@ section {
 }
 
 .brand a img {
-    height: 80px;
+    height: 100px;
     width: 100%;
 }
 
@@ -194,6 +194,10 @@ body.dark-mode .nav-dropdown li:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
 }
 .dropdown-trigger i {
     margin-left: 5px;
