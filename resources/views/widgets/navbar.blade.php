@@ -13,7 +13,7 @@
             <li><a href="#contact">Contacts</a></li>
             <li>
                 @if(Auth::guard('admin')->check() || Auth::check())
-                <a href="#!" class="dropdown-trigger">
+                <a class="dropdown-trigger">
                     HI ! {{ Auth::guard('admin')->check() ? auth()->guard('admin')->user()->name : auth()->user()->name }}
                     <i class="fa-solid fa-caret-right"></i>
                 </a>
@@ -25,11 +25,11 @@
                     <li><i class="fa-solid fa-power-off" title="LogOut"></i><a href="{{ route('logout') }}">LogOut</a></li>
                 </ul>
                 @else
-                    please <a href="{{ route('login') }}">LogIn</a>
+                    <a class="login" href="{{ route('login') }}">LogIn</a>
                 @endif
             </li>
         </ul>
-        <ul class="tools">
+        <li class="tools">
             <div class="dark-mode-switch">
                 <input type="checkbox" id="darkModeToggle" />
                 <label for="darkModeToggle"></label>
@@ -37,6 +37,6 @@
             <div class="toggle-btn" id="toggleNavbar">
                 <i class="fas fa-bars fa-lg"></i>
             </div>
-        </ul>
+        </li>
     </ul>
 </div>
