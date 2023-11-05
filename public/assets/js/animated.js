@@ -1,6 +1,6 @@
 // TEXT
 AOS.init({});
-gsap.to(".lead", { duration: 1.5, delay: 2, text: "<b>JOIN</b> WITH US" });
+gsap.to(".lead", { duration: 2, delay: 4.5, text: "<b>JOIN</b> WITH US" });
 gsap.from(".display-4", {
     duration: 2,
     x: 1.5,

@@ -32,11 +32,11 @@
 
 <main>
     <div class="dashboard-container">
-        <div class="card total1">
+        <div class="card total">
             <div class="info">
                 <div class="info-detail">
                     <h3>Users</h3>
-                    <p>Lorem ipsem dolor</p>
+                    <p></p>
                     <h2>1,873, <span>People</span></h2>
                 </div>
                 <div class="info-image">
@@ -45,11 +45,11 @@
             </div>
         </div>
 
-        <div class="card total2">
+        <div class="card total">
             <div class="info">
                 <div class="info-detail">
                     <h3>Events</h3>
-                    <p>Lorem ipsem dolor</p>
+                    <p></p>
                     <h2>10,890 <span>Events</span></h2>
                 </div>
                 <div class="info-image">
@@ -58,11 +58,11 @@
             </div>
         </div>
 
-        <div class="card total3">
+        <div class="card total">
             <div class="info">
                 <div class="info-detail">
                     <h3>Admins</h3>
-                    <p>Lorem ipsem dolor</p>
+                    <p></p>
                     <h2>340 <span>Admins</span></h2>
                 </div>
                 <div class="info-image">
@@ -71,11 +71,11 @@
             </div>
         </div>
 
-        <div class="card total4">
+        <div class="card total">
             <div class="info">
                 <div class="info-detail">
                     <h3>News</h3>
-                    <p>Lorem ipsem dolor</p>
+                    <p></p>
                     <h2>56 <span>News</span></h2>
                 </div>
                 <div class="info-image">

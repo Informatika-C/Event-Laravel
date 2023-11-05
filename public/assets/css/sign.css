@@ -10,12 +10,6 @@ body {
     background-color: #06142e;
     overflow-x: hidden;
 }
-#vantajs {
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-}
 
 .container {
     position: absolute;
@@ -27,7 +21,7 @@ body {
 .brand {
     position: absolute;
     font-size: 3rem;
-    color: #dbe5e7;
+    color: #f2f2f2;
     top: calc(65% - 190px);
     left: calc(63% - 80px);
 }
@@ -44,6 +38,7 @@ body {
     color: #f5d7db;
     top: 9px;
     left: 15px;
+    cursor: pointer;
     animation: moveDown 3s infinite;
 }
 
@@ -421,9 +416,6 @@ input {
 }
 
 @media (max-width: 290px) {
-    #vantajs {
-        display: none;
-    }
     .container {
         top: calc(53% - 240px);
         left: calc(55% - 140px);
@@ -537,9 +529,6 @@ input {
 }
 
 @media (min-width: 291px) and (max-width: 767px) {
-    #vantajs {
-        display: none;
-    }
     .container {
         top: calc(54% - 240px);
         left: calc(48% - 140px);
@@ -573,9 +562,6 @@ input {
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
-    #vantajs {
-        display: none;
-    }
     .container {
         top: calc(58% - 240px);
         left: calc(45% - 140px);

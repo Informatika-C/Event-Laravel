@@ -6,6 +6,7 @@
 
 <body>
 
+    @include('widgets.notify')
     <canvas id="world"></canvas>
     <div class="all">
         <div id="home" class="container">
@@ -13,7 +14,8 @@
 
             <div class="content">
                 <div class="welcome">
-                    <h1 class="lead"><b data-aos="fade-right" data-aos-delay="300" data-aos-duration="2000">HI !</b>
+                    <h1 class="lead">
+                        <b data-aos="fade-right" data-aos-delay="300" data-aos-duration="2000">HI !</b>
                     </h1>
                     <a href="#about">
                         <i class="fa-solid fa-chevron-down animated"></i>
@@ -45,9 +47,9 @@
             </defs>
         </svg>
 
-        <h1 class="outline-css typ">Universitas</h1>
-        <h1 class="outline-svg typ">Teknokrat</h1>
-        <h1 class="outline-svg gradient typ">Indonesia</h1>
+        <h2 class="outline-css typ">Universitas</h2>
+        <h2 class="outline-svg typ">Teknokrat</h2>
+        <h2 class="outline-svg gradient typ">Indonesia</h2>
 
         <section id="about" class="about-section">
             <div class="marquee">
@@ -312,10 +314,10 @@
 
         <section class="sponsor">
             <div class="thx">
-                <h2>
+                <h3>
                     Special <br />
                     Thanks!
-                </h2>
+                </h3>
             </div>
             <div class="sponsor-content" data-aos="fade-right" data-aos-delay="500" data-aos-duration="2000">
                 <div class="sponsor-container">
@@ -359,10 +361,10 @@
             <div class="route-page">
                 <h3>Route Pages</h3>
                 <ul class="contact-text">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#events">Events</a></li>
-                    <li><a href="#contact">Contacts</a></li>
+                    <li><a href="#home" title="Home">Home</a></li>
+                    <li><a href="#about" title="About">About Us</a></li>
+                    <li><a href="#events" title="Events">Events</a></li>
+                    <li><a href="#contact" title="Contacts">Contacts</a></li>
                     <li class="route-btm">
                         @if(Auth::guard('admin')->check())
                         <h4>{{ auth()->guard('admin')->user()->name }}</h4>
@@ -371,10 +373,10 @@
                             <a href="{{route('logout')}}"><i class="fa-solid fa-door-open" title="LogOut"></i></a>
                         </div>
                         @elseif(Auth::check())
-                        <h4>{{ auth()->user()->name }}.</h4>
-                        <a href="{{route('logout')}}" title="LogOut">LogOut</a>
+                        {{-- <h4>{{ auth()->user()->name }}</h4> --}}
+                        <a class="log" href="{{route('logout')}}" onclick="resetSeenNotification()" title="LogOut">LogOut</a>
                         @else
-                        <a href="{{route('login')}}">LogIn</a>
+                        <a class="log" href="{{route('login')}}" title="LogIn">LogIn</a>
                         @endif
                     </li>
                 </ul>

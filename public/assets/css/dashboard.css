@@ -7,8 +7,12 @@
 
 :root {
     --primary-color: #3a3b3c;
-    --panel-color: #242526;
-    --text-color: #ccc;
+    --panel-color: #06142e;
+    --panel-color-reverse: #e1dcd1;
+    --text-color: #f2f2f2;
+    --text-color-reverse: #1e2126;
+    --text-hover-color: #ffa500;
+    --text-hover-color-reverse: #3409e0;
     --black-light-color: #ccc;
     --border-color: #4d4c4c;
     --toggle-color: #fff;
@@ -25,7 +29,11 @@ body {
 body.dark {
     --primary-color: #0e4bf1;
     --panel-color: #e1dcd1;
-    --text-color: #000;
+    --panel-color-reverse: #06142e;
+    --text-color: #1e2126;
+    --text-color-reverse: #f2f2f2;
+    --text-hover-color: #3409e0;
+    --text-hover-color-reverse: #ffa500;
     --black-light-color: #2e2d2d;
     --border-color: #e6e5e5;
     --toggle-color: #2e2d2d;
@@ -128,7 +136,7 @@ nav .menu-items {
     transition: all 0.3s ease, color 0.3s ease;
 }
 .nav-links li.active {
-    background-color: var(--black-light-color);
+    background-color: var(--panel-color-reverse);
     border-radius: 12px;
 }
 .menu-items li.active a .link-name {
@@ -145,10 +153,10 @@ nav .menu-items {
     height: 5px;
     width: 5px;
     border-radius: 50%;
-    background-color: var(--primary-color);
+    background-color: var(--text-hover-color);
 }
 body.dark li a:hover:before {
-    background-color: var(--text-color);
+    background-color: var(--text-hover-color);
 }
 .menu-items li a i {
     font-size: 24px;
@@ -157,13 +165,12 @@ body.dark li a:hover:before {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--black-light-color);
+    color: var(--panel-color-reverse);
 }
 .menu-items li a .link-name {
     font-size: 18px;
     font-weight: 400;
-
-    color: var(--black-light-color);
+    color: var(--panel-color-reverse);
     transition: var(--tran-05);
 }
 nav.close li a .link-name {
@@ -172,11 +179,11 @@ nav.close li a .link-name {
 }
 .nav-links li a:hover i,
 .nav-links li a:hover .link-name {
-    color: var(--primary-color);
+    color: var(--text-hover-color);
 }
 body.dark .nav-links li a:hover i,
 body.dark .nav-links li a:hover .link-name {
-    color: var(--text-color);
+    color: var(--text-hover-color);
 }
 .menu-items .logout-mode {
     padding-top: 10px;
@@ -265,14 +272,14 @@ nav.close ~ .dashboard .top {
 }
 .top .search-box input {
     position: absolute;
-    border: 1px solid var(--border-color);
-    background-color: var(--panel-color);
+    border: 1px solid var(--text-color);
+    color: var(--panel-color);
+    background-color: var(--panel-color-reverse);
     padding: 0 25px 0 50px;
-    border-radius: 5px;
+    border-radius: 15px;
     height: 100%;
     width: 100%;
-    color: var(--text-color);
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 400;
     outline: none;
 }
@@ -283,7 +290,7 @@ nav.close ~ .dashboard .top {
     z-index: 10;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--black-light-color);
+    color: var(--panel-color);
 }
 
 .profile {
@@ -752,7 +759,7 @@ form button {
 
 main {
     min-height: 100%;
-    color: #201f2b;
+    color: var(--text-color);
 }
 
 .dashboard-container {
@@ -766,58 +773,42 @@ main {
         "detail detail detail customer customer";
 }
 
+body.dark .card {
+    box-shadow: 5px 10px 19px 3px rgba(80, 75, 75, 0.75);
+    -webkit-box-shadow: 5px 10px 19px 3px rgba(80, 75, 75, 0.75);
+    -moz-box-shadow: 5px 10px 19px 3px rgba(80, 75, 75, 0.75);
+}
 .card {
-    background-color: #fff;
+    background-color: var(--text-color-reverse);
     padding: 1rem;
     border-radius: 10px;
+    box-shadow: 7px 8px 29px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 7px 8px 29px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 7px 10px 8px 0px rgba(0, 0, 0, 0.75);
 }
 
-.total1 {
+.total {
     grid-area: total1;
-    background-color: #2d2b98;
-    color: #fff;
-    transition: all 1s ease-in;
+    background-color: var(--text-color);
+    color: var(--text-color-reverse);
+    transition: all 0.8s ease-in-out;
 }
-
-.total2 {
+.total:nth-child(2) {
     grid-area: total2;
-    background-color: #2d2b98;
-    color: #fff;
-    transition: all 1s ease-in;
 }
-
-.total3 {
+.total:nth-child(3) {
     grid-area: total3;
-    background-color: #2d2b98;
-    color: #fff;
-    transition: all 1s ease-in;
 }
-
-.total4 {
+.total:nth-child(4) {
     grid-area: total4;
-    background-color: #2d2b98;
-    color: #fff;
-    transition: all 1s ease-in;
 }
 
-.total1:hover {
-    background-color: #fff;
-    color: #2d2b98;
+.total:hover {
+    background-color: var(--text-color-reverse);
+    color: var(--text-color);
 }
-
-.total2:hover {
-    background-color: #fff;
-    color: #2d2b98;
-}
-
-.total3:hover {
-    background-color: #fff;
-    color: #2d2b98;
-}
-
-.total4:hover {
-    background-color: #fff;
-    color: #2d2b98;
+.total:hover .info-detail p {
+    width: 50%;
 }
 
 .detail {
@@ -837,17 +828,20 @@ main {
     align-items: center;
 }
 
+.info-detail p {
+    height: 3px;
+    width: 0;
+    margin-bottom: 8px;
+    transition: width 0.7s ease-in-out;
+    background-color: var(--text-color);
+}
 .info-detail h2 {
     font-size: 24px;
 }
 
-.info-detail p {
-    font-size: 14px;
-}
-
 .info-image {
     font-size: 50px;
-    color: #2d2b98;
+    color: var(--text-color);
 }
 
 .detail-header {
@@ -864,29 +858,30 @@ main {
     align-items: center;
     gap: 12px;
 }
-.detail-header button i {
+button i {
     font-size: 1.1rem;
     padding: 2px;
 }
-.detail-header button {
+button {
     font-size: 17px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    text-align: center;
     gap: 8px;
     padding: 8px;
     border-radius: 6px;
     color: var(--panel-color);
-    background-color: var(--black-light-color);
+    background-color: var(--panel-color-reverse);
     border: 1px transparent solid;
     cursor: pointer;
     transition: all 0.2s ease-in;
 }
 
-.detail-header button:hover {
+button:hover {
     background-color: transparent;
-    border: 1px #2d2b98 solid;
-    color: #2d2b98;
+    border: 1px var(--text-hover-color) solid;
+    color: var(--text-hover-color);
 }
 
 .detail table {
@@ -945,34 +940,62 @@ main {
     background: #ddd;
 }
 .detail table tr:nth-child(odd) {
-    background-color: #f8f8fb;
+    background-color: var(--panel-color);
+    color: var(--text-color);
 }
 
 .detail table tr {
-    background-color: #f4f4fb;
+    color: var(--panel-color-reverse);
+    background-color: var(--text-color-reverse);
 }
 .detail table th {
-    background-color: #39393a;
-    color: #d7effc;
+    background-color: var(--text-color);
+    color: var(--text-color-reverse);
 }
-
+.detail table th:nth-child(1) {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+.detail table th:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
 .detail table th,
 .detail table td {
     padding: 0.6rem 0.2rem;
-    text-align: left;
+    text-align: justify;
     font-size: 14px;
     transition: all 0.3s ease-out;
 }
 
-.detail table td .banner {
-    width: 150px;
-    height: 100px;
-}
-.detail table tr:hover {
-    background-color: #f2f2f2;
+.banner-container {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background-color: var(--panel-color);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0px 0px 22px -4px rgba(80, 75, 75, 0.75);
+    -webkit-box-shadow: 0px 0px 22px -4px rgba(80, 75, 75, 0.75);
+    -moz-box-shadow: 0px 0px 22px -4px rgba(80, 75, 75, 0.75);
 }
 
-.detail table tr td:nth-child(7),
+.banner-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+body.dark .banner-container {
+    box-shadow: 0px 0px 22px -4px rgba(0, 0, 0, 0.78);
+    -webkit-box-shadow: 0px 0px 22px -4px rgba(0, 0, 0, 0.78);
+    -moz-box-shadow: 0px 0px 22px -4px rgba(0, 0, 0, 0.78);
+}
+.detail table tr:hover {
+    background-color: var(--panel-color);
+    color: var(--text-color);
+}
+
+/* .detail table tr td:nth-child(7),
 .detail table tr td:nth-child(8),
 .detail table tr td:nth-child(9),
 .detail table tr td:nth-child(10) {
@@ -980,26 +1003,28 @@ main {
     padding-right: 8px;
     text-align: center;
     white-space: nowrap;
-}
+} */
 .descript {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px;
 }
-.edit-container {
-    background-color: #3498db;
-    display: inline-block;
-    padding: 4px;
-    margin-bottom: 12px;
-    border-radius: 4px;
+.action {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
 }
-
-.delete-container {
-    background-color: #e74c3c;
-    display: inline-block;
-    padding: 4px;
-    border-radius: 4px;
+.CC {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 
 .show-tr-modal {
@@ -1008,8 +1033,8 @@ main {
 }
 .show-tr-modal:hover {
     cursor: pointer;
-    background-color: var(--box2-color);
-    color: var(--text-color);
+    background-color: var(--text-color);
+    color: var(--text-color-reverse);
     border-radius: 0px 0px 12px 12px;
 }
 
@@ -1032,19 +1057,22 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(58, 57, 57, 0.64);
     z-index: 9999;
     overflow: auto;
 }
 
 .tr-modal-content {
-    background-color: #d7effc;
+    background-color: var(--text-color-reverse);
+    color: var(--text-color);
     background-image: url("../images/3.svg");
     background-repeat: no-repeat;
-    background-position: right bottom;
-    background-size: 370px 340px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-position: left top;
+    background-size: 970px 840px;
+    border-radius: 25px;
+    box-shadow: 5px 10px 19px 3px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 5px 10px 19px 3px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 5px 10px 19px 3px rgba(0, 0, 0, 0.75);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1080,11 +1108,15 @@ main {
     font-weight: 700;
     padding: 7px;
     border-radius: 9px;
-    background-color: var(--text-color);
+    box-shadow: 5px 9px 5px -2px rgba(0, 0, 0, 0.57);
+    -webkit-box-shadow: 5px 9px 5px -2px rgba(0, 0, 0, 0.57);
+    -moz-box-shadow: 5px 9px 5px -2px rgba(0, 0, 0, 0.57);
+    color: var(--text-hover-color);
+    background-color: var(--text-color-reverse);
 }
 .tr-det strong:hover {
-    color: var(--text-color);
-    background-color: var(--box1-color);
+    color: var(--text-hover-color-reverse);
+    background-color: var(--text-color);
 }
 .close-tr-modal {
     position: absolute;
@@ -1109,20 +1141,6 @@ main {
 .tr-modal ul li strong {
     font-weight: bold;
     margin-right: 5px;
-}
-
-.tr-modal button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.tr-modal button:hover {
-    background-color: #0056b3;
 }
 
 .info-container a {
@@ -1152,12 +1170,13 @@ main {
     position: fixed;
     background-image: url("../images/3.svg");
     background-repeat: no-repeat;
-    background-position: right top;
+    background-position: left top;
     background-size: 770px 840px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background-color: var(--text-color-reverse);
+    color: var(--text-color);
     padding: 20px;
     border-radius: 20px;
     z-index: 2;
@@ -1166,40 +1185,26 @@ main {
 }
 
 .modal button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    font-size: 17px;
+    font-weight: 800;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 6px;
+    color: var(--panel-color);
+    background-color: var(--panel-color-reverse);
+    border: 1px transparent solid;
     cursor: pointer;
+    transition: all 0.2s ease-in;
 }
 
 .modal button:hover {
-    background-color: #0056b3;
-}
-
-.modal button[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.modal button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-.modal button[type="button"] {
-    background-color: #ccc;
-    color: #333;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
+    background-color: var(--text-hover-color);
+    border: 1px var(--text-hover-color) solid;
+    color: var(--text-hover-color-reverse);
 }
 
 #addModal input:focus {
@@ -1214,6 +1219,7 @@ input {
     border-radius: 6px;
     border: 1px solid #201f2b;
     box-shadow: none;
+    background-color: #f2f2f2;
     color: #201f2b;
     text-align: start;
     margin-bottom: 12px;
@@ -1315,13 +1321,8 @@ input {
         font-size: 24px;
     }
 
-    .info-detail p {
-        font-size: 14px;
-    }
-
     .info-image {
         font-size: 50px;
-        color: #2d2b98;
     }
 
     main {

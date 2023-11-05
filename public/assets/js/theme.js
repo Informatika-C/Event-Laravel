@@ -21,11 +21,6 @@ toggleNavbarBtn.addEventListener("click", function () {
     }
 });
 
-function updateBackground(isDark) {
-    const backgroundColor = isDark ? 0xe1dcd1 : 0x06142e;
-    vantaInstance.setOptions({ backgroundColor });
-}
-
 const darkModeToggle = document.getElementById("darkModeToggle");
 const body = document.body;
 let vantaInstance = null;
@@ -34,7 +29,6 @@ function toggleDarkMode(isDark) {
     body.classList.toggle("dark-mode", isDark);
     darkModeToggle.checked = isDark;
     localStorage.setItem("mode", isDark ? "dark" : "light");
-    updateBackground(isDark);
 }
 
 darkModeToggle.addEventListener("change", () =>
@@ -45,22 +39,6 @@ const userPreference = localStorage.getItem("mode");
 if (userPreference === "dark") {
     toggleDarkMode(true);
 }
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     const vantajsContainer = document.getElementById("vantajs");
-//     const isDarkMode = body.classList.contains("dark-mode");
-//     vantaInstance = VANTA.HALO({
-//         el: vantajsContainer,
-//         mouseControls: true,
-//         touchControls: true,
-//         gyroControls: true,
-//         minHeight: 100.0,
-//         minWidth: 100.0,
-//         scale: 0.6,
-//         scaleMobile: 0.7,
-//         backgroundColor: isDarkMode ? 0xe1dcd1 : 0x06142e,
-//     });
-// });
 
 var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;
@@ -113,14 +91,12 @@ function init() {
 
     darkModeToggle.addEventListener("change", (event) => {
         isDarkMode = event.target.checked;
-        updateBackground(isDarkMode);
     });
 
     const userPreference = localStorage.getItem("mode");
     if (userPreference === "dark") {
         darkModeToggle.checked = true;
         isDarkMode = true;
-        updateBackground(isDarkMode);
     }
 }
 

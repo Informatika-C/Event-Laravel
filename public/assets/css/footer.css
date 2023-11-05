@@ -6,13 +6,17 @@
     padding: 2rem;
     gap: 3rem;
 }
-.thx h2 {
+.thx h3 {
     font-size: 5rem;
 }
 .sponsor-content {
     display: flex;
     flex-wrap: wrap;
     /* justify-content: space-between; */
+}
+.log {
+    color: red !important;
+    font-weight: 800;
 }
 
 .sponsor-container {
@@ -27,7 +31,7 @@
 }
 
 .sponsor-container:hover {
-    background-color: white;
+    background-color: #f2f2f2;
 }
 
 .sponsor-logo {
@@ -54,15 +58,22 @@ li {
 }
 
 #contact {
-    background-color: #473e66;
-    color: #fff;
-    bottom: 0;
-    right: 0;
+    background: rgb(6, 20, 46);
+    background: linear-gradient(
+        -120deg,
+        rgba(6, 20, 46, 1) 27%,
+        rgba(16, 51, 114, 1) 50%,
+        rgba(175, 173, 168, 1) 89%,
+        rgba(225, 220, 209, 1) 100%
+    );
+    color: #f2f2f2;
     padding: 20px 0;
 }
 footer {
     background-color: #f5d7db;
-    padding: 20px 0;
+    bottom: 0;
+    right: 0;
+    padding: 7px 0;
 }
 
 .footer-container {
@@ -93,7 +104,7 @@ li {
 }
 
 a {
-    color: #fff;
+    color: #f2f2f2;
     text-decoration: none;
     transition: color 0.3s;
 }
