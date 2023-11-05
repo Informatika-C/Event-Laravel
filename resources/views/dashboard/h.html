@@ -1,87 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body>
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            <span class="custom-checkbox">
-                                <input
-                                    type="checkbox"
-                                    id="checkbox_selectAll"
-                                />
-                                <label for="checkbox_selectAll"></label>
-                            </span>
-                        </th>
-                        <th>Code #</th>
-                        <th>Banner</th>
-                        <th>Name</th>
-                        <th>Deskripsi</th>
-                        <th>Tempat</th>
-                        <th>Pendaftaran</th>
-                        <th>Penutupan</th>
-                        <th>Pelaksanaan</th>
-                        <th>Penyelenggara</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input
-                                    type="checkbox"
-                                    id="checkbox_selectAll"
-                                />
-                                <label for="checkbox_selectAll"></label>
-                            </span>
-                        </td>
-                        <td class="show-tr-modal" data-tr-modal="tr-modal-1">
-                            #PW-0001
-                        </td>
-                        <td>
-                            <img
-                                class="banner"
-                                src="{{ asset('assets/images/card.png') }}"
-                                alt="banner"
-                            />
-                        </td>
-                        <td>Campus Expo</td>
-                        <td class="descript">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing
-                            elit. Fugiat fuga optio iste doloribus architecto
-                            suscipit repellendus ea. Nihil, modi! Sint?
-                        </td>
-                        <td>Universitas Teknokrat Indonesia</td>
-                        <td>11 Apr 2023</td>
-                        <td>20 Aug 2023</td>
-                        <td>1 Sep 2023</td>
-                        <td>HIMA FTIK</td>
-                        <td class="action">
-                            <button
-                                title="Edit"
-                                class="show-modal"
-                                data-modal="editModal"
-                            >
-                                <i class="fa-solid fa-pen-clip"></i>
-                            </button>
-                            <button
-                                title="Delete"
-                                class="show-modal"
-                                data-modal="deleteModal"
-                            >
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </body>
-</html>
+<table>
+    <thead>
+        <tr>
+            <th>
+                <span class="custom-checkbox">
+                    <input type="checkbox" id="checkbox_selectAll">
+                    <label for="checkbox_selectAll"></label>
+                </span>
+            </th>
+            <th>Code #</th>
+            {{-- <th>Banner</th> --}}
+            <th>Name</th>
+            <th>Deskripsi</th>
+            <th>Tempat</th>
+            {{-- <th>Kuota</th> --}}
+            <th>Pendaftaran</th>
+            <th>Penutupan</th>
+            <th>Pelaksanaan</th>
+            <th>Penyelenggara</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <span class="custom-checkbox">
+                    <input type="checkbox" id="checkbox_selectAll">
+                    <label for="checkbox_selectAll"></label>
+                </span>
+            </td>
+            <td class="show-tr-modal" data-tr-modal="tr-modal-1">#PW-0001</td>
+            {{-- <td><img class="banner" src="{{ asset('assets/images/card.png') }}" alt="banner"></td> --}}
+            <td>Campus Expo</td>
+            <td class="descript">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat fuga optio iste doloribus architecto suscipit repellendus ea. Nihil, modi! Sint?</td>
+            <td>Universitas Teknokrat Indonesia</td>
+            {{-- <td>
+                <span class="status confirmed"><i class="fa-solid fa-user-group">30</i></span>
+            </td> --}}
+            <td>11 Apr 2023</td>
+            <td>20 Aug 2023</td>
+            <td>1 Sep 2023</td>
+            <td>HIMA FTIK</td>
+            <td class="action">
+                <button href="#" title="Edit" class="show-modal" data-modal="editModal"><i class="fa-solid fa-pen-clip"></i></button>
+                <button href="#" title="Delete" class="show-modal" data-modal="deleteModal"><i class="fa-solid fa-trash"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
