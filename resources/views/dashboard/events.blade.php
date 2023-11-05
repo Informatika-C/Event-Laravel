@@ -11,7 +11,7 @@
             <button title="Delete" class="show-modal" data-modal="deleteModal"><i class="fa-solid fa-trash-arrow-up"></i> <h5>Delete</h5></button>
         </div>
     </div>
-    <table>
+    {{-- <table>
         <thead>
             <tr>
                 <th>
@@ -21,11 +21,11 @@
                     </span>
                 </th>
                 <th>Code #</th>
-                {{-- <th>Banner</th> --}}
-                <th>Name</th>
+                <th>Banner</th>
+                <th>Nama Lomba</th>
                 <th>Deskripsi</th>
                 <th>Tempat</th>
-                {{-- <th>Kuota</th> --}}
+                <th>Kuota</th>
                 <th>Pendaftaran</th>
                 <th>Penutupan</th>
                 <th>Pelaksanaan</th>
@@ -34,6 +34,7 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($events as $event)
             <tr>
                 <td>
                     <span class="custom-checkbox">
@@ -42,24 +43,56 @@
                     </span>
                 </td>
                 <td class="show-tr-modal" data-tr-modal="tr-modal-1">#PW-0001</td>
-                {{-- <td><img class="banner" src="{{ asset('assets/images/card.png') }}" alt="banner"></td> --}}
-                <td>Campus Expo</td>
-                <td class="descript">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat fuga optio iste doloribus architecto suscipit repellendus ea. Nihil, modi! Sint?</td>
-                <td>Universitas Teknokrat Indonesia</td>
-                {{-- <td>
-                    <span class="status confirmed"><i class="fa-solid fa-user-group">30</i></span>
-                </td> --}}
-                <td>11 Apr 2023</td>
-                <td>20 Aug 2023</td>
-                <td>1 Sep 2023</td>
-                <td>HIMA FTIK</td>
+                <td><img class="banner" src="{{ asset('assets/images/card.png') }}" alt="banner"></td>
+                <td>{{ $event->nama_lomba }}</td>
+                <td class="descript">{{ $event->deskripsi }}</td>
+                <td>{{ $event->tempat }}</td>
+                <td>
+                    <span class="status confirmed"><i class="fa-solid fa-user-group">{{ $event->kuota }}</i></span>
+                </td>
+                <td>{{ $event->tanggal_pendaftaran }}</td>
+                <td>{{ $event->tanggal_penutupan_pendaftaran }}</td>
+                <td>{{ $event->tanggal_pelaksanaan }}</td>
+                <td>{{ $event->penyelenggara_id }}</td>
                 <td class="action">
                     <button href="#" title="Edit" class="show-modal" data-modal="editModal"><i class="fa-solid fa-pen-clip"></i></button>
                     <button href="#" title="Delete" class="show-modal" data-modal="deleteModal"><i class="fa-solid fa-trash"></i></button>
                 </td>
             </tr>
+            @empty
+            <p>Tidak ada data event yang ditemukan.</p>
+            @endforelse
+        </tbody>
+    </table> --}}
+    <table>
+        <thead>
+            <tr>
+                <th>Nama Lomba</th>
+                <th>Deskripsi</th>
+                <th>Tempat</th>
+                <th>Tanggal Pendaftaran</th>
+                <th>Tanggal Penutupan Pendaftaran</th>
+                <th>Tanggal Pelaksanaan</th>
+                <th>Kuota</th>
+                <th>Penyelenggara</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($events as $event)
+            <tr>
+                <td>{{ $event->nama_lomba }}</td>
+                <td>{{ $event->deskripsi }}</td>
+                <td>{{ $event->tempat }}</td>
+                <td>{{ $event->tanggal_pendaftaran }}</td>
+                <td>{{ $event->tanggal_penutupan_pendaftaran }}</td>
+                <td>{{ $event->tanggal_pelaksanaan }}</td>
+                <td>{{ $event->kuota }}</td>
+                <td>{{ $event->penyelenggara_id }}</td>
+            </tr>
+            @endforeach
         </tbody>
     </table>
+    
     <div id="tr-modal-1" class="tr-modal">
         <!-- Isi tr-modal -->
         <div class="tr-modal-content">
@@ -87,39 +120,44 @@
     
     <div class="modal-overlay"></div>
 
-    <!-- Modal Add -->
-    <div id="addModal" class="modal">
-        <div class="modal-content">
-            <h2>Add</h2>
-            <form method="post">
-                <label for="name">Name:</label>
-                <input type="text" name="name" id="name" required>
+<!-- Modal Add -->
+<div id="addModal" class="modal">
+    <div class="modal-content">
+        <h2>Add</h2>
+        <form method="POST" action="{{ route('events.store')}}">
+            @csrf
 
-                <label for="description">Description:</label>
-                <textarea name="description" id="description" required></textarea>
+            <label for="name">Nama Lomba:</label>
+            <input type="text" name="nama_lomba" id="name" required>
 
-                <label for="location">Location:</label>
-                <input type="text" name="location" id="location" required>
+            <label for="description">Description:</label>
+            <textarea name="deskripsi" id="description" required></textarea>
 
-                <label for="registration_date">Registration Date:</label>
-                <input type="text" name="registration_date" id="registration_date" required>
+            <label for="location">Location:</label>
+            <input type="text" name="tempat" id="location" required>
 
-                <label for="closing_date">Closing Date:</label>
-                <input type="text" name="closing_date" id="closing_date" required>
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="kuota" id="quantity" required>
 
-                <label for="event_date">Event Date:</label>
-                <input type="text" name="event_date" id="event_date" required>
+            <label for="registration_date">Registration Date:</label>
+            <input type="date" name="tanggal_pendaftaran" id="registration_date" required>
 
-                <label for="organizer">Organizer:</label>
-                <input type="text" name="organizer" id="organizer" required>
+            <label for="closing_date">Closing Date:</label>
+            <input type="date" name="tanggal_penutupan_pendaftaran" id="closing_date" required>
 
-            </form>
+            <label for="event_date">Event Date:</label>
+            <input type="date" name="tanggal_pelaksanaan" id="event_date" required>
+
+            <label for="organizer">Organizer:</label>
+            <input type="text" name="penyelenggara_id" id="organizer" required>
+
             <div class="CC">
                 <button type="submit">Add</button>
                 <button onclick="closeModal('addModal')">Close</button>
             </div>
-        </div>
+        </form>
     </div>
+</div>
 
 
     <!-- Modal Edit -->

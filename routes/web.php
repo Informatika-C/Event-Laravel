@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EventLombaController;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -30,9 +31,19 @@ Route::group(['middleware' => ['auth:admin']], function () {
         return view('dashboard.contestant');
     })->name('dashboard.contestant');
 
-    Route::get('/dashboard/events', function () {
-        return view('dashboard.events');
-    })->name('dashboard.events');
+    // Route::get('/dashboard/events', function () {
+    //     return view('dashboard.events');
+    // })->name('dashboard.events');
+
+    Route::prefix('dashboard/events')->group(function () {
+        Route::get('index', [EventLombaController::class, 'index'])->name('events.index');
+        Route::get('create', [EventLombaController::class, 'create'])->name('events.create');
+        Route::post('store', [EventLombaController::class, 'store'])->name('events.store');
+        Route::get('{id}', [EventLombaController::class, 'show'])->name('events.show');
+        Route::get('{id}/edit', [EventLombaController::class, 'edit'])->name('events.edit');
+        Route::put('{id}', [EventLombaController::class, 'update'])->name('events.update');
+        Route::delete('{id}', [EventLombaController::class, 'destroy'])->name('events.destroy');
+    });
 
     Route::get('/dashboard/schedule', function () {
         return view('dashboard.schedule');

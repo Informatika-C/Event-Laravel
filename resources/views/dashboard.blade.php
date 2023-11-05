@@ -28,8 +28,8 @@
                         <span class="link-name">Dahsboard</span>
                     </a>
                 </li>
-                <li class="{{ Route::currentRouteName() == 'dashboard.events' ? 'active' : '' }}">
-                    <a href="{{ route('dashboard.events') }}">
+                <li class="{{ Route::currentRouteName() == 'events.index' ? 'active' : '' }}">
+                    <a href="{{ route('events.index') }}">
                         <i class="fa-solid fa-pen-to-square"></i>
                         <span class="link-name">Events</span>
                     </a>
