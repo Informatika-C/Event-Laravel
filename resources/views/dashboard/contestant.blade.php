@@ -9,57 +9,53 @@
         <button>See More</button>
     </div>
     <table>
-        <tr>
-            <th>Id #</th>
-            <th>User Name</th>
-            <th>Status</th>
-            <th>Events</th>
-            <th>Lomba</th>
-            <th>Kategori</th>
-            <th>Kuota</th>
-            <th>Tgl-Daftar</th>
-            <th>Action</th>
-        </tr>
-        <tr>
-            <td>#PW-0001</td>
-            <td>Fajar</td>
-            <td>
-                <span class="status confirmed"><i class="fas fa-circle"> Online</i></span>
-            </td>
-            <td>Kampus Expo</td>
-            <td>Design Web</td>
-            <td>Akademik, Design, Seni</td>
-            <td>30 Ppl</td>
-            <td>12 Aug 2023</td>
-            <td>
-                <span class="edit-container">
-                    <a href="#" title="Edit" class="show-modal" data-modal="editModal">Edit</a>
-                </span>
-                <span class="delete-container">
-                    <a href="#" title="Delete" class="show-modal" data-modal="deleteModal">Del</a>
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>#PW-0001</td>
-            <td>Adib</td>
-            <td>
-                <span class="status fulfilled"><i class="fas fa-circle"> Offline</i></span>
-            </td>
-            <td>Kampus Expo</td>
-            <td>Pemrograman Mobile</td>
-            <td>Akademik, Back-End, Cyber</td>
-            <td>10 Ppl</td>
-            <td>20 Aug 2023</td>
-            <td>
-                <span class="edit-container">
-                    <a href="#" title="Edit" class="show-modal" data-modal="editModal">Edit</a>
-                </span>
-                <span class="delete-container">
-                    <a href="#" title="Delete" class="show-modal" data-modal="deleteModal">Del</a>
-                </span>
-            </td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Id #</th>
+                <th>User Name</th>
+                <th>Status</th>
+                <th>Events</th>
+                <th>Lomba</th>
+                <th>Kategori</th>
+                <th>Kuota</th>
+                <th>Tgl-Daftar</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#PW-0001</td>
+                <td>Fajar</td>
+                <td>
+                    <span class="status confirmed"><i class="fas fa-circle"> Online</i></span>
+                </td>
+                <td>Kampus Expo</td>
+                <td>Design Web</td>
+                <td>Akademik, Design, Seni</td>
+                <td>30 Ppl</td>
+                <td>12 Aug 2023</td>
+                <td class="action">
+                    <button href="#" title="Edit" class="show-modal" data-modal="editModal"><i class="fa-solid fa-pen-clip"></i></button>
+                    <button href="#" title="Delete" class="show-modal" data-modal="deleteModal"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>#PW-0001</td>
+                <td>Adib</td>
+                <td>
+                    <span class="status fulfilled"><i class="fas fa-circle"> Offline</i></span>
+                </td>
+                <td>Kampus Expo</td>
+                <td>Pemrograman Mobile</td>
+                <td>Akademik, Back-End, Cyber</td>
+                <td>10 Ppl</td>
+                <td>20 Aug 2023</td>
+                <td class="action">
+                    <button href="#" title="Edit" class="show-modal" data-modal="editModal"><i class="fa-solid fa-pen-clip"></i></button>
+                    <button href="#" title="Delete" class="show-modal" data-modal="deleteModal"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
     </table>
 
     <div class="modal-overlay"></div>

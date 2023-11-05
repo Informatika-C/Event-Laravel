@@ -12,7 +12,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #06142e;
-    color: rgb(219, 229, 231);
+    color: #f2f2f2;
 }
 canvas {
     position: fixed;
@@ -28,7 +28,7 @@ canvas {
     height: 100%;
 }
 a {
-    color: rgb(219, 229, 231);
+    color: #f2f2f2;
     text-decoration: none;
 }
 h4:first-letter {
@@ -57,7 +57,7 @@ section {
 
 .brand a {
     display: none;
-    color: rgb(219, 229, 231);
+    color: #f2f2f2;
 }
 
 .brand a img {
@@ -243,7 +243,7 @@ a > i {
 }
 .menu a {
     text-decoration: none;
-    color: #fff;
+    color: #f2f2f2;
     font-size: 16px;
     font-weight: bold;
     position: relative;

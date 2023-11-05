@@ -221,6 +221,16 @@
     .route-icons {
         display: none;
     }
+    .notif-manager {
+        position: fixed;
+        top: 7.5rem;
+        right: 18px;
+        z-index: 99999999;
+    }
+    .notify-container {
+        padding: 10px;
+        max-width: 190px;
+    }
 }
 
 @media (min-width: 291px) and (max-width: 767px) {
@@ -459,6 +469,16 @@
     }
     .route-icons {
         display: none;
+    }
+    .notif-manager {
+        position: fixed;
+        top: 4.5rem;
+        right: 18px;
+        z-index: 9999;
+    }
+    .notify-container {
+        padding: 10px;
+        max-width: 190px;
     }
 }
 

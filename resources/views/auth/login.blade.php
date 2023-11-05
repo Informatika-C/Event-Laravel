@@ -5,10 +5,9 @@
 </head>
 
 <body>
-    <div id="vantajs"></div>
     <div class="brand">
         <h1>Tvent</h1>
-        <h1>Tvent</h1>
+        <h1 onclick="window.location.href='/'" title="Home">Tvent</h1>
     </div>
     <div class="container">
         <form class="signIn" method="POST" action="{{ route('login') }}">
