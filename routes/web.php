@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -45,6 +46,9 @@ Route::group(['middleware' => ['auth:admin']], function () {
         return view('profile');
     })->name('profile');
 });
+
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('edit-profile');
+Route::put('/profile/update', [ProfileController::class, 'update'])->name('update-profile');
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function () {
     Route::get('/profile', function () {
