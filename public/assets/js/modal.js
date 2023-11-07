@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
     showTrModals.forEach(function (row) {
         row.addEventListener("click", function () {
             var trModalId = row.getAttribute("data-tr-modal");
+            var eventId = button.getAttribute("data-event-id");
+            console.log(eventId)
             var trModal = document.getElementById(trModalId);
             if (trModal) {
                 trModal.style.display = "block";

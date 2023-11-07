@@ -14,28 +14,32 @@ class EventLombaController extends Controller
         return view('dashboard.events', ['events' => $events]);
     }
 
-    public function create()
-    {
-        $penyelenggaras = Penyelenggara::all();
-        return view('dashboard.events', compact('penyelenggaras'));
-    }
-
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'nama_lomba' => 'required',
             'deskripsi' => 'required',
             'tempat' => 'required',
-            'tanggal_pendaftaran' => 'required|date_format:Y-m-d H:i:s',
-            'tanggal_penutupan_pendaftaran' => 'required|date_format:Y-m-d H:i:s',
-            'tanggal_pelaksanaan' => 'required|date_format:Y-m-d H:i:s',
             'kuota' => 'required',
             'penyelenggara_id' => 'required',
         ]);
 
-        EventLomba::create($validatedData);
+        $validatedData['tanggal_pendaftaran'] = date("Y-m-d", strtotime($request->tanggal_pendaftaran));
+        $validatedData['tanggal_penutupan_pendaftaran'] = date("Y-m-d", strtotime($request->tanggal_penutupan_pendaftaran));
+        $validatedData['tanggal_pelaksanaan'] = date("Y-m-d", strtotime($request->tanggal_pelaksanaan));
 
-        return redirect()->route('dashboard.events')->with('success', 'Data event berhasil disimpan.');
+        EventLomba::create([
+            'nama_lomba' => $validatedData['nama_lomba'],
+            'deskripsi' => $validatedData['deskripsi'],
+            'tempat' => $validatedData['tempat'],
+            'tanggal_pendaftaran' => $validatedData['tanggal_pendaftaran'],
+            'tanggal_penutupan_pendaftaran' => $validatedData['tanggal_penutupan_pendaftaran'],
+            'tanggal_pelaksanaan' => $validatedData['tanggal_pelaksanaan'],
+            'kuota' => $validatedData['kuota'],
+            'penyelenggara_id' => $validatedData['penyelenggara_id'],
+        ]);
+
+        return redirect()->route('dashboard.events')->with('success', 'Success Tambah Data');
     }
 
     public function show($id)
@@ -47,27 +51,31 @@ class EventLombaController extends Controller
     public function edit($id)
     {
         $event = EventLomba::find($id);
-        $penyelenggaras = Penyelenggara::all();
-        return view('dashboard.events', compact('event', 'penyelenggaras'));
+        if (!$event) {
+            return redirect()->route('dashboard.events')->with('error', 'Event not found');
+        }
+
+        return view('dashboard.events', compact('event'));
     }
+
 
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'nama_lomba' => 'required',
-            'deskripsi' => 'required',
-            'tempat' => 'required',
-            'tanggal_pendaftaran' => 'required|date_format:Y-m-d H:i:s',
-            'tanggal_penutupan_pendaftaran' => 'required|date_format:Y-m-d H:i:s',
-            'tanggal_pelaksanaan' => 'required|date_format:Y-m-d H:i:s',
-            'kuota' => 'required',
-            'penyelenggara_id' => 'required',
-        ]);
+        $event = EventLomba::find($id);
+        $event->nama_lomba = $request->input('nama_lomba');
+        $event->deskripsi = $request->input('deskripsi');
+        $event->tempat = $request->input('tempat');
+        $event->kuota = $request->input('kuota');
+        $event->penyelenggara_id = $request->input('penyelenggara_id');
+        $event->tanggal_pendaftaran = date("Y-m-d", strtotime($request->tanggal_pendaftaran));
+        $event->tanggal_penutupan_pendaftaran = date("Y-m-d", strtotime($request->tanggal_penutupan_pendaftaran));
+        $event->tanggal_pelaksanaan = date("Y-m-d", strtotime($request->tanggal_pelaksanaan));
 
-        EventLomba::find($id)->update($validatedData);
+        $event->update();
 
         return redirect()->route('dashboard.events')->with('success', 'Data event berhasil diperbarui.');
     }
+
 
     public function destroy($id)
     {

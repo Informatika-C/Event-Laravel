@@ -105,10 +105,15 @@
         top: 100%;
         right: 0;
     }
-    .welcome h1 {
-        font-size: 2rem;
+    h1.lead b {
+        font-size: 2.5rem;
+        font-weight: 800;
     }
-    h1 {
+    h1.lead {
+        font-size: 1.2rem;
+        font-weight: 400;
+    }
+    h2 {
         font-size: 2rem;
     }
     .events-text h2 {
@@ -166,7 +171,7 @@
         justify-content: center;
     }
 
-    .thx h2 {
+    .thx h3 {
         font-size: 2rem;
     }
     .sponsor-content {
@@ -351,10 +356,14 @@
         font-weight: 800;
     }
 
-    .welcome h1 {
-        font-size: 2rem;
+    h1.lead b {
+        font-size: 3rem;
     }
-    h1 {
+    h1.lead {
+        font-size: 1.3rem;
+        font-weight: 400;
+    }
+    h2 {
         font-size: 2rem;
     }
     .events-text h2 {
@@ -411,7 +420,7 @@
         flex-direction: column;
         justify-content: center;
     }
-    .thx h2 {
+    .thx h3 {
         font-size: 2rem;
     }
     .sponsor-content {
@@ -511,8 +520,11 @@
     }
     .about-content {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 3rem;
+        gap: 1rem;
     }
 
     .top-content {
@@ -528,7 +540,7 @@
         flex-direction: row;
         justify-content: center;
     }
-    .thx h2 {
+    .thx h3 {
         font-size: 3rem;
     }
     .sponsor-content {

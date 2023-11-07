@@ -67,63 +67,92 @@
     <table>
         <thead>
             <tr>
-                <th>Nama Lomba</th>
+                <th>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox_selectAll">
+                        <label for="checkbox_selectAll"></label>
+                    </span>
+                </th>
+                <th>#ID</th>
+                <th>Nama Event</th>
                 <th>Deskripsi</th>
                 <th>Tempat</th>
-                <th>Tanggal Pendaftaran</th>
-                <th>Tanggal Penutupan Pendaftaran</th>
-                <th>Tanggal Pelaksanaan</th>
+                <th>Pendaftaran</th>
+                <th>Penutupan</th>
+                <th>Pelaksanaan</th>
                 <th>Kuota</th>
                 <th>Penyelenggara</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
+            @if(count($events) > 0)
             @foreach ($events as $event)
             <tr>
+                <td>
+                    <span class="custom-checkbox">
+                        <input type="checkbox" id="checkbox_selectAll">
+                        <label for="checkbox_selectAll"></label>
+                    </span>
+                </td>
+                <td class="show-tr-modal" data-tr-modal="tr-modal-1" data-id="{{ $event->id }}">{{ $event->id }}</td>
                 <td>{{ $event->nama_lomba }}</td>
-                <td>{{ $event->deskripsi }}</td>
+                <td class="descript">{{ $event->deskripsi }}</td>
                 <td>{{ $event->tempat }}</td>
                 <td>{{ $event->tanggal_pendaftaran }}</td>
                 <td>{{ $event->tanggal_penutupan_pendaftaran }}</td>
                 <td>{{ $event->tanggal_pelaksanaan }}</td>
-                <td>{{ $event->kuota }}</td>
-                <td>{{ $event->penyelenggara->nama_penyelenggara }}</td>
                 <td>
+                    <span class="status confirmed"><i class="fa-solid fa-user-group">{{ $event->kuota }}</i></span>
+                </td>
+                <td>{{ $event->penyelenggara->nama_penyelenggara }}</td>
+                <td class="action">
+                    <button href="{{ route('dashboard.events.edit', ['id' => $event->id]) }}" title="Edit" class="show-modal" data-modal="editModal" data-event-id="{{ $event->id }}"><i class="fa-solid fa-pen-clip"></i></button>
+                    {{-- <button action="{{ route('dashboard.events.destroy', ['id' => $event->id]) }}" title="Delete" class="show-modal" data-modal="deleteModal" data-event-id="{{ $event->id }}"><i class="fa-solid fa-trash"></i></button> --}}
+                </td>
+                {{-- <td>
                     <a href="{{ route('dashboard.events.edit', $event->id) }}">Edit</a>
                     <form method="POST" action="{{ route('dashboard.events.destroy', $event->id) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit">Delete</button>
                     </form>
+                </td> --}}
+                @endforeach
+                @else
+                <td style="text-align: center; width:100%">
+                    <h1 ><i class="fa-solid fa-exclamation"></i> Tidak ada data Events yang tersedia.</h1>
                 </td>
+                @endif
             </tr>
-            @endforeach
         </tbody>
     </table>
     
     <div id="tr-modal-1" class="tr-modal">
-        <!-- Isi tr-modal -->
+        @foreach ($events as $event)
         <div class="tr-modal-content">
             <div class="tr-det">
-                <h2>Campus Expo</h2>
-                <strong> #PW-0001</strong>
+                <h2>{{ $event->nama_lomba }}</h2>
+                <strong><i class="fa-solid fa-hashtag"></i>{{ $event->id }}</strong>
             </div>
             <div class="banner-container">
                 <img class="banner" src="{{ asset('assets/images/carrousel1.JPG') }}" alt="banner">
             </div>
             <ul>
-                <li><strong>Deskripsi:</strong> <br>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat fuga optio iste doloribus architecto suscipit repellendus ea. Nihil, modi! Sint?</li>
+                <li><strong>Deskripsi:</strong> <br>{{ $event->deskripsi }}</li>
                 <li class="tr-det inf">
-                    <strong><i class="fa-solid fa-map-location-dot"></i>Universitas Teknokrat Indonesia</strong>
-                    {{-- <strong><i class="fa-solid fa-users-line"></i>30</strong> --}}
-                    <strong><i class="fa-solid fa-people-group"></i>HIMA FTIK</strong>
+                    <strong><i class="fa-solid fa-map-location-dot"></i>{{ $event->tempat }}</strong>
+                    <strong><i class="fa-solid fa-users-line"></i>{{ $event->kuota }}Person</strong>
+                    <strong><i class="fa-solid fa-people-group"></i>{{ $event->penyelenggara->nama_penyelenggara }}</strong>
                 </li>
-                <li><strong>Pendaftaran:</strong>11 Apr 2023</li>
-                <li><strong>Penutupan:</strong>20 Aug 2023</li>
-                <li><strong>Pelaksanaan:</strong>1 Sep 2023</li>
+                <li><strong>Pendaftaran:</strong>{{ $event->tanggal_pendaftaran }}</li>
+                <li><strong>Penutupan:</strong>{{ $event->tanggal_penutupan_pendaftaran }}</li>
+                <li><strong>Pelaksanaan:</strong>{{ $event->tanggal_pelaksanaan }}</li>
             </ul>
         </div>
+        @endforeach
     </div>
+
     
     
     <div class="modal-overlay"></div>
@@ -132,8 +161,7 @@
 <div id="addModal" class="modal">
     <div class="modal-content">
         <h2>Add</h2>
-        {{-- @if (isset($createMode)) --}}
-        <form method="post" action="{{ route('dashboard.events.store') }}">
+        <form method="post" action="/dashboard/events">
             @csrf
 
             <label for="name">Nama Lomba:</label>
@@ -171,9 +199,6 @@
                 <button onclick="closeModal('addModal')">Close</button>
             </div>
         </form>
-        {{-- @else
-        <a href="{{ route('dashboard.events.create') }}">Tambah Event Lomba</a>
-        @endif --}}
     </div>
 </div>
 
@@ -182,7 +207,7 @@
     <div id="editModal" class="modal">
         <div class="modal-content">
             <h2>Edit</h2>
-            <form action="{{ route('dashboard.events.update', ['event' => $event->id]) }}" method="POST">
+            <form action="/dashboard/events/{{ $event->id }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -207,13 +232,13 @@
                 <label for="event_date">Event Date:</label>
                 <input type="date" name="tanggal_pelaksanaan" id="event_date" value="{{ $event->tanggal_pelaksanaan }}"required>
     
-                {{-- <label for="penyelenggara_id">Pilih Penyelenggara:</label>
+                <label for="penyelenggara_id">Pilih Penyelenggara:</label>
                 <select name="penyelenggara_id" id="penyelenggara_id" class="form-control">
-                    <option value="">Pilih Penyelenggara</option>
-                    @foreach($penyelenggaras as $penyelenggara)
-                        <option value="{{ $penyelenggara->id }}">{{ $penyelenggara->nama_penyelenggara }}</option>
+                    <option value="{{ $event->penyelenggara->id }}">{{ $event->penyelenggara->nama_penyelenggara }}</option>
+                    @foreach($events as $event)
+                        <option value="{{ $event->penyelenggara->id }}">{{ $event->penyelenggara->nama_penyelenggara }}</option>
                     @endforeach
-                </select>                 --}}
+                </select> 
                 
                 <div class="CC">
                     <button type="submit">Confirm</button>
