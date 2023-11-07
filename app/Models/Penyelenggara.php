@@ -9,7 +9,9 @@ class Penyelenggara extends Model
 {
     use HasFactory;
 
-    protected $table = 'penyelenggara'; // Sesuaikan dengan nama tabel penyelenggara pada database Anda
+    protected $table = 'penyelenggara';
+
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'nama_penyelenggara',

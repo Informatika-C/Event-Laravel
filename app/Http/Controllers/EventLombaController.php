@@ -11,7 +11,7 @@ class EventLombaController extends Controller
     public function index()
     {
         $events = EventLomba::with('penyelenggara')->get();
-        return view('dashboard.events', compact('events'));
+        return view('dashboard.events', ['events' => $events]);
     }
 
     public function create()

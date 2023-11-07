@@ -78,7 +78,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($penyelenggara->$events as $event)
+            @foreach ($events as $event)
             <tr>
                 <td>{{ $event->nama_lomba }}</td>
                 <td>{{ $event->deskripsi }}</td>
@@ -160,8 +160,8 @@
             <label for="penyelenggara_id">Pilih Penyelenggara:</label>
             <select name="penyelenggara_id" id="penyelenggara_id" class="form-control">
                 <option value="">Pilih Penyelenggara</option>
-                @foreach($penyelenggaras as $penyelenggara)
-                    <option value="{{ $penyelenggara->id }}">{{ $penyelenggara->nama_penyelenggara }}</option>
+                @foreach($events as $event)
+                    <option value="{{ $event->penyelenggara->id }}">{{ $event->penyelenggara->nama_penyelenggara }}</option>
                 @endforeach
             </select>               
             
