@@ -78,7 +78,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($events as $event)
+            @foreach ($penyelenggara->$events as $event)
             <tr>
                 <td>{{ $event->nama_lomba }}</td>
                 <td>{{ $event->deskripsi }}</td>
@@ -87,7 +87,15 @@
                 <td>{{ $event->tanggal_penutupan_pendaftaran }}</td>
                 <td>{{ $event->tanggal_pelaksanaan }}</td>
                 <td>{{ $event->kuota }}</td>
-                <td>{{ $event->penyelenggara_id }}</td>
+                <td>{{ $event->penyelenggara->nama_penyelenggara }}</td>
+                <td>
+                    <a href="{{ route('dashboard.events.edit', $event->id) }}">Edit</a>
+                    <form method="POST" action="{{ route('dashboard.events.destroy', $event->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>
@@ -124,7 +132,8 @@
 <div id="addModal" class="modal">
     <div class="modal-content">
         <h2>Add</h2>
-        <form method="POST" action="{{ route('events.store')}}">
+        {{-- @if (isset($createMode)) --}}
+        <form method="post" action="{{ route('dashboard.events.store') }}">
             @csrf
 
             <label for="name">Nama Lomba:</label>
@@ -148,14 +157,23 @@
             <label for="event_date">Event Date:</label>
             <input type="date" name="tanggal_pelaksanaan" id="event_date" required>
 
-            <label for="organizer">Organizer:</label>
-            <input type="text" name="penyelenggara_id" id="organizer" required>
-
+            <label for="penyelenggara_id">Pilih Penyelenggara:</label>
+            <select name="penyelenggara_id" id="penyelenggara_id" class="form-control">
+                <option value="">Pilih Penyelenggara</option>
+                @foreach($penyelenggaras as $penyelenggara)
+                    <option value="{{ $penyelenggara->id }}">{{ $penyelenggara->nama_penyelenggara }}</option>
+                @endforeach
+            </select>               
+            
+            
             <div class="CC">
                 <button type="submit">Add</button>
                 <button onclick="closeModal('addModal')">Close</button>
             </div>
         </form>
+        {{-- @else
+        <a href="{{ route('dashboard.events.create') }}">Tambah Event Lomba</a>
+        @endif --}}
     </div>
 </div>
 
@@ -164,33 +182,44 @@
     <div id="editModal" class="modal">
         <div class="modal-content">
             <h2>Edit</h2>
-            <form method="post">
-                <label for="name">Name:</label>
-                <input type="text" name="name" id="name" required>
+            <form action="{{ route('dashboard.events.update', ['event' => $event->id]) }}" method="POST">
+                @csrf
+                @method('PUT')
 
+                <label for="name">Nama Lomba:</label>
+                <input type="text" name="nama_lomba" id="name" value="{{ $event->nama_lomba }}" required>
+    
                 <label for="description">Description:</label>
-                <textarea name="description" id="description" required></textarea>
-
+                <textarea name="deskripsi" id="description" value="{{ $event->deskripsi }}"required></textarea>
+    
                 <label for="location">Location:</label>
-                <input type="text" name="location" id="location" required>
-
+                <input type="text" name="tempat" id="location" value="{{ $event->tempat }}"required>
+    
+                <label for="quantity">Quantity:</label>
+                <input type="number" name="kuota" id="quantity" value="{{ $event->kuota }}"required>
+    
                 <label for="registration_date">Registration Date:</label>
-                <input type="text" name="registration_date" id="registration_date" required>
-
+                <input type="date" name="tanggal_pendaftaran" id="registration_date" value="{{ $event->tanggal_pendaftaran }}"required>
+    
                 <label for="closing_date">Closing Date:</label>
-                <input type="text" name="closing_date" id="closing_date" required>
-
+                <input type="date" name="tanggal_penutupan_pendaftaran" id="closing_date" value="{{ $event->tanggal_penutupan_pendaftaran }}"required>
+    
                 <label for="event_date">Event Date:</label>
-                <input type="text" name="event_date" id="event_date" required>
-
-                <label for="organizer">Organizer:</label>
-                <input type="text" name="organizer" id="organizer" required>
-
+                <input type="date" name="tanggal_pelaksanaan" id="event_date" value="{{ $event->tanggal_pelaksanaan }}"required>
+    
+                {{-- <label for="penyelenggara_id">Pilih Penyelenggara:</label>
+                <select name="penyelenggara_id" id="penyelenggara_id" class="form-control">
+                    <option value="">Pilih Penyelenggara</option>
+                    @foreach($penyelenggaras as $penyelenggara)
+                        <option value="{{ $penyelenggara->id }}">{{ $penyelenggara->nama_penyelenggara }}</option>
+                    @endforeach
+                </select>                 --}}
+                
+                <div class="CC">
+                    <button type="submit">Confirm</button>
+                    <button onclick="closeModal('editModal')">Close</button>
+                </div>
             </form>
-            <div class="CC">
-                <button type="submit">Confirm</button>
-                <button onclick="closeModal('editModal')">Close</button>
-            </div>
         </div>
     </div>
 

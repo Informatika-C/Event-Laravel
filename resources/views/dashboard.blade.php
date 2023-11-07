@@ -28,10 +28,16 @@
                         <span class="link-name">Dahsboard</span>
                     </a>
                 </li>
-                <li class="{{ Route::currentRouteName() == 'events.index' ? 'active' : '' }}">
-                    <a href="{{ route('events.index') }}">
+                <li class="{{ Route::currentRouteName() == 'dashboard.events' ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.events') }}">
                         <i class="fa-solid fa-pen-to-square"></i>
                         <span class="link-name">Events</span>
+                    </a>
+                </li>
+                <li class="{{ Route::currentRouteName() == 'dashboard.penyelenggara' ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.penyelenggara') }}">
+                        <i class="fa-solid fa-people-group"></i>
+                        <span class="link-name">Autors</span>
                     </a>
                 </li>
                 <li class="{{ Route::currentRouteName() == 'dashboard.contestant' ? 'active' : '' }}">

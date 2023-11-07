@@ -15,4 +15,9 @@ class EventLomba extends Model
         'nama_lomba', 'deskripsi',
         'tempat', 'tanggal_pendaftaran', 'tanggal_penutupan_pendaftaran', 'tanggal_pelaksanaan', 'kuota', 'penyelenggara_id',
     ];
+
+    public function penyelenggara()
+    {
+        return $this->belongsTo(Penyelenggara::class, 'penyelenggara_id', 'id');
+    }
 }
