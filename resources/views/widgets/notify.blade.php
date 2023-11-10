@@ -21,7 +21,7 @@
     @else
     <div class="notification logout" id="notification">
         <a href="{{ route('login') }} " title="LogIn">LogIn </a>Required!
-        <span class="hide-icon" onclick "hideNotification()"><i class="fa-solid fa-xmark"></i></span>
+        <span class="hide-icon" onclick ="hideNotification()"><i class="fa-solid fa-xmark"></i></span>
     </div>
     @endif
 </div>

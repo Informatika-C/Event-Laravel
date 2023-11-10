@@ -70,18 +70,18 @@
             </ul>
 
             <ul class="logout-mode">
-                @if(Auth::guard('admin')->check())
-                <li>
-                    <a href="{{route('logout')}}" title="LogOut">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span class="link-name">Logout</span>
-                    </a>
+                @if (Auth::guard('admin')->check())
+                    <li>
+                        <a href="{{ route('logout') }}" title="LogOut">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span class="link-name">Logout</span>
+                        </a>
                     @elseif(Auth::check())
-                    <a href="{{route('logout')}}" title="LogOut">LogOut</a>
-                </li>
+                        <a href="{{ route('logout') }}" title="LogOut">LogOut</a>
+                    </li>
                 @endif
                 <li>
-                    <a href="/"  title="LogOut">
+                    <a href="/" title="LogOut">
                         <i class="fa-solid fa-house"></i>
                         <span class="link-name" title="Home">Home</span>
                     </a>
@@ -101,8 +101,8 @@
             </div>
             <div class="profile">
                 <img class="profile-image" alt="no avaible image" src="{{ asset('assets/images/3.svg') }}" />
-                @if(Auth::guard('admin')->check())
-                <p class="profile-name">{{ auth()->guard('admin')->user()->name }}</p>
+                @if (Auth::guard('admin')->check())
+                    <p class="profile-name">{{ auth()->guard('admin')->user()->name }}</p>
                 @endif
             </div>
         </div>
@@ -128,7 +128,7 @@
             </div>
         </div>
         <div class="wrapper" style="display: none">
-            <li class="add-box" >
+            <li class="add-box">
                 <div class="icon"><i class="fa-solid fa-plus"></i></div>
                 <p>Add new note</p>
             </li>
@@ -136,6 +136,7 @@
 
         <main style="    margin-top: 70px;">@yield('content')</main>
     </section>
+
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
 </body>
 

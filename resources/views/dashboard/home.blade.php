@@ -37,7 +37,7 @@
                 <div class="info-detail">
                     <h3>Users</h3>
                     <p></p>
-                    <h2>1,873, <span>People</span></h2>
+                    <h2>{{ \App\Models\User::all()->count() }} <span>Users</span></h2>
                 </div>
                 <div class="info-image">
                     <i class="fa-solid fa-users-line"></i>
@@ -50,7 +50,7 @@
                 <div class="info-detail">
                     <h3>Events</h3>
                     <p></p>
-                    <h2>10,890 <span>Events</span></h2>
+                    {{-- <h2>{{ $total }} <span>Events</span></h2> --}}
                 </div>
                 <div class="info-image">
                     <i class="fa-solid fa-calendar"></i>
@@ -63,7 +63,7 @@
                 <div class="info-detail">
                     <h3>Admins</h3>
                     <p></p>
-                    <h2>340 <span>Admins</span></h2>
+                    <h2>{{ \App\Models\Admin::all()->count() }} <span>Admins</span></h2>
                 </div>
                 <div class="info-image">
                     <i class="fa-solid fa-user-tie"></i>
@@ -74,9 +74,9 @@
         <div class="card total">
             <div class="info">
                 <div class="info-detail">
-                    <h3>News</h3>
+                    <h3>Penyelenggara</h3>
                     <p></p>
-                    <h2>56 <span>News</span></h2>
+                    <h2>56 <span>Penyelenggara</span></h2>
                 </div>
                 <div class="info-image">
                     <i class="fa-solid fa-newspaper"></i>

@@ -1,30 +1,29 @@
-document.addEventListener("DOMContentLoaded", function () {
-    var showModalLinks = document.querySelectorAll(".show-modal");
-    var modalOverlay = document.querySelector(".modal-overlay");
+$(document).ready(function () {
+    $(".show-modal").on("click", function () {
+        var modalId = $(this).data("modal");
+        $("#" + modalId).show();
+        console.log("Open Add Modal, please input data!", modalId);
 
-    showModalLinks.forEach(function (link) {
-        link.addEventListener("click", function (event) {
-            event.preventDefault();
-            var modalId = link.getAttribute("data-modal");
-            var modal = document.getElementById(modalId);
-            modal.style.display = "block";
-            modalOverlay.style.display = "block";
+        $.ajax({
+            type: "GET",
+            url: "/dashboard/penyelenggara/edit/" + id,
+            success: function (response) {
+                console.log("Response from server:", response);
+                $("#id").val(response.penyelenggara.id);
+                $("#nama_penyelenggara").val(
+                    response.penyelenggara.nama_penyelenggara
+                );
+                $("#no_telp").val(response.penyelenggara.no_telp);
+            },
         });
     });
 
-    function closeModal(modalId) {
-        var modal = document.getElementById(modalId);
-        modal.style.display = "none";
-        modalOverlay.style.display = "none";
-    }
+    $("#closeButton, #closeModal").on("click", function () {
+        $(".modal").hide();
+        $("input[required], textarea[required]").removeAttr("required");
+        console.log("Modal Is Closed!");
 
-    var closeModalButtons = document.querySelectorAll(".modal button");
-
-    closeModalButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            var modalId = button.closest(".modal").id;
-            closeModal(modalId);
-        });
+        console.clear();
     });
 });
 
@@ -33,8 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
     showTrModals.forEach(function (row) {
         row.addEventListener("click", function () {
             var trModalId = row.getAttribute("data-tr-modal");
-            var eventId = button.getAttribute("data-event-id");
-            console.log(eventId)
             var trModal = document.getElementById(trModalId);
             if (trModal) {
                 trModal.style.display = "block";

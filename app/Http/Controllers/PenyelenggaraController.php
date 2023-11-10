@@ -12,57 +12,81 @@ class PenyelenggaraController extends Controller
     {
         $penyelenggaras = Penyelenggara::all();
 
-        return View::make('dashboard.penyelenggara')->with('penyelenggaras', $penyelenggaras);
+        return View::make('dashboard.penyelenggara', ['penyelenggaras' => $penyelenggaras]);
     }
+
     public function create()
     {
-        return View::make('dashboard.penyelenggara');
+        $penyelenggaras = Penyelenggara::all();
+        return view('dashboard.events', ['penyelenggaras' => $penyelenggaras]);
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'nama_penyelenggara' => 'required',
-            'no_telp' => 'required',
-        ]);
+        try {
 
-        Penyelenggara::create($data);
+            $data = $request->validate([
+                'nama_penyelenggara' => 'required',
+                'no_telp' => 'required',
+            ]);
 
-        return redirect()->route('dashboard.penyelenggara')->with('success', 'Penyelenggara berhasil ditambahkan.');
+            Penyelenggara::create($data);
+
+            return redirect('/dashboard/penyelenggara')->with('status', 'Penyelenggara berhasil ditambahkan.');
+        } catch (\Exception) {
+            return redirect('/dashboard/penyelenggara')->with('error', 'Terjadi kesalahan saat menambahkan Penyelenggara.');
+        }
     }
 
-    public function show(Penyelenggara $penyelenggara)
+    public function show($id)
     {
-        return View::make('dashboard.penyelenggara')->with('penyelenggara', $penyelenggara);
-        // return View::make('dashboard.penyelenggara', compact('penyelenggara'));
+        $penyelenggara = Penyelenggara::find($id);
+        return View::make('dashboard.penyelenggara', ['penyelenggara', $penyelenggara]);
     }
 
-
-    public function update(Request $request, Penyelenggara $penyelenggara)
+    public function update(Request $request)
     {
-        $validatedData = $request->validate([
-            'nama_penyelenggara' => 'required',
-            'no_telp' => 'required',
-        ]);
+        try {
 
-        $penyelenggara->update($validatedData);
 
-        return redirect()->route('dashboard.penyelenggara')->with('success', 'Data penyelenggara berhasil diperbarui.');
+            $id = $request->input('id');
+            $penyelenggara = Penyelenggara::find($id);
+            $penyelenggara->nama_penyelenggara = $request->input('nama_penyelenggara');
+            $penyelenggara->no_telp = $request->input('no_telp');
+
+            $penyelenggara->update();
+
+            return redirect()->back()->with('status', 'Data event berhasil diperbarui.');
+        } catch (\Exception) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui Penyelenggara.');
+        }
     }
 
-    // public function edit($id)
-    // {
-    //     $penyelenggara = Penyelenggara::find($id);
+    public function edit($id)
+    {
+        $penyelenggara = Penyelenggara::find($id);
 
-    //     return View::make('dashboard.penyelenggara')->with('penyelenggara', $penyelenggara);
-    //     // return View::make('dashboard.penyelenggara.edit', compact('penyelenggara'));
-    // }
+        if (!$penyelenggara) {
+            return response()->json(['error' => 'Event not found'], 404);
+        }
+
+        return response()->json(['penyelenggara' => $penyelenggara], 200);
+    }
 
 
-    // public function destroy(Penyelenggara $penyelenggara)
-    // {
-    //     $penyelenggara->delete();
+    public function destroy($id)
+    {
+        try {
+            $penyelenggara = penyelenggara::find($id);
+            if (!$penyelenggara) {
+                return redirect()->route('dashboard.penyelenggara')->with('error', 'Data tidak ditemukan');
+            }
 
-    //     return redirect()->route('dashboard.penyelenggara')->with('success', 'Data event berhasil dihapus.');
-    // }
+            $penyelenggara->delete();
+
+            return redirect()->back()->with('status', 'Data penyelengara berhasil dihapus.');
+        } catch (\Exception) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data');
+        }
+    }
 }

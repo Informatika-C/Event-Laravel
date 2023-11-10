@@ -18,11 +18,6 @@ class EventLomba extends Model
         'tempat', 'tanggal_pendaftaran', 'tanggal_penutupan_pendaftaran', 'tanggal_pelaksanaan', 'kuota', 'penyelenggara_id',
     ];
 
-    // public function penyelenggara()
-    // {
-    //     return $this->belongsTo(Penyelenggara::class, 'penyelenggara_id', 'id');
-    // }
-
     public function penyelenggara(): HasOne
     {
         return $this->hasOne(Penyelenggara::class, "id", "penyelenggara_id");
