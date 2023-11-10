@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\EventLomba;
 use App\Models\Penyelenggara;
+use Illuminate\Support\Facades\DB;
 
 class EventLombaController extends Controller
 {
@@ -15,7 +16,8 @@ class EventLombaController extends Controller
     }
     public function create()
     {
-        return view('dashboard.events', ['penyelenggaras']);
+        $penyelenggaras = Penyelenggara::all();
+        return view('dashboard.events', ['penyelenggaras' => $penyelenggaras]);
     }
 
     public function store(Request $request)
@@ -25,7 +27,10 @@ class EventLombaController extends Controller
             'deskripsi' => 'required',
             'tempat' => 'required',
             'kuota' => 'required',
-            'penyelenggara_id' => 'required',
+            'penyelenggara_id' => 'required|exists:penyelenggaras,id',
+            // 'penyelenggara_id' => 'required',
+        ], [
+            'penyelenggara_id.exists' => 'Pilih Penyelenggara yang valid.',
         ]);
 
         $validatedData['tanggal_pendaftaran'] = date("Y-m-d", strtotime($request->tanggal_pendaftaran));
@@ -55,8 +60,15 @@ class EventLombaController extends Controller
 
     public function show($id)
     {
-        $event = EventLomba::find($id);
-        return view('dashboard.events', ['event' => $event]);
+        try {
+            $event = EventLomba::findOrFail($id);
+
+            info('Event found: ' . json_encode($event));
+
+            return response()->json(['event' => $event], 200);
+        } catch (\Exception) {
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
     }
 
     public function update(Request $request)

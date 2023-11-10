@@ -46,6 +46,12 @@
                         <span class="link-name">Contestants</span>
                     </a>
                 </li>
+                    {{-- <li class="{{ Route::currentRouteName() == 'dashboard.contestant' ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.contestant') }}">
+                            <i class="fa-solid fa-tags"></i>
+                            <span class="link-name">Category</span>
+                        </a>
+                    </li> --}}
                 <li class="{{ Route::currentRouteName() == 'dashboard.schedule' ? 'active' : '' }}">
                     <a href="{{ route('dashboard.schedule') }}">
                         <i class="fa-solid fa-calendar-day"></i>

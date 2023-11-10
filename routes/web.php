@@ -35,16 +35,18 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/dashboard/events', [EventLombaController::class, 'index'])->name('dashboard.events');
     Route::post('/dashboard/events', [EventLombaController::class, 'store'])->name('dashboard.events.store');
     Route::get('/dashboard/events/edit/{id}', [EventLombaController::class, 'edit']);
+    Route::get('/dashboard/events/show/{id}', [EventLombaController::class, 'show']);
     Route::put('/dashboard/events/update', [EventLombaController::class, 'update']);
     Route::delete('/dashboard/events/destroy', [EventLombaController::class, 'destroy']);
 
 
     Route::get('/dashboard/penyelenggara', [PenyelenggaraController::class, 'index'])->name('dashboard.penyelenggara');
-    // Route::get('/dashboard/penyelenggara/create', [PenyelenggaraController::class, 'create'])->name('dashboard.penyelenggara.create');
+    Route::get('/dashboard/penyelenggara/create', [PenyelenggaraController::class, 'create'])->name('dashboard.penyelenggara.create');
     Route::post('/dashboard/penyelenggara', [PenyelenggaraController::class, 'store'])->name('dashboard.penyelenggara.store');
     Route::get('/dashboard/penyelenggara/edit/{id}', [PenyelenggaraController::class, 'edit']);
+    Route::get('/dashboard/penyelenggara/show/{id}', [PenyelenggaraController::class, 'show']);
     Route::put('/dashboard/penyelenggara/update', [PenyelenggaraController::class, 'update']);
-    Route::delete('/dashboard/penyelenggara/{id}/destroy', [PenyelenggaraController::class, 'destroy']);
+    Route::delete('/dashboard/penyelenggara/destroy', [PenyelenggaraController::class, 'destroy']);
 
     Route::get('/dashboard/schedule', function () {
         return view('dashboard.schedule');

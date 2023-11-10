@@ -18,7 +18,7 @@ class PenyelenggaraController extends Controller
     public function create()
     {
         $penyelenggaras = Penyelenggara::all();
-        return view('dashboard.events', ['penyelenggaras' => $penyelenggaras]);
+        return view('dashboard.penyelenggara', ['penyelenggaras' => $penyelenggaras]);
     }
 
     public function store(Request $request)
@@ -40,8 +40,15 @@ class PenyelenggaraController extends Controller
 
     public function show($id)
     {
-        $penyelenggara = Penyelenggara::find($id);
-        return View::make('dashboard.penyelenggara', ['penyelenggara', $penyelenggara]);
+        try {
+            $penyelenggara = Penyelenggara::findOrFail($id);
+
+            info('Penyelenggara found: ' . json_encode($penyelenggara));
+
+            return response()->json(['penyelenggara' => $penyelenggara], 200);
+        } catch (\Exception) {
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
     }
 
     public function update(Request $request)
@@ -56,7 +63,7 @@ class PenyelenggaraController extends Controller
 
             $penyelenggara->update();
 
-            return redirect()->back()->with('status', 'Data event berhasil diperbarui.');
+            return redirect()->back()->with('status', 'Data penyelenggara berhasil diperbarui.');
         } catch (\Exception) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui Penyelenggara.');
         }
@@ -67,26 +74,25 @@ class PenyelenggaraController extends Controller
         $penyelenggara = Penyelenggara::find($id);
 
         if (!$penyelenggara) {
-            return response()->json(['error' => 'Event not found'], 404);
+            return response()->json(['error' => 'Penyelenggara not found'], 404);
         }
 
         return response()->json(['penyelenggara' => $penyelenggara], 200);
     }
 
-
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         try {
-            $penyelenggara = penyelenggara::find($id);
-            if (!$penyelenggara) {
-                return redirect()->route('dashboard.penyelenggara')->with('error', 'Data tidak ditemukan');
-            }
+            $id = $request->input('del_id');
+            $penyelenggara = Penyelenggara::find($id);
+            $penyelenggara->nama_lomba = $request->input('nama_penyelenggara');
+            $penyelenggara->no_telp = $request->input('no_telp');
 
             $penyelenggara->delete();
 
-            return redirect()->back()->with('status', 'Data penyelengara berhasil dihapus.');
+            return redirect('/dashboard/penyelenggara')->with('success', 'Data penyelenggara berhasil dihapus.');
         } catch (\Exception) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data');
+            return redirect('/dashboard/penyelenggara')->with('error', 'Terjadi kesalahan saat menghapus penyelenggara.');
         }
     }
 }

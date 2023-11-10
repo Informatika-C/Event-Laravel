@@ -1051,11 +1051,11 @@ body.dark .banner-container {
     gap: 8px;
 }
 
-.show-tr-modal {
+.openInfoModalBtn {
     font-weight: 700;
     white-space: nowrap;
 }
-.show-tr-modal:hover {
+.openInfoModalBtn:hover {
     cursor: pointer;
     background-color: var(--text-color);
     color: var(--text-color-reverse);
@@ -1074,7 +1074,7 @@ body.dark .banner-container {
     max-width: 300px;
 }
 
-.tr-modal {
+#infoModal {
     display: none;
     position: fixed;
     top: 0;

@@ -41,22 +41,18 @@
                                     <label for="checkbox_selectAll"></label>
                                 </span>
                             </td>
-                            <td class="show-tr-modal" data-tr-modal="tr-modal-1">{{ $penyelenggara->id }}</td>
+                            <td class="openInfoModalBtn" data-penyelenggara-id="{{ $penyelenggara->id }}">
+                                {{ $penyelenggara->id }}
+                            </td>
                             <td>{{ $penyelenggara->nama_penyelenggara }}</td>
                             <td>{{ $penyelenggara->no_telp }}</td>
                             <td class="action">
                                 <button class="editbtn" type="button" value="{{ $penyelenggara->id }}">
                                     <i class="fa-solid fa-pen-clip"></i>
                                 </button>
-                                <a href="{{ url($penyelenggara->id . '/dashboard/penyelenggara/destroy') }}">DELL</a>
-                                {{-- <form method="POST"
-                                    action="{{ route('dashboard.penyelenggara.destroy', ['id' => $penyelenggara->id]) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button href="#" title="Delete">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </form> --}}
+                                <button class="deletebtn" type="button" value="{{ $penyelenggara->id }}">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
                             </td>
                     @endforeach
                 @else
@@ -68,30 +64,39 @@
             </tbody>
         </table>
 
-
+        {{-- 
         <div id="tr-modal-1" class="tr-modal">
             @foreach ($penyelenggaras as $penyelenggara)
                 <div class="tr-modal-content">
                     <div class="tr-det">
                         <h2>{{ $penyelenggara->nama_penyelenggara }}</h2>
-                        {{-- <strong></strong> --}}
                     </div>
-                    {{-- <div class="banner-container">
-                <img class="banner" src="{{ asset('assets/images/carrousel1.JPG') }}" alt="banner">
-            </div> --}}
                     <ul>
-                        {{-- <li><strong>Deskripsi:</strong> <br>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat fuga optio iste doloribus architecto suscipit repellendus ea. Nihil, modi! Sint?</li> --}}
                         <li class="tr-det inf">
                             <strong><i class="fa-solid fa-hashtag"></i></i>{{ $penyelenggara->id }}</strong>
                             <strong><i class="fa-solid fa-users-line"></i>{{ $penyelenggara->no_telp }}</strong>
-                            {{-- <strong><i class="fa-solid fa-people-group"></i>HIMA FTIK</strong> --}}
                         </li>
-                        {{-- <li><strong>Pendaftaran:</strong>11 Apr 2023</li>
-                <li><strong>Penutupan:</strong>20 Aug 2023</li>
-                <li><strong>Pelaksanaan:</strong>1 Sep 2023</li> --}}
                     </ul>
                 </div>
             @endforeach
+        </div> --}}
+        <div id="infoModal" class="tr-modal">
+            <div class="tr-modal-content">
+                <div class="tr-det">
+                    <h2 id="info_nama_penyelenggara"></h2>
+                </div>
+                <ul>
+                    <li><strong>Deskripsi:</strong> <span id="info_deskripsi"></span></li>
+                    <li class="tr-det inf">
+                        <strong><i class="fa-solid fa-map-location-dot"></i>
+                            <span id="info_id"></span>
+                        </strong>
+                        <strong><i class="fa-solid fa-users-line"></i>
+                            <span id="info_no_telp"></span>
+                        </strong>
+                    </li>
+                </ul>
+            </div>
         </div>
 
 
@@ -145,11 +150,17 @@
         <div id="deleteModal" class="modal">
             <div class="modal-content">
                 <h2>Delete</h2>
-                <p>Data yang akan dihapus:</p>
-                <p>Nama:</p>
-                <p>ID: </p>
-                <button type="submit">Confirm</button>
-                <button type="button" id="closeButton">Close</button>
+                <form action="/dashboard/penyelenggara/destroy" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <label for="del_id">Yakin untuk hapus data?</label>
+                    <input type="text" id="del_id" name="del_id">
+                    {{-- <input type="text" id="nama_penyelenggara" name="nama_penyelenggara"> --}}
+                    <div class="CC">
+                        <button type="submit">Confirm</button>
+                        <button type="button" id="closeButton">Tutup</button>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -160,11 +171,48 @@
             $('#editModal').fadeIn();
         }
 
+        function openDelModal() {
+            $('#deleteModal').fadeIn();
+        }
+
         function closeModal() {
             $('#editModal').fadeOut();
         }
 
+        function openInfoModal(id) {
+            $('#infoModal').fadeIn();
+            console.log('Opening modal for Penyelenggara ID:', id);
+
+            $(document).on('click', outsideModalClick);
+        }
+
+        function outsideModalClick(e) {
+            if (!$(e.target).closest('.tr-modal-content').length) {
+                closeInfoModal();
+            }
+        }
+
+        function closeInfoModal() {
+            $('#infoModal').fadeOut();
+            clearConsole();
+            $(document).off('click', outsideModalClick);
+        }
+
+        function clearConsole() {
+            if (window.console && window.console.clear) {
+                console.clear();
+            }
+        }
+
         $(document).ready(function() {
+            $(document).on('click', '.deletebtn', function() {
+                var id = $(this).val();
+                openDelModal();
+
+                $('#del_id').val(id);
+                // $('#nama_penyelenggara').val(nama_penyelenggara);
+            });
+
             $(document).on('click', '.editbtn', function() {
                 var id = $(this).val();
                 openModal();
@@ -180,21 +228,24 @@
                     }
                 })
             });
+
+            $(document).on('click', '.openInfoModalBtn', function() {
+                var id = $(this).data('penyelenggara-id');
+                openInfoModal(id);
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/dashboard/penyelenggara/show/' + id,
+                    success: function(response) {
+                        console.log('Response from server:', response);
+                        $('#info_id').html(response.penyelenggara.id);
+                        $('#info_nama_penyelenggara').html(response.penyelenggara
+                            .nama_penyelenggara);
+                        $('#info_no_telp').html(response.penyelenggara.no_telp);
+                    }
+                });
+            });
         });
     </script>
-
-    {{-- <script>
-        if (penyelenggara && penyelenggara.id) {
-            fetch(`/dashboard/penyelenggara/${penyelenggara.id}/destroy`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                })
-                .then(response => {
-
-                });
-        }
-    </script> --}}
     <script src="{{ asset('assets/js/modal.js') }}"></script>
 @endsection

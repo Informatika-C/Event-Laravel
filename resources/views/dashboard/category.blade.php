@@ -65,7 +65,8 @@
                                     <label for="checkbox_selectAll"></label>
                                 </span>
                             </td>
-                            <td class="openInfoModalBtn" data-event-id="{{ $event->id }}">{{ $event->id }}</td>
+                            <td class="show-tr-modal" data-tr-modal="tr-modal-1" value="{{ $event->id }}">
+                                {{ $event->id }}</td>
                             <td>{{ $event->nama_lomba }}</td>
                             <td class="descript">{{ $event->deskripsi }}</td>
                             <td>{{ $event->tempat }}</td>
@@ -95,36 +96,39 @@
             </tbody>
         </table>
 
-        <div id="infoModal" class="tr-modal">
-            <div class="tr-modal-content">
-                <div class="tr-det">
-                    <h2 id="info_nama_lomba"></h2>
-                    <strong><i class="fa-solid fa-hashtag"></i>
-                        <p id="id"></p>
-                    </strong>
+        @if (isset($events) && count($events) > 0)
+            @foreach ($events as $event)
+                <div id="tr-modal-1" class="tr-modal">
+                    <div class="tr-modal-content">
+                        <div class="tr-det">
+                            <h2>{{ $event->nama_lomba }}</h2>
+                            <strong><i class="fa-solid fa-hashtag"></i>{{ $event->id }}</strong>
+                        </div>
+                        <div class="banner-container">
+                            <img class="banner" src="{{ asset('assets/images/carrousel1.JPG') }}" alt="banner">
+                        </div>
+                        <ul>
+                            <li><strong>Deskripsi:</strong> <br>{{ $event->deskripsi }}</li>
+                            <li class="tr-det inf">
+                                <strong><i class="fa-solid fa-map-location-dot"></i>{{ $event->tempat }}</strong>
+                                <strong><i class="fa-solid fa-users-line"></i>{{ $event->kuota }}Person</strong>
+                                <strong><i
+                                        class="fa-solid fa-people-group"></i>{{ $event->penyelenggara->nama_penyelenggara }}</strong>
+                            </li>
+                            <li><strong>Pendaftaran:</strong>{{ $event->tanggal_pendaftaran }}</li>
+                            <li><strong>Penutupan:</strong>{{ $event->tanggal_penutupan_pendaftaran }}</li>
+                            <li><strong>Pelaksanaan:</strong>{{ $event->tanggal_pelaksanaan }}</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="banner-container">
-                    <img class="banner" id="info_banner" src="{{ asset('assets/images/carrousel1.JPG') }}" alt="banner">
-                </div>
-                <ul>
-                    <li><strong>Deskripsi:</strong> <span id="info_deskripsi"></span></li>
-                    <li class="tr-det inf">
-                        <strong><i class="fa-solid fa-map-location-dot"></i>
-                            <span id="info_tempat"></span>
-                        </strong>
-                        <strong><i class="fa-solid fa-users-line"></i>
-                            <span id="info_kuota"></span>
-                        </strong>
-                        <strong><i class="fa-solid fa-people-group"></i>
-                            <span id="info_penyelenggara_id"></span>
-                        </strong>
-                    </li>
-                    <li><strong>Pendaftaran:</strong> <span id="info_tanggal_pendaftaran"></span></li>
-                    <li><strong>Penutupan:</strong> <span id="info_tanggal_penutupan"></span></li>
-                    <li><strong>Pelaksanaan:</strong> <span id="info_tanggal_pelaksanaan"></span></li>
-                </ul>
-            </div>
-        </div>
+            @endforeach
+        @else
+            <td style="text-align: center; width:100%">
+                <h1><i class="fa-solid fa-exclamation"></i> Tidak ada data Events yang tersedia.</h1>
+            </td>
+        @endif
+
+
 
         <div class="modal-overlay"></div>
 
@@ -157,27 +161,24 @@
                     <input type="date" name="tanggal_pelaksanaan" id="event_date" required>
 
                     <label for="penyelenggara_id">Pilih Penyelenggara:</label>
-                    @if (count($events) > 0)
-                        <select name="penyelenggara_id" id="penyelenggara_id" class="form-control" required>
+                    @if (isset($events) && count($events) > 0)
+                        <select name="penyelenggara_id" id="penyelenggara_id" class="form-control">
                             <option value="">Pilih Penyelenggara</option>
                             @foreach ($events as $event)
                                 <option value="{{ $event->penyelenggara->id }}">
-                                    {{ $event->penyelenggara->nama_penyelenggara }}
-                                </option>
+                                    {{ $event->penyelenggara->nama_penyelenggara }}</option>
                             @endforeach
                         </select>
                     @else
                         <p><i class="fa-solid fa-exclamation"></i> Tidak ada data Events yang tersedia.</p>
                     @endif
-
                     <div class="CC">
                         <button type="submit">Add</button>
-                        <button type="button" id="closeButton">Close</button>
+                        <button type="button"id="closeButton">Close</button>
                     </div>
                 </form>
             </div>
         </div>
-
 
 
         <!-- Modal Edit -->
@@ -187,6 +188,8 @@
                 <form id="editForm" action="/dashboard/events/update" method="POST">
                     @csrf
                     @method('PUT')
+
+                    <input type="text" name="id" id="id" value="">
 
                     <label for="name">Nama Lomba:</label>
                     <input type="text" name="nama_lomba" id="nama_lomba" required>
@@ -257,31 +260,6 @@
             $('#editModal').fadeOut();
         }
 
-        function openInfoModal(id) {
-            $('#infoModal').fadeIn();
-            console.log('Opening modal for event ID:', id);
-
-            $(document).on('click', outsideModalClick);
-        }
-
-        function outsideModalClick(e) {
-            if (!$(e.target).closest('.tr-modal-content').length) {
-                closeInfoModal();
-            }
-        }
-
-        function closeInfoModal() {
-            $('#infoModal').fadeOut();
-            clearConsole();
-            $(document).off('click', outsideModalClick);
-        }
-
-        function clearConsole() {
-            if (window.console && window.console.clear) {
-                console.clear();
-            }
-        }
-
         $(document).ready(function() {
             $(document).on('click', '.deletebtn', function() {
                 var id = $(this).val();
@@ -313,34 +291,7 @@
                     }
                 });
             });
-            $(document).on('click', '.openInfoModalBtn', function() {
-                var id = $(this).data('event-id');
-                openInfoModal(id);
-
-                $.ajax({
-                    type: 'GET',
-                    url: '/dashboard/events/show/' + id,
-                    success: function(response) {
-                        console.log('Response from server:', response);
-                        $('#id').html(response.event.id);
-                        $('#info_nama_lomba').html(response.event.nama_lomba);
-                        $('#info_deskripsi').html(response.event.deskripsi);
-                        $('#info_tempat').html(response.event.tempat);
-                        $('#info_kuota').html(response.event.kuota);
-                        $('#info_tanggal_pendaftaran').html(response.event
-                            .tanggal_pendaftaran);
-                        $('#info_tanggal_penutupan_pendaftaran').html(response.event
-                            .tanggal_penutupan_pendaftaran);
-                        $('#info_tanggal_pelaksanaan').html(response.event
-                            .tanggal_pelaksanaan);
-                        $('#info_penyelenggara_id').html(response.event
-                            .penyelenggara_id);
-                    }
-                });
-            });
-
         });
     </script>
-
     <script src="{{ asset('assets/js/modal.js') }}"></script>
 @endsection

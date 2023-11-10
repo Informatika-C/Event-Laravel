@@ -27,21 +27,21 @@ $(document).ready(function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    var showTrModals = document.querySelectorAll(".show-tr-modal");
-    showTrModals.forEach(function (row) {
-        row.addEventListener("click", function () {
-            var trModalId = row.getAttribute("data-tr-modal");
-            var trModal = document.getElementById(trModalId);
-            if (trModal) {
-                trModal.style.display = "block";
+// document.addEventListener("DOMContentLoaded", function () {
+//     var showTrModals = document.querySelectorAll(".show-tr-modal");
+//     showTrModals.forEach(function (row) {
+//         row.addEventListener("click", function () {
+//             var trModalId = row.getAttribute("data-tr-modal");
+//             var trModal = document.getElementById(trModalId);
+//             if (trModal) {
+//                 trModal.style.display = "block";
 
-                window.addEventListener("click", function (event) {
-                    if (event.target === trModal) {
-                        trModal.style.display = "none";
-                    }
-                });
-            }
-        });
-    });
-});
+//                 window.addEventListener("click", function (event) {
+//                     if (event.target === trModal) {
+//                         trModal.style.display = "none";
+//                     }
+//                 });
+//             }
+//         });
+//     });
+// });
