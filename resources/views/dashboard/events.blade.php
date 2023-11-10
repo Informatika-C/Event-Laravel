@@ -28,8 +28,8 @@
                 <button title="Add" class="show-modal" data-modal="addModal"><i class="fa-solid fa-notes-medical"></i>
                     <h5>Add</h5>
                 </button>
-                <button title="Delete" class="show-modal" data-modal="deleteModal"><i
-                        class="fa-solid fa-trash-arrow-up"></i>
+                <button title="Delete" class="del-modal" data-modal="deletecheckModal">
+                    <i class="fa-solid fa-trash-arrow-up"></i>
                     <h5>Delete</h5>
                 </button>
             </div>
@@ -56,12 +56,12 @@
                 </tr>
             </thead>
             <tbody>
-                @if (isset($events) && count($events) > 0)
+                @if (count($events) > 0)
                     @foreach ($events as $event)
                         <tr>
                             <td>
                                 <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox_selectAll">
+                                    <input type="checkbox" data-id="{{ $event->id }}">
                                     <label for="checkbox_selectAll"></label>
                                 </span>
                             </td>
@@ -73,25 +73,26 @@
                             <td>{{ $event->tanggal_penutupan_pendaftaran }}</td>
                             <td>{{ $event->tanggal_pelaksanaan }}</td>
                             <td>
-                                <span class="status confirmed"><i
-                                        class="fa-solid fa-user-group">{{ $event->kuota }}</i></span>
+                                <span class="status confirmed">
+                                    <i class="fa-solid fa-user-group">{{ $event->kuota }}</i>
+                                </span>
                             </td>
                             <td>{{ $event->penyelenggara->nama_penyelenggara }}</td>
                             <td class="action">
                                 <button class="editbtn" type="button" value="{{ $event->id }}">
                                     <i class="fa-solid fa-pen-clip"></i>
                                 </button>
-                                <button class="deletebtn" type="button" value="{{ $event->id }}">
+                                <button class="deletebtn" type="button" del-id="{{ $event->id }}">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </td>
+                        </tr>
                     @endforeach
                 @else
                     <td style="text-align: center; width:100%">
                         <h1><i class="fa-solid fa-exclamation"></i> Tidak ada data Events yang tersedia.</h1>
                     </td>
                 @endif
-                </tr>
             </tbody>
         </table>
 
@@ -100,7 +101,7 @@
                 <div class="tr-det">
                     <h2 id="info_nama_lomba"></h2>
                     <strong><i class="fa-solid fa-hashtag"></i>
-                        <p id="id"></p>
+                        <span id="id"></span>
                     </strong>
                 </div>
                 <div class="banner-container">
@@ -120,7 +121,7 @@
                         </strong>
                     </li>
                     <li><strong>Pendaftaran:</strong> <span id="info_tanggal_pendaftaran"></span></li>
-                    <li><strong>Penutupan:</strong> <span id="info_tanggal_penutupan"></span></li>
+                    <li><strong>Penutupan:</strong> <span id="info_tanggal_penutupan_pendaftaran"></span></li>
                     <li><strong>Pelaksanaan:</strong> <span id="info_tanggal_pelaksanaan"></span></li>
                 </ul>
             </div>
@@ -157,19 +158,15 @@
                     <input type="date" name="tanggal_pelaksanaan" id="event_date" required>
 
                     <label for="penyelenggara_id">Pilih Penyelenggara:</label>
-                    @if (count($events) > 0)
-                        <select name="penyelenggara_id" id="penyelenggara_id" class="form-control" required>
-                            <option value="">Pilih Penyelenggara</option>
-                            @foreach ($events as $event)
-                                <option value="{{ $event->penyelenggara->id }}">
-                                    {{ $event->penyelenggara->nama_penyelenggara }}
-                                </option>
-                            @endforeach
-                        </select>
-                    @else
-                        <p><i class="fa-solid fa-exclamation"></i> Tidak ada data Events yang tersedia.</p>
-                    @endif
-
+                    <select name="penyelenggara_id" id="penyelenggara_id" class="form-control">
+                        <option value="">Pilih Penyelenggara</option>
+                        @foreach ($penyelenggaras as $penyelenggara)
+                            <option value="{{ $penyelenggara->id }}"
+                                {{ old('penyelenggara_id') == $penyelenggara->id || (isset($event) && $event->penyelenggara_id == $penyelenggara->id) ? 'selected' : '' }}>
+                                {{ $penyelenggara->nama_penyelenggara }}
+                            </option>
+                        @endforeach
+                    </select>
                     <div class="CC">
                         <button type="submit">Add</button>
                         <button type="button" id="closeButton">Close</button>
@@ -211,8 +208,8 @@
                     <input type="date" name="tanggal_pelaksanaan" id="tanggal_pelaksanaan"required>
 
                     <label for="penyelenggara_id">Pilih Penyelenggara:</label>
-                    <select name="penyelenggara_id" id="penyelenggara_id" class="form-control">
-                        <option></option>
+                    <select id="penyelenggara_id">
+                        <option value="">Pilih Penyelenggara</option>
                     </select>
 
                     <div class="CC">
@@ -227,120 +224,23 @@
         <div id="deleteModal" class="modal">
             <div class="modal-content">
                 <h2>Delete</h2>
-                <form action="/dashboard/events/destroy" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <label for="del_id">Yakin untuk hapus data?</label>
-                    <input type="text" id="del_id" name="del_id">
-                    {{-- <input type="text" id="nama_lomba" name="nama_lomba"> --}}
-                    <div class="CC">
-                        <button type="submit">Confirm</button>
-                        <button type="button" id="closeButton">Tutup</button>
-                    </div>
-                </form>
+                <div class="message">Confirm untuk hapus data!</div>
+                <div class="tr-det">
+                    <h2 id="del_nama_lomba"></h2>
+                    <strong><i class="fa-solid fa-hashtag"></i>
+                        <span id="del_id"></span>
+                    </strong>
+                </div>
+                <div class="CC">
+                    <button type="submit" id="confirmButton">Confirm</button>
+                    <button type="button" id="closeButton">Tutup</button>
+                </div>
             </div>
         </div>
 
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script>
-        function openModal() {
-            $('#editModal').fadeIn();
-        }
-
-        function openDelModal() {
-            $('#deleteModal').fadeIn();
-        }
-
-        function closeModal() {
-            $('#editModal').fadeOut();
-        }
-
-        function openInfoModal(id) {
-            $('#infoModal').fadeIn();
-            console.log('Opening modal for event ID:', id);
-
-            $(document).on('click', outsideModalClick);
-        }
-
-        function outsideModalClick(e) {
-            if (!$(e.target).closest('.tr-modal-content').length) {
-                closeInfoModal();
-            }
-        }
-
-        function closeInfoModal() {
-            $('#infoModal').fadeOut();
-            clearConsole();
-            $(document).off('click', outsideModalClick);
-        }
-
-        function clearConsole() {
-            if (window.console && window.console.clear) {
-                console.clear();
-            }
-        }
-
-        $(document).ready(function() {
-            $(document).on('click', '.deletebtn', function() {
-                var id = $(this).val();
-                openDelModal();
-
-                $('#del_id').val(id);
-                // $('#nama_lomba').val(nama_lomba);
-            });
-
-            $(document).on('click', '.editbtn', function() {
-                var id = $(this).val();
-                openModal();
-
-                $.ajax({
-                    type: 'GET',
-                    url: '/dashboard/events/edit/' + id,
-                    success: function(response) {
-                        console.log('Response from server:', response);
-                        $('#id').val(response.event.id);
-                        $('#nama_lomba').val(response.event.nama_lomba);
-                        $('#deskripsi').val(response.event.deskripsi);
-                        $('#tempat').val(response.event.tempat);
-                        $('#kuota').val(response.event.kuota);
-                        $('#tanggal_pendaftaran').val(response.event.tanggal_pendaftaran);
-                        $('#tanggal_penutupan_pendaftaran').val(response.event
-                            .tanggal_penutupan_pendaftaran);
-                        $('#tanggal_pelaksanaan').val(response.event.tanggal_pelaksanaan);
-                        $('#penyelenggara_id').val(response.event.penyelenggara_id);
-                    }
-                });
-            });
-            $(document).on('click', '.openInfoModalBtn', function() {
-                var id = $(this).data('event-id');
-                openInfoModal(id);
-
-                $.ajax({
-                    type: 'GET',
-                    url: '/dashboard/events/show/' + id,
-                    success: function(response) {
-                        console.log('Response from server:', response);
-                        $('#id').html(response.event.id);
-                        $('#info_nama_lomba').html(response.event.nama_lomba);
-                        $('#info_deskripsi').html(response.event.deskripsi);
-                        $('#info_tempat').html(response.event.tempat);
-                        $('#info_kuota').html(response.event.kuota);
-                        $('#info_tanggal_pendaftaran').html(response.event
-                            .tanggal_pendaftaran);
-                        $('#info_tanggal_penutupan_pendaftaran').html(response.event
-                            .tanggal_penutupan_pendaftaran);
-                        $('#info_tanggal_pelaksanaan').html(response.event
-                            .tanggal_pelaksanaan);
-                        $('#info_penyelenggara_id').html(response.event
-                            .penyelenggara_id);
-                    }
-                });
-            });
-
-        });
-    </script>
-
     <script src="{{ asset('assets/js/modal.js') }}"></script>
+    <script src="{{ asset('assets/js/modal/eventModal.js') }}"></script>
 @endsection

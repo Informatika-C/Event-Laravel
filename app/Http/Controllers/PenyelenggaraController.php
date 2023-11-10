@@ -11,14 +11,13 @@ class PenyelenggaraController extends Controller
     public function index()
     {
         $penyelenggaras = Penyelenggara::all();
-
+        // return response()->json(['penyelenggaras' => $penyelenggaras]);
         return View::make('dashboard.penyelenggara', ['penyelenggaras' => $penyelenggaras]);
     }
 
     public function create()
     {
-        $penyelenggaras = Penyelenggara::all();
-        return view('dashboard.penyelenggara', ['penyelenggaras' => $penyelenggaras]);
+        return View::make('dashboard.penyelenggara');
     }
 
     public function store(Request $request)
@@ -54,8 +53,6 @@ class PenyelenggaraController extends Controller
     public function update(Request $request)
     {
         try {
-
-
             $id = $request->input('id');
             $penyelenggara = Penyelenggara::find($id);
             $penyelenggara->nama_penyelenggara = $request->input('nama_penyelenggara');
@@ -80,19 +77,16 @@ class PenyelenggaraController extends Controller
         return response()->json(['penyelenggara' => $penyelenggara], 200);
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
         try {
-            $id = $request->input('del_id');
-            $penyelenggara = Penyelenggara::find($id);
-            $penyelenggara->nama_lomba = $request->input('nama_penyelenggara');
-            $penyelenggara->no_telp = $request->input('no_telp');
-
+            $penyelenggara = Penyelenggara::findOrFail($id);
             $penyelenggara->delete();
+            info('penyelenggara found: ' . json_encode($penyelenggara));
 
-            return redirect('/dashboard/penyelenggara')->with('success', 'Data penyelenggara berhasil dihapus.');
+            return response()->json(['penyelenggara' => $penyelenggara], 200);
         } catch (\Exception) {
-            return redirect('/dashboard/penyelenggara')->with('error', 'Terjadi kesalahan saat menghapus penyelenggara.');
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
 }
