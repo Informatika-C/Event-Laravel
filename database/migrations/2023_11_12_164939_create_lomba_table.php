@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('event_id');
             $table->foreign('event_id')->references('id')->on('event_lomba')->onDelete('cascade');
-            $table->string('nama_lomba');
-            $table->text('keterangan');
-            $table->string('ruangan_lomba');
+            $table->char('nama_lomba');
+            $table->string('keterangan');
+            $table->char('ruangan_lomba');
             $table->integer('kuota_lomba');
             $table->dateTime('pelaksanaan_lomba');
             $table->timestamps();

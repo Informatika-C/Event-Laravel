@@ -15,8 +15,8 @@ class Lomba extends Model
 
     protected $fillable = ['event_id', 'nama_lomba', 'keterangan', 'ruangan_lomba', 'kuota_lomba', 'pelaksanaan_lomba'];
 
-    public function event(): HasOne
+    public function event()
     {
-        return $this->hasOne(EventLomba::class, "id", "penyelenggara_id");
+        return $this->belongsTo(EventLomba::class, 'event_id');
     }
 }

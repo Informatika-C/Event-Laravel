@@ -26,6 +26,6 @@ class EventLomba extends Model
 
     public function kategori(): HasMany
     {
-        return $this->hasMany(Lomba::class, 'event_id', 'id');
+        return $this->hasMany(Lomba::class, "id", "event_id");
     }
 }

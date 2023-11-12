@@ -19,7 +19,6 @@
                     <h2 class="alert alert-error">
                         {{ session('error') }}
                     </h2>
-
                 @elseif($errors->any())
                     <div class="alert alert-error ">
                         <ul>
@@ -87,7 +86,7 @@
                             @if ($event->penyelenggara_id == null)
                                 <td> - </td>
                             @else
-                            <td>{{ $event->penyelenggara->nama_penyelenggara }}</td>
+                                <td>{{ $event->penyelenggara->nama_penyelenggara }}</td>
                             @endif
                             <td class="action">
                                 <button class="editbtn" type="button" value="{{ $event->id }}">
@@ -96,6 +95,14 @@
                                 <button class="deletebtn" type="button" del-id="{{ $event->id }}">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
+                                <a class="lombabtn" href="{{ route('dashboard.lomba', ['event_id' => $event->id]) }}">
+                                    <i class="fa-solid fa-person-running"></i>
+                                </a>
+
+                                {{-- <button class="lombabtn" type="button"
+                                    onclick="window.location='{{ url('dashboard/lomba') }}'">
+                                    <i class="fa-solid fa-person-running"></i>
+                                </button> --}}
                             </td>
                         </tr>
                     @endforeach
