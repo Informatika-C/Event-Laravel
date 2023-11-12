@@ -55,8 +55,8 @@ class PenyelenggaraController extends Controller
         try {
             $id = $request->input('id');
             $penyelenggara = Penyelenggara::find($id);
-            $penyelenggara->nama_penyelenggara = $request->input('nama_penyelenggara');
-            $penyelenggara->no_telp = $request->input('no_telp');
+            $penyelenggara->nama_penyelenggara = $request->input('nama_penyelenggara') ?? $penyelenggara->nama_penyelenggara;
+            $penyelenggara->no_telp = $request->input('no_telp') ?? $penyelenggara->no_telp;
 
             $penyelenggara->update();
 
