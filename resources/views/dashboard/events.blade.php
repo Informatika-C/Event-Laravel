@@ -11,9 +11,16 @@
                     <h2 class="alert @if (session('status') == 'error') alert-error @else alert-success @endif">
                         {{ session('status') }}
                     </h2>
-                @endif
+                @elseif (session('success'))
+                    <h2 class="alert alert-success">
+                        {{ session('success') }}
+                    </h2>
+                @elseif(session('error'))
+                    <h2 class="alert alert-error">
+                        {{ session('error') }}
+                    </h2>
 
-                @if ($errors->any())
+                @elseif($errors->any())
                     <div class="alert alert-error ">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -77,7 +84,11 @@
                                     <i class="fa-solid fa-user-group">{{ $event->kuota }}</i>
                                 </span>
                             </td>
+                            @if ($event->penyelenggara_id == null)
+                                <td> - </td>
+                            @else
                             <td>{{ $event->penyelenggara->nama_penyelenggara }}</td>
+                            @endif
                             <td class="action">
                                 <button class="editbtn" type="button" value="{{ $event->id }}">
                                     <i class="fa-solid fa-pen-clip"></i>
@@ -184,6 +195,8 @@
                 <form id="editForm" action="/dashboard/events/update" method="POST">
                     @csrf
                     @method('PUT')
+
+                    <input type="hidden" name="id" id="id">
 
                     <label for="name">Nama Lomba:</label>
                     <input type="text" name="nama_lomba" id="nama_lomba" required>

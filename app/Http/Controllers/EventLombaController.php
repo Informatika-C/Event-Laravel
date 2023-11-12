@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\EventLomba;
 use App\Models\Penyelenggara;
-use Illuminate\Support\Facades\DB;
 
 class EventLombaController extends Controller
 {
@@ -29,10 +28,8 @@ class EventLombaController extends Controller
             'deskripsi' => 'required',
             'tempat' => 'required',
             'kuota' => 'required',
-            'penyelenggara_id' => 'required|exists:penyelenggara,id',
-        ], [
-            'penyelenggara_id.exists' => 'Pilih Penyelenggara yang valid.',
         ]);
+        $validatedData['penyelenggara_id'] = $request->penyelenggara_id;
         $validatedData['tanggal_pendaftaran'] = date("Y-m-d", strtotime($request->tanggal_pendaftaran));
         $validatedData['tanggal_penutupan_pendaftaran'] = date("Y-m-d", strtotime($request->tanggal_penutupan_pendaftaran));
         $validatedData['tanggal_pelaksanaan'] = date("Y-m-d", strtotime($request->tanggal_pelaksanaan));
@@ -60,14 +57,14 @@ class EventLombaController extends Controller
         try {
             $id = $request->input('id');
             $event = EventLomba::find($id);
-            $event->nama_lomba = $request->input('nama_lomba');
-            $event->deskripsi = $request->input('deskripsi');
-            $event->tempat = $request->input('tempat');
-            $event->kuota = $request->input('kuota');
-            $event->penyelenggara_id = $request->input('penyelenggara_id');
-            $event->tanggal_pendaftaran = date("Y-m-d", strtotime($request->tanggal_pendaftaran));
-            $event->tanggal_penutupan_pendaftaran = date("Y-m-d", strtotime($request->tanggal_penutupan_pendaftaran));
-            $event->tanggal_pelaksanaan = date("Y-m-d", strtotime($request->tanggal_pelaksanaan));
+            $event->nama_lomba = $request->input('nama_lomba') ?? $event->nama_lomba;
+            $event->deskripsi = $request->input('deskripsi') ?? $event->deskripsi;
+            $event->tempat = $request->input('tempat') ?? $event->tempat;
+            $event->kuota = $request->input('kuota') ?? $event->kuota;
+            $event->penyelenggara_id = $request->input('penyelenggara_id') ?? $event->penyelenggara_id;
+            $event->tanggal_pendaftaran = date("Y-m-d", strtotime($request->tanggal_pendaftaran)) ?? $event->tanggal_pendaftaran;
+            $event->tanggal_penutupan_pendaftaran = date("Y-m-d", strtotime($request->tanggal_penutupan_pendaftaran)) ?? $event->tanggal_penutupan_pendaftaran;
+            $event->tanggal_pelaksanaan = date("Y-m-d", strtotime($request->tanggal_pelaksanaan)) ?? $event->tanggal_pelaksanaan;
 
             $event->update();
 

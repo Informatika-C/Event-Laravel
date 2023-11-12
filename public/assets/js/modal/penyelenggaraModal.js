@@ -75,7 +75,9 @@ $(document).ready(function () {
                     $("#del_nama_penyelenggara").html(
                         response.penyelenggara.nama_penyelenggara
                     );
-
+                    
+                    // reload page
+                    location.reload();
                     closeDelModal();
                 },
             });
