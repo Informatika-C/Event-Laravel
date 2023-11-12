@@ -131,6 +131,8 @@
                     @csrf
                     @method('PUT')
 
+                    <input type="hidden" name="id" id="id">
+
                     <label for="nama_penyelenggara">Nama Penyelenggara:</label>
                     <input type="text" name="nama_penyelenggara" id="nama_penyelenggara" required>
 

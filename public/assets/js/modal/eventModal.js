@@ -41,6 +41,10 @@ function clearConsole() {
 
 $(document).ready(function () {
     $(document).on("click", ".deletebtn", function () {
+        // reset
+        $("#del_id").html("");
+        $("#del_nama_lomba").html("");
+
         var id = $(this).attr("del-id");
 
         openDelModal();
@@ -60,6 +64,7 @@ $(document).ready(function () {
             },
         });
         $("#confirmButton").on("click", function () {
+            console.log("Deleting event with ID:", id);
             $.ajax({
                 type: "DELETE",
                 url: "/dashboard/events/destroy/" + id,
@@ -70,6 +75,9 @@ $(document).ready(function () {
                     console.log("Response from server:", response);
                     $("#del_id").html(response.event.id);
                     $("#del_nama_lomba").html(response.event.nama_lomba);
+
+                    // reload page
+                    location.reload();
 
                     closeDelModal();
                 },
@@ -105,8 +113,19 @@ $(document).ready(function () {
                     response.event.tanggal_pelaksanaan
                 );
 
-                var penyelenggaraDropdown =
-                    document.getElementById("penyelenggara_id");
+                // get this modal element
+                var modal = document.getElementById("editModal");
+                console.log("Modal:", modal);
+
+                // get penyelenggara_id element from this modal
+                var penyelenggaraDropdown = modal.querySelector(
+                    "#penyelenggara_id"
+                );
+
+                var id = modal.querySelector("#id");
+
+                id.value = response.event.id;
+
                 if (!penyelenggaraDropdown) {
                     console.error(
                         "Element with ID 'penyelenggara_id' not found."
