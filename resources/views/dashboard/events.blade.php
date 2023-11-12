@@ -221,7 +221,7 @@
                     <input type="date" name="tanggal_pelaksanaan" id="tanggal_pelaksanaan"required>
 
                     <label for="penyelenggara_id">Pilih Penyelenggara:</label>
-                    <select id="penyelenggara_id">
+                    <select id="penyelenggara_id" name="penyelenggara_id">
                         <option value="">Pilih Penyelenggara</option>
                     </select>
 

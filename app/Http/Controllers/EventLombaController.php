@@ -65,6 +65,7 @@ class EventLombaController extends Controller
             $event->tanggal_pendaftaran = date("Y-m-d", strtotime($request->tanggal_pendaftaran)) ?? $event->tanggal_pendaftaran;
             $event->tanggal_penutupan_pendaftaran = date("Y-m-d", strtotime($request->tanggal_penutupan_pendaftaran)) ?? $event->tanggal_penutupan_pendaftaran;
             $event->tanggal_pelaksanaan = date("Y-m-d", strtotime($request->tanggal_pelaksanaan)) ?? $event->tanggal_pelaksanaan;
+            $event->penyelenggara_id = $request->input('penyelenggara_id') ?? $event->penyelenggara_id;
 
             $event->update();
 
