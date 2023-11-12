@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class EventLomba extends Model
 {
@@ -21,5 +22,10 @@ class EventLomba extends Model
     public function penyelenggara(): HasOne
     {
         return $this->hasOne(Penyelenggara::class, "id", "penyelenggara_id");
+    }
+
+    public function kategori(): HasMany
+    {
+        return $this->hasMany(Lomba::class, 'event_id', 'id');
     }
 }
