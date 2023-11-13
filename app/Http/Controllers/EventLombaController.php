@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\EventLomba;
 use App\Models\Penyelenggara;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class EventLombaController extends Controller
 {
@@ -103,5 +105,35 @@ class EventLombaController extends Controller
         } catch (\Exception) {
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
+    }
+
+    public function uploadImage(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'poster' => 'image|mimes:jpeg,jpg|max:2048',
+            'banner' => 'image|mimes:jpeg,jpg|max:2048',
+        ]);
+
+        $id = $request->input('id');
+
+        $poster = $request->file('poster');
+        if($poster != null) $posterExt = $poster->getClientOriginalExtension();
+
+        $banner = $request->file('banner');
+        if($banner != null) $bannerExt = $banner->getClientOriginalExtension();
+
+        // delete old image
+        if($poster != null) Storage::deleteDirectory('public/poster/'. $id);
+        if($banner != null) Storage::deleteDirectory('public/banner/'. $id);
+
+        if($poster != null){
+            Storage::putFileAs('public/poster/'. $id, $poster, 'poster_'.$id.'.'.$posterExt);
+        }
+        if($banner != null){
+            Storage::putFileAs('public/banner/'. $id, $banner, 'banner_'.$id.'.'.$bannerExt);
+        }
+
+        return redirect()->back()->with('success', 'Image uploaded successfully.');
     }
 }
