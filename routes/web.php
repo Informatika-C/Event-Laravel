@@ -41,6 +41,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/dashboard/events/show/{id}', [EventLombaController::class, 'show']);
     Route::delete('/dashboard/events/destroy/{id}', [EventLombaController::class, 'destroy']);
 
+    Route::put('/dashboard/events/upload-image', [EventLombaController::class, 'uploadImage'])->name('dashboard.events.uploadImage');
+
 
     Route::get('/dashboard/penyelenggara', [PenyelenggaraController::class, 'index'])->name('dashboard.penyelenggara');
     Route::post('/dashboard/penyelenggara', [PenyelenggaraController::class, 'store'])->name('dashboard.penyelenggara.store');

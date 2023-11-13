@@ -165,6 +165,90 @@ $(document).ready(function () {
         });
     });
 
+    $(document).on("click", ".upImagebtn", function () {
+        var modal = $("#upImageModal");
+        modal.fadeIn();
+
+        var id = $(this).val();
+        modal.find("#id").val(id);
+
+        // get banner and poster input from this modal
+        var bannerInput = modal.find("#banner");
+        var posterInput = modal.find("#poster");
+
+        // reset input
+        bannerInput.val("");
+        posterInput.val("");
+
+        var bannerContainer = document.getElementById("banner-container");
+        bannerContainer.style.display = "none";
+
+        var posterContainer = document.getElementById("poster-container");
+        posterContainer.style.display = "none";
+
+        getImage(id, bannerContainer, posterContainer);
+    });
+
+    function getImage(id, bannerContainer, posterContainer){
+        $.ajax({
+            type: "GET",
+            url: "/storage/banner/" + id + "/banner_" + id + ".jpg",
+            success: function (response) {
+                bannerContainer.style.display = "block";
+                bannerContainer.src = "/storage/banner/" + id + "/banner_" + id + ".jpg";
+                bannerContainer.alt = "Banner Lomba";
+                bannerContainer.style.width = "10em";
+            },
+            error: function (error) {
+                $.ajax({
+                    type: "GET",
+                    url: "/storage/banner/" + id + "/banner_" + id + ".jpeg",
+                    success: function (response) {
+                        bannerContainer.style.display = "block";
+                        bannerContainer.src = "/storage/banner/" + id + "/banner_" + id + ".jpeg";
+                        bannerContainer.alt = "Banner Lomba";
+                        bannerContainer.style.width = "10em";
+                    },
+                    error: function (error) {
+                        bannerContainer.style.display = "block";
+                        bannerContainer.src = "/assets/images/blank.jpg";
+                        bannerContainer.alt = "Blank Image";
+                        bannerContainer.style.width = "10em";
+                    },
+                });
+            },
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "/storage/poster/" + id + "/poster_" + id + ".jpg",
+            success: function (response) {
+                posterContainer.style.display = "block";
+                posterContainer.src = "/storage/poster/" + id + "/poster_" + id + ".jpg";
+                posterContainer.alt = "Poster Lomba";
+                posterContainer.style.width = "10em";
+            },
+            error: function (error) {
+                $.ajax({
+                    type: "GET",
+                    url: "/storage/poster/" + id + "/poster_" + id + ".jpeg",
+                    success: function (response) {
+                        posterContainer.style.display = "block";
+                        posterContainer.src = "/storage/poster/" + id + "/poster_" + id + ".jpeg";
+                        posterContainer.alt = "Poster Lomba";
+                        posterContainer.style.width = "10em";
+                    },
+                    error: function (error) {
+                        posterContainer.style.display = "block";
+                        posterContainer.src = "/assets/images/blank.jpg";
+                        posterContainer.alt = "Blank Image";
+                        posterContainer.style.width = "10em";
+                    },
+                });
+            },
+        });
+    }
+
     $(document).on("click", ".openInfoModalBtn", function () {
         var id = $(this).data("event-id");
         openInfoModal(id);
