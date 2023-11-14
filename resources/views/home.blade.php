@@ -30,14 +30,17 @@
                     <br />Indonesia
                 </div>
             </div>
-            <div class="icon-container" data-aos="fade-right" data-aos-offset="300" data-aos-delay="200" data-aos-duration="1000">
+            <div class="icon-container" data-aos="fade-right" data-aos-offset="300" data-aos-delay="200"
+                data-aos-duration="1000">
                 <i onclick="window.location.href='https://github.com/'" class="fa-brands fa-twitter"></i>
-                <i onclick="window.location.href='https://github.com/Informatika-C/Event-Laravel'" class="fa-brands fa-github" title="Source"></i>
+                <i onclick="window.location.href='https://github.com/Informatika-C/Event-Laravel'"
+                    class="fa-brands fa-github" title="Source"></i>
                 <i onclick="window.location.href='https://github.com/'" class="fa-brands fa-instagram"></i>
             </div>
         </div>
 
-        <svg class="svg-filters" width="0" height="0" viewBox="0 0 0 0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <svg class="svg-filters" width="0" height="0" viewBox="0 0 0 0" xmlns="http://www.w3.org/2000/svg"
+            version="1.1">
             <defs>
                 <filter id="stroke">
                     <feMorphology in="SourceGraphic" operator="erode" radius="1" result="erode" />
@@ -130,41 +133,47 @@
                     <div class="bottom">
                         <h3 data-aos="fade-right" data-aos-delay="400" data-aos-duration="1200">© 2023 CONST - All
                             Rights Reserved.</h3>
-                        <button onclick="window.location.href='./page/events.html'" data-aos="zoom-in" data-aos-delay="800" data-aos-duration="2000">Selengkapnya</button>
+                        <button onclick="window.location.href='./page/events.html'" data-aos="zoom-in"
+                            data-aos-delay="800" data-aos-duration="2000">Selengkapnya</button>
                     </div>
                 </div>
             </section>
 
             <!-- Events section -->
 
-            <section class="grid-card">
+            <section class="grid-card" data-aos="fade-left" data-aos-delay="700" data-aos-duration="2000">
                 @isset($events)
-                    @foreach($events as $event)
-                        <div class="card-container" data-aos="zoom-in-left" data-aos-delay="700" data-aos-duration="2000">
-                            <div class="card">
-                                <div class="fornt"><img class="img-card" src="{{ asset('storage/banner/'. $event->id . "/" . $event->banner) }}" /></div>
-                                <div class="back"></div>
-                                <div class="infomation">
-                                    <img src="{{ asset('storage/poster/'. $event->id . "/" . $event->poster) }}" class="profile_image" />
-                                    <div class="names">
-                                        <div class="user_name">{{ $event->nama_lomba }}</div>
-                                        <div class="user_name">{{ $event->penyelenggara->nama_penyelenggara }} </div>
+                    @foreach ($events as $event)
+                        <a href="{{ route('home.lombapgs', ['event_id' => $event->id]) }}" class="card-link">
+                            <div class="card-container">
+                                <div class="card">
+                                    <div class="fornt"><img class="img-card"
+                                            src="{{ asset('storage/banner/' . $event->id . '/' . $event->banner) }}" />
                                     </div>
-                                </div>
-
-                                <div class="li_co_vi">
-                                    <div class="like bg">
-                                        <i class="fa-solid fa-file-pen"></i>
-                                        <div class="num">0</div>
+                                    <div class="back"></div>
+                                    <div class="infomation">
+                                        <img src="{{ asset('storage/poster/' . $event->id . '/' . $event->poster) }}"
+                                            class="profile_image" />
+                                        <div class="names">
+                                            <div class="project_name">{{ $event->nama_lomba }}</div>
+                                            <div class="user_name">{{ $event->penyelenggara->nama_penyelenggara }} </div>
+                                        </div>
                                     </div>
 
-                                    <div class="view bg">
-                                        <i class="fa-solid fa-user-check"></i>
-                                        <div class="num">0</div>
+                                    <div class="li_co_vi">
+                                        <div class="view bg" title="Quota">
+                                            <i class="fa-solid fa-user-lock"></i>
+                                            <div class="num">{{ $event->kuota }}</div>
+                                        </div>
+
+                                        <div class="coment bg" title="Location">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                            <div class="num">{{ $event->tempat }}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
                 @endisset
             </section>
@@ -246,17 +255,20 @@
                     <li><a href="#events" title="Events">Events</a></li>
                     <li><a href="#contact" title="Contacts">Contacts</a></li>
                     <li class="route-btm">
-                        @if(Auth::guard('admin')->check())
-                        <h4>{{ auth()->guard('admin')->user()->name }}</h4>
-                        <div class=" route-icons-btm">
-                            <a href="{{route('dashboard')}}"><i class="fa-solid fa-laptop-code" title="Dashboard"></i></a>
-                            <a href="{{route('logout')}}"><i class="fa-solid fa-door-open" title="LogOut"></i></a>
-                        </div>
+                        @if (Auth::guard('admin')->check())
+                            <h4>{{ auth()->guard('admin')->user()->name }}</h4>
+                            <div class=" route-icons-btm">
+                                <a href="{{ route('dashboard') }}"><i class="fa-solid fa-laptop-code"
+                                        title="Dashboard"></i></a>
+                                <a href="{{ route('logout') }}"><i class="fa-solid fa-door-open"
+                                        title="LogOut"></i></a>
+                            </div>
                         @elseif(Auth::check())
-                        {{-- <h4>{{ auth()->user()->name }}</h4> --}}
-                        <a class="log" href="{{route('logout')}}" onclick="resetSeenNotification()" title="LogOut">LogOut</a>
+                            {{-- <h4>{{ auth()->user()->name }}</h4> --}}
+                            <a class="log" href="{{ route('logout') }}" onclick="resetSeenNotification()"
+                                title="LogOut">LogOut</a>
                         @else
-                        <a class="log" href="{{route('login')}}" title="LogIn">LogIn</a>
+                            <a class="log" href="{{ route('login') }}" title="LogIn">LogIn</a>
                         @endif
                     </li>
                 </ul>
@@ -270,6 +282,7 @@
     <footer>
         <p class="copyright">&copy; 2023 Const. All Rights Reserved.</p>
     </footer>
+
 </body>
 
 </html>

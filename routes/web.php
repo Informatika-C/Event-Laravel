@@ -23,8 +23,9 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])
-    ->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/home/lombapgs/id/{event_id}', [HomeController::class, 'detailLomba'])->name('home.lombapgs');
 
 Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/dashboard', function () {
