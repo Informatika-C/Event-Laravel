@@ -38,7 +38,6 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/dashboard/events/edit/{id}', [EventLombaController::class, 'edit']);
     Route::get('/dashboard/events/show/{id}', [EventLombaController::class, 'show']);
     Route::delete('/dashboard/events/destroy/{id}', [EventLombaController::class, 'destroy']);
-
     Route::put('/dashboard/events/upload-image', [EventLombaController::class, 'uploadImage'])->name('dashboard.events.uploadImage');
 
 
@@ -58,6 +57,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/dashboard/lomba/edit/{id}', [LombaController::class, 'edit']);
     Route::get('/dashboard/lomba/show/{id}', [LombaController::class, 'show']);
     Route::delete('/dashboard/lomba/destroy/{id}', [LombaController::class, 'destroy']);
+    Route::put('/dashboard/lomba/upload-image', [LombaController::class, 'uploadImage'])->name('dashboard.lomba.uploadImage');
 
 
     Route::get('/dashboard/contestant', [ContestantController::class, 'index'])->name('dashboard.contestant');
