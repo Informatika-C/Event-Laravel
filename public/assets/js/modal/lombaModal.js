@@ -41,7 +41,11 @@ function clearConsole() {
 
 $(document).ready(function () {
     $(document).on("click", ".deletebtn", function () {
-        var id = $(this).data("lomba-id");
+        let id = $(this).data("lomba-id");
+        // reset
+        $("#del_id").html("");
+        $("#del_nama_lomba").html("");
+
         openDelModal();
 
         $.ajax({
@@ -53,22 +57,15 @@ $(document).ready(function () {
             success: function (response) {
                 console.log("Response from server:", response);
 
-                $("#id").val(response.lomba.id);
-                $("#nama_lomba").val(response.lomba.nama_lomba);
-                $("#keterangan").val(response.lomba.keterangan);
-                $("#ruangan_lomba").val(response.lomba.ruangan_lomba);
-                $("#kuota_lomba").val(response.lomba.kuota_lomba);
-
-                var formattedDate = new Date(response.lomba.pelaksanaan_lomba)
-                    .toISOString()
-                    .slice(0, 16);
-                $("#pelaksanaan_lomba").val(formattedDate);
+                $("#del_id").html(response.lomba.id);
+                $("#del_nama_lomba").html(response.lomba.nama_lomba);
 
                 closeDelModal();
             },
         });
 
         $("#confirmButton").on("click", function () {
+            console.log("Deleting event with ID:", id);
             $.ajax({
                 type: "DELETE",
                 url: "/dashboard/lomba/destroy/" + id,
@@ -76,23 +73,12 @@ $(document).ready(function () {
                     _token: "{{ csrf_token() }}",
                 },
                 success: function (response) {
-                    console.log("Response from server:", response);
+                    $("#del_id").html(response.lomba.id);
+                    $("#del_nama_lomba").html(response.lomba.nama_lomba);
 
-                    // Sesuaikan dengan nama input pada form edit Lomba
-                    $("#id").val(response.lomba.id);
-                    $("#nama_lomba").val(response.lomba.nama_lomba);
-                    $("#keterangan").val(response.lomba.keterangan);
-                    $("#ruangan_lomba").val(response.lomba.ruangan_lomba);
-                    $("#kuota_lomba").val(response.lomba.kuota_lomba);
-
-                    var formattedDate = new Date(
-                        response.lomba.pelaksanaan_lomba
-                    )
-                        .toISOString()
-                        .slice(0, 16);
-                    $("#pelaksanaan_lomba").val(formattedDate);
-
+                    // reload page
                     location.reload();
+
                     closeDelModal();
                 },
             });
@@ -101,8 +87,16 @@ $(document).ready(function () {
         });
     });
     $(document).on("click", ".editbtn", function () {
-        var id = $(this).val();
+        let id = $(this).data("lomba-id");
         openModal();
+
+        // get modal
+        let modal = $("#editModal");
+        console.log(modal);
+
+        // get #id from modal
+        let idModal = modal.find("#id");
+        console.log(idModal);
 
         $.ajax({
             type: "GET",
@@ -110,16 +104,15 @@ $(document).ready(function () {
             success: function (response) {
                 console.log("Response from server:", response);
 
-                $("#id").val(response.lomba.id);
+                idModal.val(response.lomba.id);
+                console.log(idModal.val());
                 $("#nama_lomba").val(response.lomba.nama_lomba);
-                $("#keterangan").val(response.lomba.keterangan_lomba);
+                $("#keterangan").val(response.lomba.keterangan);
                 $("#ruangan_lomba").val(response.lomba.ruangan_lomba);
                 $("#kuota_lomba").val(response.lomba.kuota_lomba);
 
-                var formattedDate = new Date(response.lomba.pelaksanaan_lomba)
-                    .toISOString()
-                    .slice(0, 16);
-                $("#pelaksanaan_lomba").val(formattedDate);
+                const convertedDateTimeString = response.lomba.pelaksanaan_lomba.replace(" ", "T");
+                $("#pelaksanaan_lomba").val(convertedDateTimeString);
             },
         });
     });

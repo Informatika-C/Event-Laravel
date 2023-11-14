@@ -36,7 +36,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
 
     Route::get('/dashboard/events', [EventLombaController::class, 'index'])->name('dashboard.events');
     Route::post('/dashboard/events', [EventLombaController::class, 'store'])->name('dashboard.events.store');
-    Route::get('/dashboard/events/create', [EventsController::class, 'create'])->name('dashboard.events.create');
+    Route::get('/dashboard/events/create', [EventLombaController::class, 'create'])->name('dashboard.events.create');
     Route::put('/dashboard/events/update', [EventLombaController::class, 'update']);
     Route::get('/dashboard/events/edit/{id}', [EventLombaController::class, 'edit']);
     Route::get('/dashboard/events/show/{id}', [EventLombaController::class, 'show']);
@@ -54,7 +54,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::delete('/dashboard/penyelenggara/destroy/{id}', [PenyelenggaraController::class, 'destroy']);
 
 
-    Route::get('/dashboard/lomba/{event_id}', [LombaController::class, 'index'])->name('dashboard.lomba');
+    Route::get('/dashboard/lomba/id/{event_id}', [LombaController::class, 'index'])->name('dashboard.lomba');
     Route::post('/dashboard/lomba/store', [LombaController::class, 'store'])->name('dashboard.lomba.store');
     Route::get('/dashboard/lomba/create/{event_id?}', [LombaController::class, 'create'])->name('dashboard.lomba.create');
     Route::put('/dashboard/lomba/update', [LombaController::class, 'update']);

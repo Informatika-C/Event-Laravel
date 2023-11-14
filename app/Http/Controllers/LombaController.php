@@ -62,11 +62,11 @@ class LombaController extends Controller
         try {
             $id = $request->input('id');
             $lomba = Lomba::findOrFail($id);
-            $lomba->nama_lomba = $request->input('nama_lomba');
-            $lomba->keterangan = $request->input('keterangan');
-            $lomba->ruangan_lomba = $request->input('ruangan_lomba');
-            $lomba->kuota_lomba = $request->input('kuota_lomba');
-            $lomba->pelaksanaan_lomba = $request->input('pelaksanaan_lomba');
+            $lomba->nama_lomba = $request->input('nama_lomba') ?? $lomba->nama_lomba;
+            $lomba->keterangan = $request->input('keterangan') ?? $lomba->keterangan;
+            $lomba->ruangan_lomba = $request->input('ruangan_lomba') ?? $lomba->ruangan_lomba;
+            $lomba->kuota_lomba = $request->input('kuota_lomba') ?? $lomba->kuota_lomba;
+            $lomba->pelaksanaan_lomba = $request->input('pelaksanaan_lomba') ?? $lomba->pelaksanaan_lomba;
 
             $lomba->update();
 

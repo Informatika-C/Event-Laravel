@@ -62,10 +62,10 @@
                             </td>
                             <td>{{ \Carbon\Carbon::parse($lomba->pelaksanaan_lomba)->format('l, j F Y') }}</td>
                             <td class="action">
-                                <button class="editbtn" type="button" title="Edit"data-lomba-id="{{ $lomba->id }}">
+                                <button class="editbtn" type="button" title="Edit" data-lomba-id="{{ $lomba->id }}">
                                     <i class="fa-solid fa-pen-clip"></i>
                                 </button>
-                                <button class="deletebtn" type="button"title="Delete" del-id="{{ $lomba->id }}">
+                                <button class="deletebtn" type="button"title="Delete" data-lomba-id="{{ $lomba->id }}">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                                 {{-- <a href="{{ route('dashboard.lomba.edit', ['lomba_id' => $lomba->id]) }}"
@@ -177,7 +177,7 @@
                     <input type="number" name="kuota_lomba" id="kuota_lomba" required>
 
                     <label for="pelaksanaan_lomba">Pelaksanaan Lomba:</label>
-                    <input type="datetime-local" id="pelaksanaan_lomba" required>
+                    <input type="datetime-local" id="pelaksanaan_lomba" name="pelaksanaan_lomba" required>
 
                     <div class="CC">
                         <button type="submit">Confirm</button>
