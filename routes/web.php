@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventLombaController;
 use App\Http\Controllers\LombaController;
 use App\Http\Controllers\PenyelenggaraController;
+use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 /*

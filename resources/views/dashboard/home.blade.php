@@ -1,36 +1,35 @@
 @extends('dashboard')
 
 @section('content')
-<div class="popup-box">
-    <div class="popup">
-        <div class="content">
-            <header>
-                <p></p>
-                <i class="fa-solid fa-xmark"></i>
-            </header>
-            <form action="#">
-                <div class="row title">
-                    <label>Title</label>
-                    <input type="text" spellcheck="false" />
-                </div>
-                <div class="row description">
-                    <label>Description</label>
-                    <textarea spellcheck="false"></textarea>
-                </div>
-                <button></button>
-            </form>
+    <div class="popup-box">
+        <div class="popup">
+            <div class="content">
+                <header>
+                    <p></p>
+                    <i class="fa-solid fa-xmark"></i>
+                </header>
+                <form action="#">
+                    <div class="row title">
+                        <label>Title</label>
+                        <input type="text" spellcheck="false" />
+                    </div>
+                    <div class="row description">
+                        <label>Description</label>
+                        <textarea spellcheck="false"></textarea>
+                    </div>
+                    <button></button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<div class="wrapper">
-    <li class="add-box">
-        <div class="icon"><i class="fa-solid fa-plus"></i></div>
-        <p>Add new note</p>
-    </li>
-</div>
+    <div class="wrapper">
+        <li class="add-box">
+            <div class="icon"><i class="fa-solid fa-plus"></i></div>
+            <p>Add new note</p>
+        </li>
+    </div>
 
 
-<main>
     <div class="dashboard-container">
         <div class="card total">
             <div class="info">
@@ -200,5 +199,4 @@
             </div>
         </div>
     </div>
-</main>
 @endsection

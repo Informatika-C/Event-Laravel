@@ -5,6 +5,7 @@
     <p>Welcome to the Lomba.</p>
     <div class="card detail">
         <div class="detail-header">
+
             <div id="alert-container">
                 <h2>All</h2>
                 @if (session('status'))
@@ -82,9 +83,12 @@
                                 </span>
                             </td>
                             <td>{{ $lomba->pelaksanaan_lomba }}</td>
-                            <td>
-                                <button class="editbtn" type="button" data-lomba-id="{{ $lomba->id }}">
+                            <td class="action">
+                                <button class="editbtn" type="button" title="Edit"data-lomba-id="{{ $lomba->id }}">
                                     <i class="fa-solid fa-pen-clip"></i>
+                                </button>
+                                <button class="deletebtn" type="button"title="Delete" del-id="{{ $lomba->id }}">
+                                    <i class="fa-solid fa-trash"></i>
                                 </button>
                                 {{-- <a href="{{ route('dashboard.lomba.edit', ['lomba_id' => $lomba->id]) }}"
                                     class="btn btn-warning">Edit</a> --}}
@@ -100,7 +104,7 @@
                 </tbody>
             </table>
         @else
-            <p>Tidak ada Lomba.</p>
+            <p>Tidak ada Lomba, Mulai Tambahkan lomba</p>
         @endif
 
         <div id="infoModal" class="tr-modal">
