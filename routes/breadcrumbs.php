@@ -16,6 +16,10 @@ Breadcrumbs::for('dashboard.contestant', function ($trail) {
     $trail->parent('dashboard');
     $trail->push('Contestant', route('dashboard.contestant'));
 });
+Breadcrumbs::for('dashboard.contestant.all', function ($trail) {
+    $trail->parent('dashboard.contestant');
+    $trail->push('All', route('dashboard.contestant.all'));
+});
 Breadcrumbs::for('dashboard.penyelenggara', function ($trail) {
     $trail->parent('dashboard');
     $trail->push('Penyelenggara', route('dashboard.penyelenggara'));

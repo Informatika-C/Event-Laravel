@@ -28,5 +28,15 @@ class UserSeeder extends Seeder
             'npm' => '1234567891',
             'phone' => '081234567891'
         ]);
+
+        for ($i = 3; $i <= 20; $i++) {
+            User::create([
+                'name' => "User{$i}",
+                'email' => "user{$i}@gmail.com",
+                'password' => bcrypt('password'),
+                'npm' => '123456789' . $i,
+                'phone' => '08123456789' . $i
+            ]);
+        }
     }
 }

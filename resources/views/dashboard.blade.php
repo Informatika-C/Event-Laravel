@@ -42,32 +42,26 @@
                         </span>
                     </a>
                 </li>
-
-
-                {{-- <li class="{{ Route::currentRouteName() == 'dashboard.events' ? 'active' : '' }}">
-                    <a href="{{ route('dashboard.events') }}">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <span class="link-name">Events</span>
-                    </a>
-                </li> --}}
                 <li class="{{ Route::currentRouteName() == 'dashboard.penyelenggara' ? 'active' : '' }}">
                     <a href="{{ route('dashboard.penyelenggara') }}">
                         <i class="fa-solid fa-people-group"></i>
                         <span class="link-name">Autors</span>
                     </a>
                 </li>
-                <li class="{{ Route::currentRouteName() == 'dashboard.contestant' ? 'active' : '' }}">
+                <li
+                    class="{{ Route::currentRouteName() == 'dashboard.contestant' || Route::currentRouteName() == 'dashboard.contestant.all' ? 'active' : '' }}">
                     <a href="{{ route('dashboard.contestant') }}">
-                        <i class="fa-solid fa-users"></i>
-                        <span class="link-name">Contestants</span>
+                        <i
+                            class="fa-solid {{ Route::currentRouteName() == 'dashboard.contestant.all' ? 'fa-circle-chevron-left' : 'fa-pen-to-square' }}"></i>
+                        <span class="link-name">
+                            @if (Route::currentRouteName() == 'dashboard.contestant.all')
+                                All Contestants
+                            @else
+                                Contestants
+                            @endif
+                        </span>
                     </a>
                 </li>
-                {{-- <li class="{{ Route::currentRouteName() == 'dashboard.contestant' ? 'active' : '' }}">
-                        <a href="{{ route('dashboard.contestant') }}">
-                            <i class="fa-solid fa-tags"></i>
-                            <span class="link-name">Category</span>
-                        </a>
-                    </li> --}}
                 <li class="{{ Route::currentRouteName() == 'dashboard.schedule' ? 'active' : '' }}">
                     <a href="{{ route('dashboard.schedule') }}">
                         <i class="fa-solid fa-calendar-day"></i>
