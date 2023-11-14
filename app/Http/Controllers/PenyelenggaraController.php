@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Models\Penyelenggara;
+use Illuminate\Database\QueryException;
 
 class PenyelenggaraController extends Controller
 {
@@ -23,7 +24,6 @@ class PenyelenggaraController extends Controller
     public function store(Request $request)
     {
         try {
-
             $data = $request->validate([
                 'nama_penyelenggara' => 'required',
                 'no_telp' => 'required',
@@ -32,7 +32,10 @@ class PenyelenggaraController extends Controller
             Penyelenggara::create($data);
 
             return redirect('/dashboard/penyelenggara')->with('status', 'Penyelenggara berhasil ditambahkan.');
-        } catch (\Exception) {
+        } catch (\Exception $e) {
+            if ($e instanceof QueryException) {
+                return redirect('/dashboard/penyelenggara')->with('error', 'Terjadi kesalahan SQL: ' . $e->getMessage());
+            }
             return redirect('/dashboard/penyelenggara')->with('error', 'Terjadi kesalahan saat menambahkan Penyelenggara.');
         }
     }

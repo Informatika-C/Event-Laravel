@@ -884,6 +884,9 @@ body.dark .card {
     align-items: center;
     margin-bottom: 12px;
 }
+.detail-header p b {
+    font-size: 20px;
+}
 .crud {
     display: flex;
     flex-direction: row;
@@ -922,8 +925,12 @@ button:hover {
     border-collapse: collapse;
     border-spacing: 10px;
 }
+
 .alert {
-    animation: fadeOut 5s ease-in-out forwards;
+    font-size: 18px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    animation: fadeOut 8s ease-out forwards;
 }
 
 @keyframes fadeOut {
@@ -937,11 +944,12 @@ button:hover {
 }
 
 .alert-success {
-    color: green;
+    background-color: #3409e0;
+    color: #f2f2f2;
 }
 
 .alert-error {
-    color: red;
+    color: #e81c1c;
 }
 
 .custom-checkbox {
@@ -1400,7 +1408,12 @@ input {
         font-size: 0.9rem;
     }
 }
-
+.empty {
+    text-align: center;
+}
+.empty i {
+    color: var(--text-hover-color);
+}
 .top > nav {
     background-color: var(--text-color);
     padding: 5px;

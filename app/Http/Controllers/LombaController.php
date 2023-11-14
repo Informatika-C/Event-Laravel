@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EventLomba;
 use App\Models\Lomba;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class LombaController extends Controller
 {
@@ -24,20 +25,25 @@ class LombaController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nama_lomba' => 'required|string',
-            'keterangan' => 'required|string',
-            'ruangan_lomba' => 'required|string',
-            'kuota_lomba' => 'required|integer',
-            'pelaksanaan_lomba' => 'required|date',
-            'event_id' => 'required|exists:event_lomba,id',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'nama_lomba' => 'required|string',
+                'keterangan' => 'required|string',
+                'ruangan_lomba' => 'required|string',
+                'kuota_lomba' => 'required|integer',
+                'pelaksanaan_lomba' => 'required|date',
+                'event_id' => 'required|exists:event_lomba,id',
+            ]);
 
-        Lomba::create($validatedData);
+            Lomba::create($validatedData);
 
-        return redirect()->route('dashboard.lomba', ['event_id' => $request->event_id])->with('success', 'Lomba berhasil ditambahkan.');
+            return redirect()->route('dashboard.lomba', ['event_id' => $request->event_id])->with('success', 'Lomba berhasil ditambahkan.');
+        } catch (QueryException $e) {
+            return redirect()->route('dashboard.lomba', ['event_id' => $request->event_id])->with('error', 'Terjadi kesalahan SQL: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect()->route('dashboard.lomba', ['event_id' => $request->event_id])->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
-
     public function show($id)
     {
         try {

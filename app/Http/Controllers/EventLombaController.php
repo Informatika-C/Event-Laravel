@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\EventLomba;
 use App\Models\Penyelenggara;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 
 class EventLombaController extends Controller
@@ -25,20 +27,29 @@ class EventLombaController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nama_lomba' => 'required',
-            'deskripsi' => 'required',
-            'tempat' => 'required',
-            'kuota' => 'required',
-        ]);
-        $validatedData['penyelenggara_id'] = $request->penyelenggara_id;
-        $validatedData['tanggal_pendaftaran'] = date("Y-m-d", strtotime($request->tanggal_pendaftaran));
-        $validatedData['tanggal_penutupan_pendaftaran'] = date("Y-m-d", strtotime($request->tanggal_penutupan_pendaftaran));
-        $validatedData['tanggal_pelaksanaan'] = date("Y-m-d", strtotime($request->tanggal_pelaksanaan));
+        try {
+            $validatedData = $request->validate([
+                'nama_lomba' => 'required',
+                'deskripsi' => 'required',
+                'tempat' => 'required',
+                'kuota' => 'required',
+            ]);
 
-        EventLomba::create($validatedData);
+            $validatedData['penyelenggara_id'] = $request->penyelenggara_id;
+            $validatedData['tanggal_pendaftaran'] = date("Y-m-d", strtotime($request->tanggal_pendaftaran));
+            $validatedData['tanggal_penutupan_pendaftaran'] = date("Y-m-d", strtotime($request->tanggal_penutupan_pendaftaran));
+            $validatedData['tanggal_pelaksanaan'] = date("Y-m-d", strtotime($request->tanggal_pelaksanaan));
 
-        return redirect('/dashboard/events')->with('status', 'Event berhasil ditambahkan.');
+            EventLomba::create($validatedData);
+
+            return redirect('/dashboard/events')->with('status', 'Event berhasil ditambahkan.');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan SQL: ' . $e->getMessage())->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage())->withInput();
+        }
     }
 
     public function show($id)
@@ -118,20 +129,20 @@ class EventLombaController extends Controller
         $id = $request->input('id');
 
         $poster = $request->file('poster');
-        if($poster != null) $posterExt = $poster->getClientOriginalExtension();
+        if ($poster != null) $posterExt = $poster->getClientOriginalExtension();
 
         $banner = $request->file('banner');
-        if($banner != null) $bannerExt = $banner->getClientOriginalExtension();
+        if ($banner != null) $bannerExt = $banner->getClientOriginalExtension();
 
         // delete old image
-        if($poster != null) Storage::deleteDirectory('public/poster/'. $id);
-        if($banner != null) Storage::deleteDirectory('public/banner/'. $id);
+        if ($poster != null) Storage::deleteDirectory('public/poster/' . $id);
+        if ($banner != null) Storage::deleteDirectory('public/banner/' . $id);
 
-        if($poster != null){
-            Storage::putFileAs('public/poster/'. $id, $poster, 'poster_'.$id.'.'.$posterExt);
+        if ($poster != null) {
+            Storage::putFileAs('public/poster/' . $id, $poster, 'poster_' . $id . '.' . $posterExt);
         }
-        if($banner != null){
-            Storage::putFileAs('public/banner/'. $id, $banner, 'banner_'.$id.'.'.$bannerExt);
+        if ($banner != null) {
+            Storage::putFileAs('public/banner/' . $id, $banner, 'banner_' . $id . '.' . $bannerExt);
         }
 
         return redirect()->back()->with('success', 'Image uploaded successfully.');
