@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\EventLomba;
+use App\Models\Kategori;
+use App\Models\KategoriLomba;
 use App\Models\Lomba;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -15,7 +17,11 @@ class LombaController extends Controller
         $lombas = $event->lombas;
         // $event_id = $request->input('event_id');
         $lombas = $event_id ? Lomba::where('event_id', $event_id)->get() : Lomba::all();
-        return view('dashboard.lomba', compact('lombas', 'event_id', 'event'));
+
+        // get all kategori
+        $kategoris = Kategori::all();
+
+        return view('dashboard.lomba', compact('lombas', 'event_id', 'event', 'kategoris'));
     }
 
     public function create($event_id)
@@ -36,7 +42,20 @@ class LombaController extends Controller
                 'event_id' => 'required|exists:event_lomba,id',
             ]);
 
-            Lomba::create($validatedData);
+            $lomba = Lomba::create($validatedData);
+
+            // get kategori from request as array
+            $kategori_ids = $request->input('kategori');
+
+            // for each kategori, create a new KategoriLomba
+            if($kategori_ids != null){
+                foreach ($kategori_ids as $kategori_id) {
+                    KategoriLomba::create([
+                        'kategori_id' => $kategori_id,
+                        'lomba_id' => $lomba->id,
+                    ]);
+                }
+            }
 
             return redirect()->route('dashboard.lomba', ['event_id' => $request->event_id])->with('success', 'Lomba berhasil ditambahkan.');
         } catch (QueryException $e) {

@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LombaController;
 use App\Http\Controllers\PenyelenggaraController;
 use App\Http\Controllers\ContestantController;
+use App\Http\Controllers\KategoriController;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
@@ -59,6 +60,9 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::delete('/dashboard/lomba/destroy/{id}', [LombaController::class, 'destroy']);
     Route::put('/dashboard/lomba/upload-image', [LombaController::class, 'uploadImage'])->name('dashboard.lomba.uploadImage');
 
+
+    Route::get('/kategori', [KategoriController::class, 'index'])->name('dashboard.kategori');
+    Route::post('/kategori', [KategoriController::class, 'store'])->name('dashboard.kategori.store');
 
     Route::get('/dashboard/contestant', [ContestantController::class, 'index'])->name('dashboard.contestant');
     Route::get('/dashboard/contestant/all', [ContestantController::class, 'showAllContestants'])->name('dashboard.contestant.all');

@@ -40,6 +40,136 @@ function clearConsole() {
 }
 
 $(document).ready(function () {
+    $(document).on("click", "#kategoriButton", function () {
+        var modal = $("#kategoriModal");
+        modal.fadeIn();
+
+        $.ajax({
+            type: "GET",
+            url: "/kategori",
+            success: function (response) {
+                var kategori = response.kategoris;
+                var kategoriList = $("#kategoriList");
+                kategoriList.html("");
+
+                // make for loop to make checkbox
+                for (var i = 0; i < kategori.length; i++) {
+                    var id = kategori[i].id;
+                    var nama_kategori = kategori[i].nama_kategori;
+
+                    var checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.name = "kategori[]";
+                    checkbox.value = id;
+                    checkbox.id = "kategori" + id;
+                    checkbox.checked = false;
+
+                    var label = document.createElement("label");
+                    label.htmlFor = "kategori" + id;
+                    label.appendChild(document.createTextNode(nama_kategori));
+
+                    var br = document.createElement("br");
+
+                    kategoriList.append(checkbox);
+                    kategoriList.append(label);
+                    kategoriList.append(br);
+                }
+            },
+        });
+    });
+
+    $(document).on("click", "#addListKategoriButton", function () {
+        var modal = $("#kategoriModal");
+        var input = modal.find("#inputListkategori");
+
+        // if input is empty, do nothing
+        if (input.val() == "") {
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/kategori",
+            data: {
+                nama_kategori: input.val(),
+            },
+            success: function (response) {
+                // add new checkbox and append to kategoriList
+                var kategoriList = $("#kategoriList");
+
+                var id = response.kategori.id;
+                var nama_kategori = response.kategori.nama_kategori;
+
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.name = "kategori[]";
+                checkbox.value = id;
+                checkbox.id = "kategori" + id;
+                checkbox.checked = false;
+
+                var label = document.createElement("label");
+                label.htmlFor = "kategori" + id;
+                label.appendChild(document.createTextNode(nama_kategori));
+
+                var br = document.createElement("br");
+
+                kategoriList.append(checkbox);
+                kategoriList.append(label);
+                kategoriList.append(br);
+
+                // reset input
+                input.val("");
+            },
+            error: function (response) {
+                console.log(response);
+            }
+    });
+    });
+
+    $(document).on("click", "#confirmKategori", function () {
+        // get kategoriListModal
+        var kategoriListModal = $("#kategoriListModal");
+
+        // get kategoriList
+        var kategoriList = $("#kategoriList");
+
+        // get all checked value from kategoriList and put it in kategoriListModal
+        var kategori = kategoriList.find("input[name='kategori[]']:checked");
+        kategoriListModal.html("");
+        
+        // make for loop to make checkbox
+        for (var i = 0; i < kategori.length; i++) {
+            var id = kategori[i].value;
+            var nama_kategori = kategori[i].nextSibling.textContent;
+
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = "kategori[]";
+            checkbox.value = id;
+            checkbox.id = "kategori" + id;
+            checkbox.checked = true;
+
+            var label = document.createElement("label");
+            label.htmlFor = "kategori" + id;
+            label.appendChild(document.createTextNode(nama_kategori));
+
+            var br = document.createElement("br");
+
+            kategoriListModal.append(checkbox);
+            kategoriListModal.append(label);
+            kategoriListModal.append(br);
+        }
+
+        // close modal
+        var modal = $("#kategoriModal");
+        modal.fadeOut();
+    });
+
+    $(document).on("click", "#closeKategoriButton", function () {
+        var modal = $("#kategoriModal");
+        modal.fadeOut();
+    });
+
     $(document).on("click", ".deletebtn", function () {
         let id = $(this).data("lomba-id");
         // reset
