@@ -169,6 +169,12 @@
                     <label for="pelaksanaan_lomba">Pelaksanaan Lomba:</label>
                     <input type="datetime-local" name="pelaksanaan_lomba" required>
 
+                    <div style="display: none;" id="kategoriListModal"></div>
+
+                    <div class="CC" style="margin-bottom: 1em">
+                        <button id="kategoriButton" type="button">Kategori</button>
+                    </div>
+
                     <div class="CC">
                         <button type="submit">Add</button>
                         <button type="button" id="closeButton">Close</button>
@@ -176,37 +182,6 @@
                 </form>
             </div>
         </div>
-
-        <!-- Upload Image Modal Edit -->
-        <div id="upImageModal" class="modal bg-modal">
-            <div class="modal-content">
-                <h2>Upload Image</h2>
-                <form id="upImageForm" action="/dashboard/lomba/upload-image" method="POST"
-                    enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-
-                    <input type="hidden" name="id" id="id">
-
-                    <div style="display: flex; gap: 2em;">
-                        <div>
-                            <label for="poster">Poster:</label>
-                            <div class="loader"></div>
-                            <img id="poster-container" />
-                            <input type="file" accept="image/png, image/gif, image/jpeg" name="poster" id="poster"
-                                onchange="chagePoster(this);">
-                        </div>
-                    </div>
-
-                    <div class="CC">
-                        <button type="submit">Confirm</button>
-                        <button type="button" id="closeButton">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-
 
         <!-- Modal Edit -->
         <div id="editModal" class="modal bg-modal">
@@ -258,6 +233,55 @@
                 </div>
             </div>
         </div>
+
+         <!-- Upload Image Modal Edit -->
+        <div id="upImageModal" class="modal bg-modal">
+            <div class="modal-content">
+                <h2>Upload Image</h2>
+                <form id="upImageForm" action="/dashboard/lomba/upload-image" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+
+                    <input type="hidden" name="id" id="id">
+
+                    <div style="display: flex; gap: 2em;">
+                        <div>
+                            <label for="poster">Poster:</label>
+                            <div class="loader"></div>
+                            <img id="poster-container" />
+                            <input type="file" accept="image/png, image/gif, image/jpeg" name="poster" id="poster"
+                                onchange="chagePoster(this);">
+                        </div>
+                    </div>
+
+                    <div class="CC">
+                        <button type="submit">Confirm</button>
+                        <button type="button" id="closeButton">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Kategori Modal -->
+        <div id="kategoriModal" class="modal bg-modal">
+            <div class="modal-content">
+                <h2>Kategori Lomba</h2>
+                    <input type="hidden" name="lomba_id" id="lomba_id">
+
+                    <label for="kategori_id">Kategori:</label>
+                    <div id="kategoriList"></div>
+
+                    <input type="text" id="inputListkategori" placeholder="Tambah Kategori">
+                    <div style="width: 100%; display: flex; justify-content: center;">
+                        <button type="button" id="addListKategoriButton" style="margin-bottom: 1em">Add</button>
+                    </div>
+
+                    <div class="CC">
+                        <button id="confirmKategori">Confirm</button>
+                        <button type="button" id="closeKategoriButton">Close</button>
+                    </div>
+            </div>
 
     </div>
 
