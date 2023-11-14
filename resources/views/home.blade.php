@@ -138,155 +138,35 @@
             <!-- Events section -->
 
             <section class="grid-card">
-                <div class="card-container" data-aos="zoom-in-left" data-aos-delay="700" data-aos-duration="2000">
-                    <div class="card">
-                        <div class="fornt"><img class="img-card" src="{{ asset('assets/images/card.png') }}" /></div>
-                        <div class="back"></div>
-                        <div class="infomation">
-                            <img src="{{ asset('assets/images/3.svg') }}" class="profile_image" />
-                            <div class="names">
-                                <div class="project_name">Campus Expo</div>
-                                <div class="user_name">HIMA FTIK</div>
+                @isset($events)
+                    @foreach($events as $event)
+                        <div class="card-container" data-aos="zoom-in-left" data-aos-delay="700" data-aos-duration="2000">
+                            <div class="card">
+                                <div class="fornt"><img class="img-card" src="{{ asset('storage/banner/'. $event->id . "/" . $event->banner) }}" /></div>
+                                <div class="back"></div>
+                                <div class="infomation">
+                                    <img src="{{ asset('storage/poster/'. $event->id . "/" . $event->poster) }}" class="profile_image" />
+                                    <div class="names">
+                                        <div class="user_name">{{ $event->nama_lomba }}</div>
+                                        <div class="user_name">{{ $event->penyelenggara->nama_penyelenggara }} </div>
+                                    </div>
+                                </div>
+
+                                <div class="li_co_vi">
+                                    <div class="like bg">
+                                        <i class="fa-solid fa-file-pen"></i>
+                                        <div class="num">0</div>
+                                    </div>
+
+                                    <div class="view bg">
+                                        <i class="fa-solid fa-user-check"></i>
+                                        <div class="num">0</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="li_co_vi">
-                            <div class="like bg">
-                                <i class="fa-solid fa-file-pen"></i>
-                                <div class="num">0</div>
-                            </div>
-
-                            <div class="view bg">
-                                <i class="fa-solid fa-user-check"></i>
-                                <div class="num">0</div>
-                            </div>
-                            <!-- <div class="coment bg">
-                <i class="fas fa-comment-alt"></i>
-                <div class="num">0</div>
-              </div> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="card-container" data-aos="zoom-in-left" data-aos-delay="700" data-aos-duration="2000">
-                    <div class="card">
-                        <div class="fornt"><img class="img-card" src="{{ asset('assets/images/card.png') }}" /></div>
-                        <div class="back"></div>
-                        <div class="infomation">
-                            <img src="{{ asset('assets/images/3.svg') }}" class="profile_image" />
-                            <div class="names">
-                                <div class="project_name">Campus Expo</div>
-                                <div class="user_name">HIMA FTIK</div>
-                            </div>
-                        </div>
-
-                        <div class="li_co_vi">
-                            <div class="like bg">
-                                <i class="fa-solid fa-file-pen"></i>
-
-                                <div class="num">0</div>
-                            </div>
-
-                            <div class="view bg">
-                                <i class="fa-solid fa-user-check"></i>
-                                <div class="num">0</div>
-                            </div>
-                            <!-- <div class="coment bg">
-              <i class="fas fa-comment-alt"></i>
-              <div class="num">0</div>
-            </div> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="card-container" data-aos="zoom-in-left" data-aos-delay="700" data-aos-duration="2000">
-                    <div class="card">
-                        <div class="fornt"><img class="img-card" src="{{ asset('assets/images/card.png') }}" /></div>
-                        <div class="back"></div>
-                        <div class="infomation">
-                            <img src="{{ asset('assets/images/3.svg') }}" class="profile_image" />
-                            <div class="names">
-                                <div class="project_name">Campus Expo</div>
-                                <div class="user_name">HIMA FTIK</div>
-                            </div>
-                        </div>
-
-                        <div class="li_co_vi">
-                            <div class="like bg">
-                                <i class="fa-solid fa-file-pen"></i>
-
-                                <div class="num">0</div>
-                            </div>
-
-                            <div class="view bg">
-                                <i class="fa-solid fa-user-check"></i>
-                                <div class="num">0</div>
-                            </div>
-                            <!-- <div class="coment bg">
-              <i class="fas fa-comment-alt"></i>
-              <div class="num">0</div>
-            </div> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="card-container" data-aos="zoom-in-left" data-aos-delay="700" data-aos-duration="2000">
-                    <div class="card">
-                        <div class="fornt"><img class="img-card" src="{{ asset('assets/images/card.png') }}" /></div>
-                        <div class="back"></div>
-                        <div class="infomation">
-                            <img src="{{ asset('assets/images/3.svg') }}" class="profile_image" />
-                            <div class="names">
-                                <div class="project_name">Campus Expo</div>
-                                <div class="user_name">HIMA FTIK</div>
-                            </div>
-                        </div>
-
-                        <div class="li_co_vi">
-                            <div class="like bg">
-                                <i class="fa-solid fa-file-pen"></i>
-
-                                <div class="num">0</div>
-                            </div>
-
-                            <div class="view bg">
-                                <i class="fa-solid fa-user-check"></i>
-                                <div class="num">0</div>
-                            </div>
-                            <!-- <div class="coment bg">
-              <i class="fas fa-comment-alt"></i>
-              <div class="num">0</div>
-            </div> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="card-container" data-aos="zoom-in-left" data-aos-delay="700" data-aos-duration="2000">
-                    <div class="card">
-                        <div class="fornt"><img class="img-card" src="{{ asset('assets/images/card.png') }}" /></div>
-                        <div class="back"></div>
-                        <div class="infomation">
-                            <img src="{{ asset('assets/images/3.svg') }}" class="profile_image" />
-                            <div class="names">
-                                <div class="project_name">Campus Expo</div>
-                                <div class="user_name">HIMA FTIK</div>
-                            </div>
-                        </div>
-
-                        <div class="li_co_vi">
-                            <div class="like bg">
-                                <i class="fa-solid fa-file-pen"></i>
-
-                                <div class="num">0</div>
-                            </div>
-
-                            <div class="view bg">
-                                <i class="fa-solid fa-user-check"></i>
-                                <div class="num">0</div>
-                            </div>
-                            <!-- <div class="coment bg">
-              <i class="fas fa-comment-alt"></i>
-              <div class="num">0</div>
-            </div> -->
-                        </div>
-                    </div>
-                </div>
+                    @endforeach
+                @endisset
             </section>
             <div class="marquee">
                 <h4 class="text">

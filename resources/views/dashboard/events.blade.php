@@ -182,7 +182,7 @@
                 <form method="post" action="/dashboard/events">
                     @csrf
 
-                    <label for="name">Nama Lomba:</label>
+                    <label for="name">Nama Event:</label>
                     <input type="text" name="nama_lomba" id="name" required>
 
                     <label for="description">Description:</label>
@@ -233,7 +233,7 @@
 
                     <input type="hidden" name="id" id="id">
 
-                    <label for="name">Nama Lomba:</label>
+                    <label for="name">Nama Event:</label>
                     <input type="text" name="nama_lomba" id="nama_lomba" required>
 
                     <label for="description">Description:</label>
@@ -284,7 +284,7 @@
                             <label for="banner">Banner:</label>
                             <div class="loader"></div>
                             <img id="banner-container" />
-                            <input type="file" accept="image/jpeg" name="banner" id="banner"
+                            <input type="file" accept="image/png, image/gif, image/jpeg" name="banner" id="banner"
                                 onchange="chageBanner(this);">
                         </div>
 
@@ -292,7 +292,7 @@
                             <label for="poster">Poster:</label>
                             <div class="loader"></div>
                             <img id="poster-container" />
-                            <input type="file" accept="image/jpeg" name="poster" id="poster"
+                            <input type="file" accept="image/png, image/gif, image/jpeg" name="poster" id="poster"
                                 onchange="chagePoster(this);">
                         </div>
                     </div>

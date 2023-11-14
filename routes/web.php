@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventLombaController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LombaController;
 use App\Http\Controllers\PenyelenggaraController;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
@@ -21,9 +22,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
 
 Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/dashboard', function () {

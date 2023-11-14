@@ -130,8 +130,8 @@ class EventLombaController extends Controller
     {
         $validatedData = $request->validate([
             'id' => 'required',
-            'poster' => 'image|mimes:jpeg,jpg|max:2048',
-            'banner' => 'image|mimes:jpeg,jpg|max:2048',
+            'poster' => 'image|mimes:jpeg,jpg,png|max:2048',
+            'banner' => 'image|mimes:jpeg,jpg,png|max:2048',
         ]);
 
         $id = $request->input('id');
@@ -152,6 +152,12 @@ class EventLombaController extends Controller
         if ($banner != null) {
             Storage::putFileAs('public/banner/' . $id, $banner, 'banner_' . $id . '.' . $bannerExt);
         }
+
+        // update image path in database
+        $event = EventLomba::find($id);
+        if ($poster != null) $event->poster = 'poster_' . $id . '.' . $posterExt;
+        if ($banner != null) $event->banner = 'banner_' . $id . '.' . $bannerExt;
+        $event->update();
 
         return redirect()->back()->with('success', 'Image uploaded successfully.');
     }

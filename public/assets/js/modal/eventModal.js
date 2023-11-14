@@ -207,69 +207,44 @@ $(document).ready(function () {
     function getImage(id, bannerContainer, posterContainer, loader) {
         $.ajax({
             type: "GET",
-            url: "/storage/banner/" + id + "/banner_" + id + ".jpg",
+            url: "/dashboard/events/show/" + id,
             success: function (response) {
                 loader.hide();
+                if(response.event.banner == null) {
+                    bannerContainer.style.display = "block";
+                    bannerContainer.src = "/assets/images/blank.jpg";
+                    bannerContainer.alt = "Blank Image";
+                    bannerContainer.style.width = "10em";
+
+                    return;
+                }
+
                 bannerContainer.style.display = "block";
                 bannerContainer.src =
-                    "/storage/banner/" + id + "/banner_" + id + ".jpg";
+                    "/storage/banner/" + id + "/" + response.event.banner;
                 bannerContainer.alt = "Banner Lomba";
                 bannerContainer.style.width = "10em";
-            },
-            error: function (error) {
-                $.ajax({
-                    type: "GET",
-                    url: "/storage/banner/" + id + "/banner_" + id + ".jpeg",
-                    success: function (response) {
-                        loader.hide();
-                        bannerContainer.style.display = "block";
-                        bannerContainer.src =
-                            "/storage/banner/" + id + "/banner_" + id + ".jpeg";
-                        bannerContainer.alt = "Banner Lomba";
-                        bannerContainer.style.width = "10em";
-                    },
-                    error: function (error) {
-                        loader.hide();
-                        bannerContainer.style.display = "block";
-                        bannerContainer.src = "/assets/images/blank.jpg";
-                        bannerContainer.alt = "Blank Image";
-                        bannerContainer.style.width = "10em";
-                    },
-                });
             },
         });
 
         $.ajax({
             type: "GET",
-            url: "/storage/poster/" + id + "/poster_" + id + ".jpg",
+            url: "/dashboard/events/show/" + id,
             success: function (response) {
                 loader.hide();
+                if(response.event.poster == null) {
+                    posterContainer.style.display = "block";
+                    posterContainer.src = "/assets/images/blank.jpg";
+                    posterContainer.alt = "Blank Image";
+                    posterContainer.style.width = "10em";
+
+                    return;
+                }
                 posterContainer.style.display = "block";
                 posterContainer.src =
-                    "/storage/poster/" + id + "/poster_" + id + ".jpg";
+                    "/storage/poster/" + id + "/" + response.event.poster;
                 posterContainer.alt = "Poster Lomba";
                 posterContainer.style.width = "10em";
-            },
-            error: function (error) {
-                $.ajax({
-                    type: "GET",
-                    url: "/storage/poster/" + id + "/poster_" + id + ".jpeg",
-                    success: function (response) {
-                        loader.hide();
-                        posterContainer.style.display = "block";
-                        posterContainer.src =
-                            "/storage/poster/" + id + "/poster_" + id + ".jpeg";
-                        posterContainer.alt = "Poster Lomba";
-                        posterContainer.style.width = "10em";
-                    },
-                    error: function (error) {
-                        loader.hide();
-                        posterContainer.style.display = "block";
-                        posterContainer.src = "/assets/images/blank.jpg";
-                        posterContainer.alt = "Blank Image";
-                        posterContainer.style.width = "10em";
-                    },
-                });
             },
         });
     }
