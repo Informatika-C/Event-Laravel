@@ -39,6 +39,17 @@ function clearConsole() {
     }
 }
 
+function formatTanggal(dateString) {
+    const date = new Date(dateString);
+    const options = {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    };
+    return date.toLocaleDateString("id-ID", options);
+}
+
 $(document).ready(function () {
     $(document).on("click", ".deletebtn", function () {
         // reset
@@ -118,9 +129,8 @@ $(document).ready(function () {
                 console.log("Modal:", modal);
 
                 // get penyelenggara_id element from this modal
-                var penyelenggaraDropdown = modal.querySelector(
-                    "#penyelenggara_id"
-                );
+                var penyelenggaraDropdown =
+                    modal.querySelector("#penyelenggara_id");
 
                 var id = modal.querySelector("#id");
 
@@ -189,13 +199,14 @@ $(document).ready(function () {
         getImage(id, bannerContainer, posterContainer);
     });
 
-    function getImage(id, bannerContainer, posterContainer){
+    function getImage(id, bannerContainer, posterContainer) {
         $.ajax({
             type: "GET",
             url: "/storage/banner/" + id + "/banner_" + id + ".jpg",
             success: function (response) {
                 bannerContainer.style.display = "block";
-                bannerContainer.src = "/storage/banner/" + id + "/banner_" + id + ".jpg";
+                bannerContainer.src =
+                    "/storage/banner/" + id + "/banner_" + id + ".jpg";
                 bannerContainer.alt = "Banner Lomba";
                 bannerContainer.style.width = "10em";
             },
@@ -205,7 +216,8 @@ $(document).ready(function () {
                     url: "/storage/banner/" + id + "/banner_" + id + ".jpeg",
                     success: function (response) {
                         bannerContainer.style.display = "block";
-                        bannerContainer.src = "/storage/banner/" + id + "/banner_" + id + ".jpeg";
+                        bannerContainer.src =
+                            "/storage/banner/" + id + "/banner_" + id + ".jpeg";
                         bannerContainer.alt = "Banner Lomba";
                         bannerContainer.style.width = "10em";
                     },
@@ -224,7 +236,8 @@ $(document).ready(function () {
             url: "/storage/poster/" + id + "/poster_" + id + ".jpg",
             success: function (response) {
                 posterContainer.style.display = "block";
-                posterContainer.src = "/storage/poster/" + id + "/poster_" + id + ".jpg";
+                posterContainer.src =
+                    "/storage/poster/" + id + "/poster_" + id + ".jpg";
                 posterContainer.alt = "Poster Lomba";
                 posterContainer.style.width = "10em";
             },
@@ -234,7 +247,8 @@ $(document).ready(function () {
                     url: "/storage/poster/" + id + "/poster_" + id + ".jpeg",
                     success: function (response) {
                         posterContainer.style.display = "block";
-                        posterContainer.src = "/storage/poster/" + id + "/poster_" + id + ".jpeg";
+                        posterContainer.src =
+                            "/storage/poster/" + id + "/poster_" + id + ".jpeg";
                         posterContainer.alt = "Poster Lomba";
                         posterContainer.style.width = "10em";
                     },
@@ -263,15 +277,17 @@ $(document).ready(function () {
                 $("#info_deskripsi").html(response.event.deskripsi);
                 $("#info_tempat").html(response.event.tempat);
                 $("#info_kuota").html(response.event.kuota);
+
                 $("#info_tanggal_pendaftaran").html(
-                    response.event.tanggal_pendaftaran
+                    formatTanggal(response.event.tanggal_pendaftaran)
                 );
                 $("#info_tanggal_penutupan_pendaftaran").html(
-                    response.event.tanggal_penutupan_pendaftaran
+                    formatTanggal(response.event.tanggal_penutupan_pendaftaran)
                 );
                 $("#info_tanggal_pelaksanaan").html(
-                    response.event.tanggal_pelaksanaan
+                    formatTanggal(response.event.tanggal_pelaksanaan)
                 );
+
                 $("#info_penyelenggara_id").html(
                     response.event.penyelenggara_id
                 );

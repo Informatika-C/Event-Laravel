@@ -5,31 +5,11 @@
     <p>Welcome to the Lomba.</p>
     <div class="card detail">
         <div class="detail-header">
+            @foreach ($lombas->take(1) as $lomba)
+                <p><b>{{ $lomba->event->nama_lomba }}</b> Events</p>
+            @endforeach
 
-            <div id="alert-container">
-                <h2>All</h2>
-                @if (session('status'))
-                    <h2 class="alert @if (session('status') == 'error') alert-error @else alert-success @endif">
-                        {{ session('status') }}
-                    </h2>
-                @elseif (session('success'))
-                    <h2 class="alert alert-success">
-                        {{ session('success') }}
-                    </h2>
-                @elseif(session('error'))
-                    <h2 class="alert alert-error">
-                        {{ session('error') }}
-                    </h2>
-                @elseif($errors->any())
-                    <div class="alert alert-error ">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-            </div>
+            @include('widgets.alert')
 
             <div class="crud">
                 <button class="show-modal" data-modal="addModal">
@@ -54,7 +34,6 @@
                             </span>
                         </th>
                         <th>No</th>
-                        <th>Nama Event</th>
                         <th>Nama Lomba</th>
                         <th>Keterangan</th>
                         <th>Ruangan Lomba</th>
@@ -73,7 +52,6 @@
                                 </span>
                             </td>
                             <td class="openInfoModalBtn" data-lomba-id="{{ $lomba->id }}">{{ $loop->iteration }}</td>
-                            <td>{{ $lomba->event->nama_lomba }}</td>
                             <td>{{ $lomba->nama_lomba }}</td>
                             <td class="descript">{{ $lomba->keterangan }}</td>
                             <td>{{ $lomba->ruangan_lomba }}</td>
@@ -82,7 +60,7 @@
                                     <i class="fa-solid fa-user-group">{{ $lomba->kuota_lomba }}</i>
                                 </span>
                             </td>
-                            <td>{{ $lomba->pelaksanaan_lomba }}</td>
+                            <td>{{ \Carbon\Carbon::parse($lomba->pelaksanaan_lomba)->format('l, j F Y') }}</td>
                             <td class="action">
                                 <button class="editbtn" type="button" title="Edit"data-lomba-id="{{ $lomba->id }}">
                                     <i class="fa-solid fa-pen-clip"></i>
@@ -104,10 +82,13 @@
                 </tbody>
             </table>
         @else
-            <p>Tidak ada Lomba, Mulai Tambahkan lomba</p>
+            <h1 class="empty">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                Tidak ada data Lomba, Mulai Tambahkan lomba.
+            </h1>
         @endif
 
-        <div id="infoModal" class="tr-modal">
+        <div id="infoModal" class="tr-modal bg-modal">
             <div class="tr-modal-content">
                 <div class="tr-det">
                     <h2 id="info_nama_lomba"></h2>
@@ -141,7 +122,7 @@
         <div class="modal-overlay"></div>
 
         <!-- Modal Add Lomba -->
-        <div id="addModal" class="modal">
+        <div id="addModal" class="modal bg-modal">
             <div class="modal-content">
                 <h2>Tambah Lomba</h2>
                 <form method="POST" action="{{ route('dashboard.lomba.store') }}">
@@ -174,7 +155,7 @@
 
 
         <!-- Modal Edit -->
-        <div id="editModal" class="modal" style="display: none;">
+        <div id="editModal" class="modal bg-modal">
             <div class="modal-content">
                 <h2>Edit Lomba</h2>
                 <form method="POST" action="/dashboard/lomba/update">
@@ -207,7 +188,7 @@
         </div>
 
         <!-- Modal Delete -->
-        <div id="deleteModal" class="modal">
+        <div id="deleteModal" class="modal bg-modal">
             <div class="modal-content">
                 <h2>Delete</h2>
                 <div class="message">Confirm untuk hapus data!</div>
