@@ -8,6 +8,7 @@ use App\Http\Controllers\EventLombaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LombaController;
 use App\Http\Controllers\PenyelenggaraController;
+use App\Http\Controllers\ContestantController;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
@@ -29,10 +30,6 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/dashboard', function () {
         return view('dashboard.home');
     })->name('dashboard');
-
-    Route::get('/dashboard/contestant', function () {
-        return view('dashboard.contestant');
-    })->name('dashboard.contestant');
 
     Route::get('/dashboard/events', [EventLombaController::class, 'index'])->name('dashboard.events');
     Route::post('/dashboard/events', [EventLombaController::class, 'store'])->name('dashboard.events.store');
@@ -61,6 +58,11 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/dashboard/lomba/edit/{id}', [LombaController::class, 'edit']);
     Route::get('/dashboard/lomba/show/{id}', [LombaController::class, 'show']);
     Route::delete('/dashboard/lomba/destroy/{id}', [LombaController::class, 'destroy']);
+
+
+    Route::get('/dashboard/contestant', [ContestantController::class, 'index'])->name('dashboard.contestant');
+    Route::get('/dashboard/contestant/all', [ContestantController::class, 'showAllContestants'])->name('dashboard.contestant.all');
+    Route::delete('/dashboard/contestant/{id}', [ContestantController::class, 'destroy'])->name('dashboard.contestant.destroy');
 
 
     Route::get('/dashboard/schedule', function () {
