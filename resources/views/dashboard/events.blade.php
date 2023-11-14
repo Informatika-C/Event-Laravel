@@ -282,6 +282,7 @@
                     <div style="display: flex; gap: 2em">
                         <div>
                             <label for="banner">Banner:</label>
+                            <div class="loader"></div>
                             <img id="banner-container" />
                             <input type="file" accept="image/jpeg" name="banner" id="banner"
                                 onchange="chageBanner(this);">
@@ -289,6 +290,7 @@
 
                         <div>
                             <label for="poster">Poster:</label>
+                            <div class="loader"></div>
                             <img id="poster-container" />
                             <input type="file" accept="image/jpeg" name="poster" id="poster"
                                 onchange="chagePoster(this);">

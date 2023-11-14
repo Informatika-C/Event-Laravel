@@ -112,6 +112,14 @@ class EventLombaController extends Controller
             $event->delete();
             info('Event found: ' . json_encode($event));
 
+            // check if image exists
+            if (Storage::exists('public/poster/' . $id)) {
+                Storage::deleteDirectory('public/poster/' . $id);
+            }
+            if (Storage::exists('public/banner/' . $id)) {
+                Storage::deleteDirectory('public/banner/' . $id);
+            }
+
             return response()->json(['event' => $event], 200);
         } catch (\Exception) {
             return response()->json(['error' => 'Internal Server Error'], 500);

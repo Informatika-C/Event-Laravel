@@ -186,6 +186,11 @@ $(document).ready(function () {
         var bannerInput = modal.find("#banner");
         var posterInput = modal.find("#poster");
 
+        // get loader class from this modal
+        var loader = modal.find(".loader");
+        // unhide loader
+        loader.show();
+
         // reset input
         bannerInput.val("");
         posterInput.val("");
@@ -196,14 +201,15 @@ $(document).ready(function () {
         var posterContainer = document.getElementById("poster-container");
         posterContainer.style.display = "none";
 
-        getImage(id, bannerContainer, posterContainer);
+        getImage(id, bannerContainer, posterContainer, loader);
     });
 
-    function getImage(id, bannerContainer, posterContainer) {
+    function getImage(id, bannerContainer, posterContainer, loader) {
         $.ajax({
             type: "GET",
             url: "/storage/banner/" + id + "/banner_" + id + ".jpg",
             success: function (response) {
+                loader.hide();
                 bannerContainer.style.display = "block";
                 bannerContainer.src =
                     "/storage/banner/" + id + "/banner_" + id + ".jpg";
@@ -215,6 +221,7 @@ $(document).ready(function () {
                     type: "GET",
                     url: "/storage/banner/" + id + "/banner_" + id + ".jpeg",
                     success: function (response) {
+                        loader.hide();
                         bannerContainer.style.display = "block";
                         bannerContainer.src =
                             "/storage/banner/" + id + "/banner_" + id + ".jpeg";
@@ -222,6 +229,7 @@ $(document).ready(function () {
                         bannerContainer.style.width = "10em";
                     },
                     error: function (error) {
+                        loader.hide();
                         bannerContainer.style.display = "block";
                         bannerContainer.src = "/assets/images/blank.jpg";
                         bannerContainer.alt = "Blank Image";
@@ -235,6 +243,7 @@ $(document).ready(function () {
             type: "GET",
             url: "/storage/poster/" + id + "/poster_" + id + ".jpg",
             success: function (response) {
+                loader.hide();
                 posterContainer.style.display = "block";
                 posterContainer.src =
                     "/storage/poster/" + id + "/poster_" + id + ".jpg";
@@ -246,6 +255,7 @@ $(document).ready(function () {
                     type: "GET",
                     url: "/storage/poster/" + id + "/poster_" + id + ".jpeg",
                     success: function (response) {
+                        loader.hide();
                         posterContainer.style.display = "block";
                         posterContainer.src =
                             "/storage/poster/" + id + "/poster_" + id + ".jpeg";
@@ -253,6 +263,7 @@ $(document).ready(function () {
                         posterContainer.style.width = "10em";
                     },
                     error: function (error) {
+                        loader.hide();
                         posterContainer.style.display = "block";
                         posterContainer.src = "/assets/images/blank.jpg";
                         posterContainer.alt = "Blank Image";
