@@ -5,7 +5,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventLombaController;
+use App\Http\Controllers\LombaController;
 use App\Http\Controllers\PenyelenggaraController;
+use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -50,6 +52,16 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/dashboard/penyelenggara/edit/{id}', [PenyelenggaraController::class, 'edit']);
     Route::get('/dashboard/penyelenggara/show/{id}', [PenyelenggaraController::class, 'show']);
     Route::delete('/dashboard/penyelenggara/destroy/{id}', [PenyelenggaraController::class, 'destroy']);
+
+
+    Route::get('/dashboard/lomba/{event_id}', [LombaController::class, 'index'])->name('dashboard.lomba');
+    Route::post('/dashboard/lomba/store', [LombaController::class, 'store'])->name('dashboard.lomba.store');
+    Route::get('/dashboard/lomba/create/{event_id?}', [LombaController::class, 'create'])->name('dashboard.lomba.create');
+    Route::put('/dashboard/lomba/update', [LombaController::class, 'update']);
+    Route::get('/dashboard/lomba/edit/{id}', [LombaController::class, 'edit']);
+    Route::get('/dashboard/lomba/show/{id}', [LombaController::class, 'show']);
+    Route::delete('/dashboard/lomba/destroy/{id}', [LombaController::class, 'destroy']);
+
 
     Route::get('/dashboard/schedule', function () {
         return view('dashboard.schedule');

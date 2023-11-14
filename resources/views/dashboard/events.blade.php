@@ -2,48 +2,50 @@
 
 @section('content')
     <script>
-        function chageBanner(input){
+        function chageBanner(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-                
+
                 // get modal 
                 var modal = document.getElementById("upImageModal");
                 // get banner container
                 var bannerContainer = modal.querySelector("#banner-container");
 
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     // create image element and add inside div with id="poster-container" in this modal
                     bannerContainer.style.display = "block";
                     bannerContainer.src = e.target.result;
                     bannerContainer.alt = "Banner Lomba";
                     bannerContainer.style.width = "10em";
                 };
-            
+
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        function chagePoster(input){
+
+        function chagePoster(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-                
+
                 // get modal 
                 var modal = document.getElementById("upImageModal");
                 // get banner container
                 var posterContainer = modal.querySelector("#poster-container");
 
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     // create image element and add inside div with id="poster-container" in this modal
                     posterContainer.style.display = "block";
                     posterContainer.src = e.target.result;
                     posterContainer.alt = "Banner Lomba";
                     posterContainer.style.width = "10em";
                 };
-            
+
                 reader.readAsDataURL(input.files[0]);
             }
         }
     </script>
     <h1>Events</h1>
+
     <p>Welcome to the Events.</p>
     <div class="card detail">
         <div class="detail-header">
@@ -61,7 +63,6 @@
                     <h2 class="alert alert-error">
                         {{ session('error') }}
                     </h2>
-
                 @elseif($errors->any())
                     <div class="alert alert-error ">
                         <ul>
@@ -129,7 +130,7 @@
                             @if ($event->penyelenggara_id == null)
                                 <td> - </td>
                             @else
-                            <td>{{ $event->penyelenggara->nama_penyelenggara }}</td>
+                                <td>{{ $event->penyelenggara->nama_penyelenggara }}</td>
                             @endif
                             <td class="action">
                                 <button class="editbtn" type="button" value="{{ $event->id }}">
@@ -141,6 +142,15 @@
                                 <button class="deletebtn" type="button" del-id="{{ $event->id }}">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
+                                <button class="lombabtn"
+                                    onclick="window.location='{{ route('dashboard.lomba', ['event_id' => $event->id]) }}'">
+                                    <i class="fa-solid fa-circle-chevron-right"></i>
+                                </button>
+
+                                {{-- <button class="lombabtn" type="button"
+                                    onclick="window.location='{{ url('dashboard/lomba') }}'">
+                                    <i class="fa-solid fa-person-running"></i>
+                                </button> --}}
                             </td>
                         </tr>
                     @endforeach
@@ -282,7 +292,8 @@
         <div id="upImageModal" class="modal" style="display: none;">
             <div class="modal-content">
                 <h2>Upload Image</h2>
-                <form id="upImageForm" action="/dashboard/events/upload-image" method="POST" enctype="multipart/form-data">
+                <form id="upImageForm" action="/dashboard/events/upload-image" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -291,14 +302,16 @@
                     <div style="display: flex; gap: 2em">
                         <div>
                             <label for="banner">Banner:</label>
-                            <img id="banner-container"/>
-                            <input type="file" accept="image/jpeg" name="banner" id="banner" onchange="chageBanner(this);">
+                            <img id="banner-container" />
+                            <input type="file" accept="image/jpeg" name="banner" id="banner"
+                                onchange="chageBanner(this);">
                         </div>
 
                         <div>
                             <label for="poster">Poster:</label>
-                            <img id="poster-container"/>
-                            <input type="file" accept="image/jpeg" name="poster" id="poster" onchange="chagePoster(this);">
+                            <img id="poster-container" />
+                            <input type="file" accept="image/jpeg" name="poster" id="poster"
+                                onchange="chagePoster(this);">
                         </div>
                     </div>
 

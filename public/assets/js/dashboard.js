@@ -118,7 +118,7 @@ addBtn.addEventListener("click", (e) => {
 });
 const body = document.querySelector("body"),
     modeToggle = body.querySelector(".mode-toggle");
-sidebar = body.querySelector("nav");
+sidebar = body.querySelector(".sideMenu");
 sidebarToggle = body.querySelector(".sidebar-toggle");
 
 let getMode = localStorage.getItem("mode");
