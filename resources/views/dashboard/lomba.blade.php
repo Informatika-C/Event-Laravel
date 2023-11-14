@@ -1,6 +1,28 @@
 @extends('dashboard')
 
 @section('content')
+    <script>
+        function chagePoster(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                // get modal 
+                var modal = document.getElementById("upImageModal");
+                // get banner container
+                var posterContainer = modal.querySelector("#poster-container");
+
+                reader.onload = function(e) {
+                    // create image element and add inside div with id="poster-container" in this modal
+                    posterContainer.style.display = "block";
+                    posterContainer.src = e.target.result;
+                    posterContainer.alt = "Banner Lomba";
+                    posterContainer.style.width = "10em";
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
     <h1>Lomba</h1>
     <p>Welcome to the Lomba.</p>
     <div class="card detail">
@@ -67,6 +89,9 @@
                                 </button>
                                 <button class="deletebtn" type="button"title="Delete" data-lomba-id="{{ $lomba->id }}">
                                     <i class="fa-solid fa-trash"></i>
+                                </button>
+                                <button class="upImagebtn" type="button" value="{{ $lomba->id }}">
+                                    <i class="fa-solid fa-image"></i>
                                 </button>
                                 {{-- <a href="{{ route('dashboard.lomba.edit', ['lomba_id' => $lomba->id]) }}"
                                     class="btn btn-warning">Edit</a> --}}
@@ -146,6 +171,35 @@
 
                     <div class="CC">
                         <button type="submit">Add</button>
+                        <button type="button" id="closeButton">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Upload Image Modal Edit -->
+        <div id="upImageModal" class="modal bg-modal">
+            <div class="modal-content">
+                <h2>Upload Image</h2>
+                <form id="upImageForm" action="/dashboard/lomba/upload-image" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+
+                    <input type="hidden" name="id" id="id">
+
+                    <div style="display: flex; gap: 2em;">
+                        <div>
+                            <label for="poster">Poster:</label>
+                            <div class="loader"></div>
+                            <img id="poster-container" />
+                            <input type="file" accept="image/png, image/gif, image/jpeg" name="poster" id="poster"
+                                onchange="chagePoster(this);">
+                        </div>
+                    </div>
+
+                    <div class="CC">
+                        <button type="submit">Confirm</button>
                         <button type="button" id="closeButton">Close</button>
                     </div>
                 </form>

@@ -140,4 +140,53 @@ $(document).ready(function () {
             },
         });
     });
+
+    $(document).on("click", ".upImagebtn", function () {
+        var modal = $("#upImageModal");
+        modal.fadeIn();
+
+        var id = $(this).val();
+        modal.find("#id").val(id);
+
+        // get banner and poster input from this modal
+        var bannerInput = modal.find("#banner");
+        var posterInput = modal.find("#poster");
+
+        // get loader class from this modal
+        var loader = modal.find(".loader");
+        // unhide loader
+        loader.show();
+
+        // reset input
+        bannerInput.val("");
+        posterInput.val("");
+
+        var posterContainer = document.getElementById("poster-container");
+        posterContainer.style.display = "none";
+
+        getImage(id, posterContainer, loader);
+    });
+
+    function getImage(id, posterContainer, loader) {
+        $.ajax({
+            type: "GET",
+            url: "/dashboard/lomba/show/" + id,
+            success: function (response) {
+                loader.hide();
+                if(response.lomba.poster == null) {
+                    posterContainer.style.display = "block";
+                    posterContainer.src = "/assets/images/blank.jpg";
+                    posterContainer.alt = "Blank Image";
+                    posterContainer.style.width = "10em";
+
+                    return;
+                }
+                posterContainer.style.display = "block";
+                posterContainer.src =
+                    "/storage/lomba/poster/" + id + "/" + response.lomba.poster;
+                posterContainer.alt = "Poster Lomba";
+                posterContainer.style.width = "10em";
+            },
+        });
+    }
 });

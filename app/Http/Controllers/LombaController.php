@@ -6,6 +6,7 @@ use App\Models\EventLomba;
 use App\Models\Lomba;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Storage;
 
 class LombaController extends Controller
 {
@@ -95,9 +96,42 @@ class LombaController extends Controller
             $lomba->delete();
             info('Lomba found: ' . json_encode($lomba));
 
+            // check if image exists
+            if (Storage::exists('public/lomba/poster/' . $id)) {
+                Storage::deleteDirectory('public/lomba/poster/' . $id);
+            }
+
             return response()->json(['lomba' => $lomba], 200);
         } catch (\Exception) {
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
+    }
+
+    public function uploadImage(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'poster' => 'image|mimes:jpeg,jpg,png|max:2048',
+        ]);
+
+        $id = $request->input('id');
+
+        $poster = $request->file('poster');
+        if ($poster != null) $posterExt = $poster->getClientOriginalExtension();
+
+        // delete old image
+        if ($poster != null) Storage::deleteDirectory('public/lomba/poster/' . $id);
+
+        if ($poster != null) {
+            Storage::putFileAs('public/lomba/poster/' . $id, $poster, 'poster_' . $id . '.' . $posterExt);
+        }
+
+        // update image path in database
+        $lomba = Lomba::find($id);
+        if ($poster != null) $lomba->poster = 'poster_' . $id . '.' . $posterExt;
+
+        $lomba->update();
+
+        return redirect()->back()->with('success', 'Image uploaded successfully.');
     }
 }
