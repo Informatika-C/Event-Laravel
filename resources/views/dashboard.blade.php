@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <nav>
+    <nav class="sideMenu">
         <div class="logo-name">
             <div class="logo-image"><img src="{{ asset('assets/images/uti.png') }}" alt="" /></div>
             <span class="logo_name">Tvent</span>
@@ -28,10 +28,18 @@
                         <span class="link-name">Dahsboard</span>
                     </a>
                 </li>
-                <li class="{{ Route::currentRouteName() == 'dashboard.events' ? 'active' : '' }}">
+                <li
+                    class="{{ Route::currentRouteName() == 'dashboard.events' || Route::currentRouteName() == 'dashboard.lomba' ? 'active' : '' }}">
                     <a href="{{ route('dashboard.events') }}">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <span class="link-name">Events</span>
+                        <i
+                            class="fa-solid {{ Route::currentRouteName() == 'dashboard.lomba' ? 'fa-circle-chevron-left' : 'fa-pen-to-square' }}"></i>
+                        <span class="link-name">
+                            @if (Route::currentRouteName() == 'dashboard.lomba')
+                                Lomba
+                            @else
+                                Events
+                            @endif
+                        </span>
                     </a>
                 </li>
                 <li class="{{ Route::currentRouteName() == 'dashboard.penyelenggara' ? 'active' : '' }}">
@@ -40,18 +48,20 @@
                         <span class="link-name">Autors</span>
                     </a>
                 </li>
-                <li class="{{ Route::currentRouteName() == 'dashboard.contestant' ? 'active' : '' }}">
+                <li
+                    class="{{ Route::currentRouteName() == 'dashboard.contestant' || Route::currentRouteName() == 'dashboard.contestant.all' ? 'active' : '' }}">
                     <a href="{{ route('dashboard.contestant') }}">
-                        <i class="fa-solid fa-users"></i>
-                        <span class="link-name">Contestants</span>
+                        <i
+                            class="fa-solid {{ Route::currentRouteName() == 'dashboard.contestant.all' ? 'fa-circle-chevron-left' : 'fa-pen-to-square' }}"></i>
+                        <span class="link-name">
+                            @if (Route::currentRouteName() == 'dashboard.contestant.all')
+                                All Contestants
+                            @else
+                                Contestants
+                            @endif
+                        </span>
                     </a>
                 </li>
-                    {{-- <li class="{{ Route::currentRouteName() == 'dashboard.contestant' ? 'active' : '' }}">
-                        <a href="{{ route('dashboard.contestant') }}">
-                            <i class="fa-solid fa-tags"></i>
-                            <span class="link-name">Category</span>
-                        </a>
-                    </li> --}}
                 <li class="{{ Route::currentRouteName() == 'dashboard.schedule' ? 'active' : '' }}">
                     <a href="{{ route('dashboard.schedule') }}">
                         <i class="fa-solid fa-calendar-day"></i>
@@ -98,20 +108,25 @@
 
     <section class="dashboard">
         <div class="top">
-            <input type="checkbox" id="toggle" />
-            <label class="side-toggle sidebar-toggle" for="toggle"><span class="fas fa-bars"></span></label>
+            <div class="top-content">
+                <input type="checkbox" id="toggle" />
+                <label class="side-toggle sidebar-toggle" for="toggle"><span class="fas fa-bars"></span></label>
 
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search here..." />
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search here..." />
+                </div>
+                <div class="profile">
+                    <img class="profile-image" alt="no avaible image" src="{{ asset('assets/images/3.svg') }}" />
+                    @if (Auth::guard('admin')->check())
+                        <p class="profile-name">{{ auth()->guard('admin')->user()->name }}</p>
+                    @endif
+                </div>
             </div>
-            <div class="profile">
-                <img class="profile-image" alt="no avaible image" src="{{ asset('assets/images/3.svg') }}" />
-                @if (Auth::guard('admin')->check())
-                    <p class="profile-name">{{ auth()->guard('admin')->user()->name }}</p>
-                @endif
-            </div>
+
+            {!! Breadcrumbs::render() !!}
         </div>
+
         <div class="popup-box">
             <div class="popup">
                 <div class="content">
@@ -140,7 +155,7 @@
             </li>
         </div>
 
-        <main style="    margin-top: 70px;">@yield('content')</main>
+        <main>@yield('content')</main>
     </section>
 
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>

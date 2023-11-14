@@ -2,76 +2,56 @@
 
 @section('content')
     <script>
-        function chageBanner(input){
+        function chageBanner(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-                
+
                 // get modal 
                 var modal = document.getElementById("upImageModal");
                 // get banner container
                 var bannerContainer = modal.querySelector("#banner-container");
 
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     // create image element and add inside div with id="poster-container" in this modal
                     bannerContainer.style.display = "block";
                     bannerContainer.src = e.target.result;
                     bannerContainer.alt = "Banner Lomba";
                     bannerContainer.style.width = "10em";
                 };
-            
+
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        function chagePoster(input){
+
+        function chagePoster(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-                
+
                 // get modal 
                 var modal = document.getElementById("upImageModal");
                 // get banner container
                 var posterContainer = modal.querySelector("#poster-container");
 
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     // create image element and add inside div with id="poster-container" in this modal
                     posterContainer.style.display = "block";
                     posterContainer.src = e.target.result;
                     posterContainer.alt = "Banner Lomba";
                     posterContainer.style.width = "10em";
                 };
-            
+
                 reader.readAsDataURL(input.files[0]);
             }
         }
     </script>
     <h1>Events</h1>
+
     <p>Welcome to the Events.</p>
     <div class="card detail">
         <div class="detail-header">
-            <div id="alert-container">
-                <h2>All</h2>
-                @if (session('status'))
-                    <h2 class="alert @if (session('status') == 'error') alert-error @else alert-success @endif">
-                        {{ session('status') }}
-                    </h2>
-                @elseif (session('success'))
-                    <h2 class="alert alert-success">
-                        {{ session('success') }}
-                    </h2>
-                @elseif(session('error'))
-                    <h2 class="alert alert-error">
-                        {{ session('error') }}
-                    </h2>
+            <h2>All</h2>
 
-                @elseif($errors->any())
-                    <div class="alert alert-error ">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-            </div>
+            @include('widgets.alert')
 
             <div class="crud">
                 <button title="Add" class="show-modal" data-modal="addModal"><i class="fa-solid fa-notes-medical"></i>
@@ -83,29 +63,29 @@
                 </button>
             </div>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox_selectAll">
-                            <label for="checkbox_selectAll"></label>
-                        </span>
-                    </th>
-                    <th>#ID</th>
-                    <th>Nama Event</th>
-                    <th>Deskripsi</th>
-                    <th>Tempat</th>
-                    <th>Pendaftaran</th>
-                    <th>Penutupan</th>
-                    <th>Pelaksanaan</th>
-                    <th>Kuota</th>
-                    <th>Penyelenggara</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (count($events) > 0)
+        @if (count($events) > 0)
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <span class="custom-checkbox">
+                                <input type="checkbox" id="checkbox_selectAll">
+                                <label for="checkbox_selectAll"></label>
+                            </span>
+                        </th>
+                        <th>#ID</th>
+                        <th>Nama Event</th>
+                        <th>Deskripsi</th>
+                        <th>Tempat</th>
+                        <th>Pendaftaran</th>
+                        <th>Penutupan</th>
+                        <th>Pelaksanaan</th>
+                        <th>Kuota</th>
+                        <th>Penyelenggara</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
                     @foreach ($events as $event)
                         <tr>
                             <td>
@@ -118,9 +98,9 @@
                             <td>{{ $event->nama_lomba }}</td>
                             <td class="descript">{{ $event->deskripsi }}</td>
                             <td>{{ $event->tempat }}</td>
-                            <td>{{ $event->tanggal_pendaftaran }}</td>
-                            <td>{{ $event->tanggal_penutupan_pendaftaran }}</td>
-                            <td>{{ $event->tanggal_pelaksanaan }}</td>
+                            <td>{{ \Carbon\Carbon::parse($event->tanggal_pendaftaran)->format(' j F Y') }} </td>
+                            <td>{{ \Carbon\Carbon::parse($event->tanggal_penutupan_pendaftaran)->format(' j F Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($event->tanggal_pelaksanaan)->format(' j F Y') }}</td>
                             <td>
                                 <span class="status confirmed">
                                     <i class="fa-solid fa-user-group">{{ $event->kuota }}</i>
@@ -129,7 +109,7 @@
                             @if ($event->penyelenggara_id == null)
                                 <td> - </td>
                             @else
-                            <td>{{ $event->penyelenggara->nama_penyelenggara }}</td>
+                                <td>{{ $event->penyelenggara->nama_penyelenggara }}</td>
                             @endif
                             <td class="action">
                                 <button class="editbtn" type="button" value="{{ $event->id }}">
@@ -141,18 +121,28 @@
                                 <button class="deletebtn" type="button" del-id="{{ $event->id }}">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
+                                <button class="lombabtn"
+                                    onclick="window.location='{{ route('dashboard.lomba', ['event_id' => $event->id]) }}'">
+                                    <i class="fa-solid fa-circle-chevron-right"></i>
+                                </button>
+
+                                {{-- <button class="lombabtn" type="button"
+                                    onclick="window.location='{{ url('dashboard/lomba') }}'">
+                                    <i class="fa-solid fa-person-running"></i>
+                                </button> --}}
                             </td>
                         </tr>
                     @endforeach
-                @else
-                    <td style="text-align: center; width:100%">
-                        <h1><i class="fa-solid fa-exclamation"></i> Tidak ada data Events yang tersedia.</h1>
-                    </td>
-                @endif
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        @else
+            <h1 class="empty">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                Tidak ada data Event, Mulai Tambahkan data.
+            </h1>
+        @endif
 
-        <div id="infoModal" class="tr-modal">
+        <div id="infoModal" class="tr-modal bg-modal">
             <div class="tr-modal-content">
                 <div class="tr-det">
                     <h2 id="info_nama_lomba"></h2>
@@ -186,13 +176,13 @@
         <div class="modal-overlay"></div>
 
         <!-- Modal Add -->
-        <div id="addModal" class="modal">
+        <div id="addModal" class="modal bg-modal">
             <div class="modal-content">
                 <h2>Add</h2>
                 <form method="post" action="/dashboard/events">
                     @csrf
 
-                    <label for="name">Nama Lomba:</label>
+                    <label for="name">Nama Event:</label>
                     <input type="text" name="nama_lomba" id="name" required>
 
                     <label for="description">Description:</label>
@@ -234,7 +224,7 @@
 
 
         <!-- Modal Edit -->
-        <div id="editModal" class="modal" style="display: none;">
+        <div id="editModal" class="modal bg-modal">
             <div class="modal-content">
                 <h2>Edit</h2>
                 <form id="editForm" action="/dashboard/events/update" method="POST">
@@ -243,7 +233,7 @@
 
                     <input type="hidden" name="id" id="id">
 
-                    <label for="name">Nama Lomba:</label>
+                    <label for="name">Nama Event:</label>
                     <input type="text" name="nama_lomba" id="nama_lomba" required>
 
                     <label for="description">Description:</label>
@@ -279,10 +269,11 @@
         </div>
 
         <!-- Upload Image Modal Edit -->
-        <div id="upImageModal" class="modal" style="display: none;">
+        <div id="upImageModal" class="modal bg-modal">
             <div class="modal-content">
                 <h2>Upload Image</h2>
-                <form id="upImageForm" action="/dashboard/events/upload-image" method="POST" enctype="multipart/form-data">
+                <form id="upImageForm" action="/dashboard/events/upload-image" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -291,14 +282,18 @@
                     <div style="display: flex; gap: 2em">
                         <div>
                             <label for="banner">Banner:</label>
-                            <img id="banner-container"/>
-                            <input type="file" accept="image/jpeg" name="banner" id="banner" onchange="chageBanner(this);">
+                            <div class="loader"></div>
+                            <img id="banner-container" />
+                            <input type="file" accept="image/png, image/gif, image/jpeg" name="banner" id="banner"
+                                onchange="chageBanner(this);">
                         </div>
 
                         <div>
                             <label for="poster">Poster:</label>
-                            <img id="poster-container"/>
-                            <input type="file" accept="image/jpeg" name="poster" id="poster" onchange="chagePoster(this);">
+                            <div class="loader"></div>
+                            <img id="poster-container" />
+                            <input type="file" accept="image/png, image/gif, image/jpeg" name="poster" id="poster"
+                                onchange="chagePoster(this);">
                         </div>
                     </div>
 
@@ -312,7 +307,7 @@
         </div>
 
         <!-- Modal Delete -->
-        <div id="deleteModal" class="modal">
+        <div id="deleteModal" class="modal bg-modal">
             <div class="modal-content">
                 <h2>Delete</h2>
                 <div class="message">Confirm untuk hapus data!</div>
