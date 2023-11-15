@@ -165,9 +165,118 @@ $(document).ready(function () {
         modal.fadeOut();
     });
 
+    $(document).on("click", "#confirmKategoriEdit", function () {
+        // get editModal
+        var editModal = $("#editModal");
+
+        // get kategoriListModal from editModal
+        var kategoriListModal = editModal.find("#kategoriListModal");
+
+        // get kategoriModal
+        var kategoriModal = $("#kategoriModal");
+        // get kategoriList from kategoriModal
+        var kategoriList = kategoriModal.find("#kategoriList");
+
+        // get all checked value from kategoriList and put it in kategoriListModal
+        var kategori = kategoriList.find("input[name='kategori[]']:checked");
+        kategoriListModal.html("");
+        
+        // make for loop to make checkbox
+        for (var i = 0; i < kategori.length; i++) {
+            var id = kategori[i].value;
+            var nama_kategori = kategori[i].nextSibling.textContent;
+
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = "kategori[]";
+            checkbox.value = id;
+            checkbox.id = "kategori" + id;
+            checkbox.checked = true;
+
+            var label = document.createElement("label");
+            label.htmlFor = "kategori" + id;
+            label.appendChild(document.createTextNode(nama_kategori));
+
+            var br = document.createElement("br");
+
+            kategoriListModal.append(checkbox);
+            kategoriListModal.append(label);
+            kategoriListModal.append(br);
+        }
+
+        // close modal
+        var modal = $("#kategoriModal");
+        modal.fadeOut();
+    });
+
     $(document).on("click", "#closeKategoriButton", function () {
         var modal = $("#kategoriModal");
         modal.fadeOut();
+    });
+
+    $(document).ready(function () {
+        $(document).on("click", "#editKategoriButton", function () {
+            var modal = $("#kategoriModal");
+            modal.fadeIn();
+
+            var parentModal = $("#editModal");
+
+            // get id from parent modal
+            var id = parentModal.find("#id").val();
+
+            let arrayOfKategori = [];
+
+            $.ajax({
+                type: "GET",
+                url: "/kategori/lomba/" + id,
+                success: function (res) {
+                    console.log(res)
+                    // get all id and put it in arrayOfKategori
+                    for (var i = 0; i < res.length; i++) {
+                        arrayOfKategori.push(res[i].id);
+                    }
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/kategori",
+                        success: function (response) {
+                            var kategori = response.kategoris;
+                            var kategoriList = $("#kategoriList");
+                            kategoriList.html("");
+            
+                            // make for loop to make checkbox and make it checked if id is in arrayOfKategori
+                            for (var i = 0; i < kategori.length; i++) {
+                                var id = kategori[i].id;
+                                var nama_kategori = kategori[i].nama_kategori;
+            
+                                var checkbox = document.createElement("input");
+                                checkbox.type = "checkbox";
+                                checkbox.name = "kategori[]";
+                                checkbox.value = id;
+                                checkbox.id = "kategori" + id;
+                                checkbox.checked = false;
+
+                                if(arrayOfKategori.includes(id)) {
+                                    checkbox.checked = true;
+                                }
+            
+                                var label = document.createElement("label");
+                                label.htmlFor = "kategori" + id;
+                                label.appendChild(document.createTextNode(nama_kategori));
+            
+                                var br = document.createElement("br");
+            
+                                kategoriList.append(checkbox);
+                                kategoriList.append(label);
+                                kategoriList.append(br);
+                            }
+                        },
+                    });
+                }
+            })
+    
+            
+        });
     });
 
     $(document).on("click", ".deletebtn", function () {

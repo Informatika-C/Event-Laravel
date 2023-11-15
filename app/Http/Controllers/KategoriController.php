@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use App\Models\Lomba;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
@@ -23,5 +24,13 @@ class KategoriController extends Controller
         ]);
 
         return compact('kategori');
+    }
+
+    public function lomba(Request $request, $id)
+    {
+        $lomba = Lomba::find($id);
+        $kategoris = $lomba->kategori;
+
+        return $kategoris;
     }
 }
