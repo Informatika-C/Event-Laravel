@@ -16,7 +16,7 @@ class EventLomba extends Model
 
     protected $fillable = [
         'nama_lomba', 'deskripsi',
-        'tempat', 'tanggal_pendaftaran', 'tanggal_penutupan_pendaftaran', 'tanggal_pelaksanaan', 'kuota', 'penyelenggara_id',
+        'tempat', 'tanggal_pendaftaran', 'tanggal_penutupan_pendaftaran', 'tanggal_pelaksanaan', 'penyelenggara_id',
     ];
 
     public function penyelenggara(): HasOne
