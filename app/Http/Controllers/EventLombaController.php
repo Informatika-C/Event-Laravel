@@ -24,7 +24,7 @@ class EventLombaController extends Controller
                 $event['add'] += $lomba->kuota_lomba;
             }
         }
-        
+
         return view('dashboard.events', compact('events', 'penyelenggaras'));
     }
 
@@ -41,7 +41,6 @@ class EventLombaController extends Controller
                 'nama_lomba' => 'required',
                 'deskripsi' => 'required',
                 'tempat' => 'required',
-                'kuota' => 'required',
             ]);
 
             $validatedData['penyelenggara_id'] = $request->penyelenggara_id;
@@ -82,7 +81,6 @@ class EventLombaController extends Controller
             $event->nama_lomba = $request->input('nama_lomba') ?? $event->nama_lomba;
             $event->deskripsi = $request->input('deskripsi') ?? $event->deskripsi;
             $event->tempat = $request->input('tempat') ?? $event->tempat;
-            $event->kuota = $request->input('kuota') ?? $event->kuota;
             $event->penyelenggara_id = $request->input('penyelenggara_id') ?? $event->penyelenggara_id;
             $event->tanggal_pendaftaran = date("Y-m-d", strtotime($request->tanggal_pendaftaran)) ?? $event->tanggal_pendaftaran;
             $event->tanggal_penutupan_pendaftaran = date("Y-m-d", strtotime($request->tanggal_penutupan_pendaftaran)) ?? $event->tanggal_penutupan_pendaftaran;
