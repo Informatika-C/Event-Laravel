@@ -1075,6 +1075,12 @@ body.dark .banner-container {
     text-overflow: ellipsis;
     max-width: 200px;
 }
+.kategory {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
 .action {
     text-align: center;
     display: flex;

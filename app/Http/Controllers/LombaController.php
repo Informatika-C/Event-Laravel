@@ -18,8 +18,20 @@ class LombaController extends Controller
         // $event_id = $request->input('event_id');
         $lombas = $event_id ? Lomba::where('event_id', $event_id)->get() : Lomba::all();
 
+        // get all event
+        $events = EventLomba::all();
+
         // get all kategori
         $kategoris = Kategori::all();
+
+        // get kaegori from lombas
+        foreach ($lombas as $lomba) {
+            $lomba->kategoris = KategoriLomba::where('lomba_id', $lomba->id)->get();
+            // get name kategri from kategori id
+            foreach ($lomba->kategoris as $kategoris) {
+                $kategoris->nama_kategori = Kategori::find($kategoris->kategori_id)->nama_kategori;
+            }
+        }
 
         return view('dashboard.lomba', compact('lombas', 'event_id', 'event', 'kategoris'));
     }
@@ -48,7 +60,7 @@ class LombaController extends Controller
             $kategori_ids = $request->input('kategori');
 
             // for each kategori, create a new KategoriLomba
-            if($kategori_ids != null){
+            if ($kategori_ids != null) {
                 foreach ($kategori_ids as $kategori_id) {
                     KategoriLomba::create([
                         'kategori_id' => $kategori_id,

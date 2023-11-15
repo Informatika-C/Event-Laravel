@@ -17,4 +17,9 @@ class Kategori extends Model
     protected $fillable = [
         'nama_kategori',
     ];
+
+    public function lomba()
+    {
+        return $this->belongsToMany(Lomba::class, 'kategori_lomba');
+    }
 }

@@ -15,7 +15,16 @@ class EventLombaController extends Controller
     public function index()
     {
         $penyelenggaras = Penyelenggara::all();
-        $events = EventLomba::with('penyelenggara')->get();
+        $events = EventLomba::with(['penyelenggara', 'lomba'])->get();
+
+        // sum every lomba->kouta per event and add in eventts->koutas
+        foreach ($events as $event) {
+            $event['add'] = 0;
+            foreach ($event->lomba as $lomba) {
+                $event['add'] += $lomba->kuota_lomba;
+            }
+        }
+        
         return view('dashboard.events', compact('events', 'penyelenggaras'));
     }
 

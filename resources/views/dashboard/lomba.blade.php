@@ -60,6 +60,7 @@
                         <th>Keterangan</th>
                         <th>Ruangan Lomba</th>
                         <th>Kuota Lomba</th>
+                        <th>Kategori</th>
                         <th>Pelaksanaan Lomba</th>
                         <th>Action</th>
                     </tr>
@@ -82,6 +83,11 @@
                                     <i class="fa-solid fa-user-group">{{ $lomba->kuota_lomba }}</i>
                                 </span>
                             </td>
+                            <td class="kategory">
+                                @foreach ($lomba->kategoris as $kategori)
+                                    {{ $kategori->nama_kategori }} |
+                                @endforeach
+                            </td>
                             <td>{{ \Carbon\Carbon::parse($lomba->pelaksanaan_lomba)->format('l, j F Y') }}</td>
                             <td class="action">
                                 <button class="editbtn" type="button" title="Edit" data-lomba-id="{{ $lomba->id }}">
@@ -93,14 +99,6 @@
                                 <button class="upImagebtn" type="button" value="{{ $lomba->id }}">
                                     <i class="fa-solid fa-image"></i>
                                 </button>
-                                {{-- <a href="{{ route('dashboard.lomba.edit', ['lomba_id' => $lomba->id]) }}"
-                                    class="btn btn-warning">Edit</a> --}}
-                                {{-- <form action="{{ route('dashboard.lomba.destroy', ['lomba_id' => $lomba->id]) }}"
-                                    method="POST" style="display: inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                </form> --}}
                             </td>
                         </tr>
                     @endforeach
@@ -234,7 +232,7 @@
             </div>
         </div>
 
-         <!-- Upload Image Modal Edit -->
+        <!-- Upload Image Modal Edit -->
         <div id="upImageModal" class="modal bg-modal">
             <div class="modal-content">
                 <h2>Upload Image</h2>
@@ -250,8 +248,8 @@
                             <label for="poster">Poster:</label>
                             <div class="loader"></div>
                             <img id="poster-container" />
-                            <input type="file" accept="image/png, image/gif, image/jpeg" name="poster" id="poster"
-                                onchange="chagePoster(this);">
+                            <input type="file" accept="image/png, image/gif, image/jpeg" name="poster"
+                                id="poster" onchange="chagePoster(this);">
                         </div>
                     </div>
 
@@ -267,25 +265,25 @@
         <div id="kategoriModal" class="modal bg-modal">
             <div class="modal-content">
                 <h2>Kategori Lomba</h2>
-                    <input type="hidden" name="lomba_id" id="lomba_id">
+                <input type="hidden" name="lomba_id" id="lomba_id">
 
-                    <label for="kategori_id">Kategori:</label>
-                    <div id="kategoriList"></div>
+                <label for="kategori_id">Kategori:</label>
+                <div id="kategoriList"></div>
 
-                    <input type="text" id="inputListkategori" placeholder="Tambah Kategori">
-                    <div style="width: 100%; display: flex; justify-content: center;">
-                        <button type="button" id="addListKategoriButton" style="margin-bottom: 1em">Add</button>
-                    </div>
+                <input type="text" id="inputListkategori" placeholder="Tambah Kategori">
+                <div style="width: 100%; display: flex; justify-content: center;">
+                    <button type="button" id="addListKategoriButton" style="margin-bottom: 1em">Add</button>
+                </div>
 
-                    <div class="CC">
-                        <button id="confirmKategori">Confirm</button>
-                        <button type="button" id="closeKategoriButton">Close</button>
-                    </div>
+                <div class="CC">
+                    <button id="confirmKategori">Confirm</button>
+                    <button type="button" id="closeKategoriButton">Close</button>
+                </div>
             </div>
 
-    </div>
+        </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script src="{{ asset('assets/js/modallomba.js') }}"></script>
-    <script src="{{ asset('assets/js/modal/lombaModal.js') }}"></script>
-@endsection
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+        <script src="{{ asset('assets/js/modallomba.js') }}"></script>
+        <script src="{{ asset('assets/js/modal/lombaModal.js') }}"></script>
+    @endsection

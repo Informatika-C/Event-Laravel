@@ -210,7 +210,7 @@ $(document).ready(function () {
             url: "/dashboard/events/show/" + id,
             success: function (response) {
                 loader.hide();
-                if(response.event.banner == null) {
+                if (response.event.banner == null) {
                     bannerContainer.style.display = "block";
                     bannerContainer.src = "/assets/images/blank.jpg";
                     bannerContainer.alt = "Blank Image";
@@ -232,7 +232,7 @@ $(document).ready(function () {
             url: "/dashboard/events/show/" + id,
             success: function (response) {
                 loader.hide();
-                if(response.event.poster == null) {
+                if (response.event.poster == null) {
                     posterContainer.style.display = "block";
                     posterContainer.src = "/assets/images/blank.jpg";
                     posterContainer.alt = "Blank Image";
@@ -262,7 +262,6 @@ $(document).ready(function () {
                 $("#info_nama_lomba").html(response.event.nama_lomba);
                 $("#info_deskripsi").html(response.event.deskripsi);
                 $("#info_tempat").html(response.event.tempat);
-                $("#info_kuota").html(response.event.kuota);
 
                 $("#info_tanggal_pendaftaran").html(
                     formatTanggal(response.event.tanggal_pendaftaran)

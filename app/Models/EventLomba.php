@@ -24,6 +24,11 @@ class EventLomba extends Model
         return $this->hasOne(Penyelenggara::class, "id", "penyelenggara_id");
     }
 
+    public function lomba(): HasMany
+    {
+        return $this->hasMany(Lomba::class, "event_id", "id");
+    }
+
     public function kategori(): HasMany
     {
         return $this->hasMany(Lomba::class, "id", "event_id");
