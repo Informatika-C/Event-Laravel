@@ -206,6 +206,12 @@
                     <label for="pelaksanaan_lomba">Pelaksanaan Lomba:</label>
                     <input type="datetime-local" id="pelaksanaan_lomba" name="pelaksanaan_lomba" required>
 
+                    <div style="display: none;" id="kategoriListModal"></div>
+
+                    <div class="CC" style="margin-bottom: 1em">
+                        <button id="editKategoriButton" type="button">Kategori</button>
+                    </div>
+
                     <div class="CC">
                         <button type="submit">Confirm</button>
                         <button type="button" id="closeButton">Close</button>
@@ -276,7 +282,7 @@
                 </div>
 
                 <div class="CC">
-                    <button id="confirmKategori">Confirm</button>
+                    <button id="confirmKategoriEdit">Confirm</button>
                     <button type="button" id="closeKategoriButton">Close</button>
                 </div>
             </div>

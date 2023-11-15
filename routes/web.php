@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
 
     Route::get('/kategori', [KategoriController::class, 'index'])->name('dashboard.kategori');
     Route::post('/kategori', [KategoriController::class, 'store'])->name('dashboard.kategori.store');
+    Route::get('/kategori/lomba/{id}', [KategoriController::class, 'lomba']);
 
     Route::get('/dashboard/contestant', [ContestantController::class, 'index'])->name('dashboard.contestant');
     Route::get('/dashboard/contestant/all', [ContestantController::class, 'showAllContestants'])->name('dashboard.contestant.all');

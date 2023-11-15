@@ -102,6 +102,21 @@ class LombaController extends Controller
 
             $lomba->update();
 
+            // get kategori from request as array
+            $kategori_ids = $request->input('kategori');
+
+            KategoriLomba::where('lomba_id', $id)->delete();
+            
+            // for each kategori, create a new KategoriLomba
+            if ($kategori_ids != null) {
+                foreach ($kategori_ids as $kategori_id) {
+                    KategoriLomba::create([
+                        'kategori_id' => $kategori_id,
+                        'lomba_id' => $id,
+                    ]);
+                }
+            }
+
             return redirect()->back()->with('status', 'Data Lomba berhasil diperbarui.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui Lomba: ' . $e->getMessage());

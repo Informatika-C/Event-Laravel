@@ -21,6 +21,6 @@ class Lomba extends Model
     }
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class, 'kategori_lomba');
+        return $this->belongsToMany(Kategori::class, 'kategori_lomba');
     }
 }
