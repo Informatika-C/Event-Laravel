@@ -3,6 +3,30 @@
 
 @include('widgets.head')
 
+<script>
+    var countdownDate = {{ $event_time }} * 1000;
+
+    var x = setInterval(function() {
+        var now = new Date().getTime();
+        // remove last 
+        var distance = countdownDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+            days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("countdown").innerHTML = "EXPIRED";
+        }
+    }, 1000);
+</script>
 
 <body>
 
@@ -53,6 +77,11 @@
         <h2 class="outline-css typ">Universitas</h2>
         <h2 class="outline-svg typ">Teknokrat</h2>
         <h2 class="outline-svg gradient typ">Indonesia</h2>
+
+        <div>{{ $event_first->nama_lomba }}</div>
+        <section id="countdown" class="countdown-section">
+
+        </section>
 
         <section id="about" class="about-section">
             <div class="marquee">

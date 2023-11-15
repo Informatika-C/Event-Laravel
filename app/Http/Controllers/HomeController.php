@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use function Ramsey\Uuid\v1;
 use App\Models\EventLomba;
 use App\Models\Lomba;
+use DateTime;
 
 class HomeController extends Controller
 {
@@ -23,8 +24,30 @@ class HomeController extends Controller
         // get newest 5 events and join with penyelenggara table with eloquent
         $events = EventLomba::with('penyelenggara')->orderBy('created_at', 'desc')->take(5)->get();
 
+        // sort event by tanggal_pendaftaran in ascending order
+        $event_sort = $events->sortBy('tanggal_pendaftaran');
+
+        $event_first = $event_sort[0];
+        // make loop to chek if tanggal_pendaftaran alredy past
+        foreach ($event_sort as $event) {
+            $event_time = new DateTime($event->tanggal_pendaftaran);
+            $event_time = $event_time->getTimestamp();
+
+            if ($event_time < time()) {
+                continue;
+            }
+
+            $event_first = $event;
+            break;
+        }
+
+        $event_time = new DateTime($event_first->tanggal_pendaftaran);
+        $event_time = $event_time->getTimestamp();
+
         return view('home', [
-            'events' => $events
+            'events' => $events,
+            'event_first' => $event_first,
+            'event_time' => $event_time,
         ]);
     }
 
@@ -35,5 +58,12 @@ class HomeController extends Controller
         $lombas = $event_id ? Lomba::where('event_id', $event_id)->get() : Lomba::all();
 
         return view('home.lombapgs', compact('lombas', 'event_id', 'event'));
+    }
+
+    public function showCountdown($id)
+    {
+        $lomba = Lomba::find($id);
+
+        return view('home', compact('lomba'));
     }
 }

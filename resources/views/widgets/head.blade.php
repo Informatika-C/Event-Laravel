@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/lomba.css') }}" />
     <script src="{{ asset('assets/js/theme.js') }}" type="module"></script>
-    <script type="module" src="{{ asset('assets/js/animated.js') }}"></script>
+    <script src="{{ asset('assets/js/animated.js') }}" type="module"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>

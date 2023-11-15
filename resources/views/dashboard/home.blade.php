@@ -36,7 +36,7 @@
                 <div class="info-detail">
                     <h3>Users</h3>
                     <p></p>
-                    <h2>{{ \App\Models\User::all()->count() }} <span>Users</span></h2>
+                    <h2>{{ \App\Models\User::all()->count() }}<br> <span>Jumlah Total</span></h2>
                 </div>
                 <div class="info-image">
                     <i class="fa-solid fa-users-line"></i>
@@ -49,7 +49,7 @@
                 <div class="info-detail">
                     <h3>Events</h3>
                     <p></p>
-                    {{-- <h2>{{ $total }} <span>Events</span></h2> --}}
+                    <h2>{{ \App\Models\EventLomba::all()->count() }} <br> <span>Jumlah Total</span></h2>
                 </div>
                 <div class="info-image">
                     <i class="fa-solid fa-calendar"></i>
@@ -62,7 +62,7 @@
                 <div class="info-detail">
                     <h3>Admins</h3>
                     <p></p>
-                    <h2>{{ \App\Models\Admin::all()->count() }} <span>Admins</span></h2>
+                    <h2>{{ \App\Models\Admin::all()->count() }}<br> <span>Jumlah Total</span></h2>
                 </div>
                 <div class="info-image">
                     <i class="fa-solid fa-user-tie"></i>
@@ -75,7 +75,7 @@
                 <div class="info-detail">
                     <h3>Penyelenggara</h3>
                     <p></p>
-                    <h2>56 <span>Penyelenggara</span></h2>
+                    <h2>{{ \App\Models\Penyelenggara::all()->count() }}<br> <span>Jumlah Total</span></h2>
                 </div>
                 <div class="info-image">
                     <i class="fa-solid fa-newspaper"></i>
