@@ -19,7 +19,8 @@
         <div class="wrap-card centered">
             @foreach ($lombas as $lomba)
                 <div class='tile'>
-                    <img class='tile-img' style="background-image: url('{{ asset('assets/images/carrousel1.JPG') }}');" />
+                    <img class='tile-img'
+                        style="background-image: url('{{ asset('storage/lomba/poster/' . $lomba->id . '/' . $lomba->poster) }}');" />
                     <div class='tile-info'>
                         <div class="title-text-top">
                             <h1>{{ $lomba->nama_lomba }}</h1>

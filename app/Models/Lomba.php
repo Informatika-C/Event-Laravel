@@ -19,4 +19,8 @@ class Lomba extends Model
     {
         return $this->belongsTo(EventLomba::class, 'event_id');
     }
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_lomba');
+    }
 }

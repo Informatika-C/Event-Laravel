@@ -103,7 +103,7 @@
                             <td>{{ \Carbon\Carbon::parse($event->tanggal_pelaksanaan)->format(' j F Y') }}</td>
                             <td>
                                 <span class="status confirmed">
-                                    <i class="fa-solid fa-user-group">{{ $event->kuota }}</i>
+                                    <i class="fa-solid fa-user-group">{{ $event->add }}</i>
                                 </span>
                             </td>
                             @if ($event->penyelenggara_id == null)
@@ -159,9 +159,9 @@
                         <strong><i class="fa-solid fa-map-location-dot"></i>
                             <span id="info_tempat"></span>
                         </strong>
-                        <strong><i class="fa-solid fa-users-line"></i>
+                        {{-- <strong><i class="fa-solid fa-users-line"></i>
                             <span id="info_kuota"></span>
-                        </strong>
+                        </strong> --}}
                         <strong><i class="fa-solid fa-people-group"></i>
                             <span id="info_penyelenggara_id"></span>
                         </strong>
@@ -190,9 +190,6 @@
 
                     <label for="location">Location:</label>
                     <input type="text" name="tempat" id="location" required>
-
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" name="kuota" id="quantity" required>
 
                     <label for="registration_date">Registration Date:</label>
                     <input type="date" name="tanggal_pendaftaran" id="registration_date" required>
@@ -242,9 +239,6 @@
                     <label for="location">Location:</label>
                     <input type="text" name="tempat" id="tempat"required>
 
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" name="kuota" id="kuota" required>
-
                     <label for="registration_date">Registration Date:</label>
                     <input type="date" name="tanggal_pendaftaran" id="tanggal_pendaftaran"required>
 
@@ -284,16 +278,16 @@
                             <label for="banner">Banner:</label>
                             <div class="loader"></div>
                             <img id="banner-container" />
-                            <input type="file" accept="image/png, image/gif, image/jpeg" name="banner" id="banner"
-                                onchange="chageBanner(this);">
+                            <input type="file" accept="image/png, image/gif, image/jpeg" name="banner"
+                                id="banner" onchange="chageBanner(this);">
                         </div>
 
                         <div>
                             <label for="poster">Poster:</label>
                             <div class="loader"></div>
                             <img id="poster-container" />
-                            <input type="file" accept="image/png, image/gif, image/jpeg" name="poster" id="poster"
-                                onchange="chagePoster(this);">
+                            <input type="file" accept="image/png, image/gif, image/jpeg" name="poster"
+                                id="poster" onchange="chagePoster(this);">
                         </div>
                     </div>
 
