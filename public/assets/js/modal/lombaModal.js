@@ -355,6 +355,11 @@ $(document).ready(function () {
         let idModal = modal.find("#id");
         console.log(idModal);
 
+        // reset
+        let list = modal.find("#kategoriListModal");
+        // remove list child
+        list.html("");
+
         $.ajax({
             type: "GET",
             url: "/dashboard/lomba/edit/" + id,
