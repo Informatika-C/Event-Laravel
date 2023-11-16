@@ -282,11 +282,31 @@
                 </div>
 
                 <div class="CC">
+                    <button id="confirmKategori">Confirm</button>
+                    <button type="button" id="closeKategoriButton">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategori Modal Edit -->
+        <div id="kategoriModal" class="modal bg-modal">
+            <div class="modal-content">
+                <h2>Kategori Lomba</h2>
+                <input type="hidden" name="lomba_id" id="lomba_id">
+
+                <label for="kategori_id">Kategori:</label>
+                <div id="kategoriList"></div>
+
+                <input type="text" id="inputListkategori" placeholder="Tambah Kategori">
+                <div style="width: 100%; display: flex; justify-content: center;">
+                    <button type="button" id="addListKategoriButton" style="margin-bottom: 1em">Add</button>
+                </div>
+
+                <div class="CC">
                     <button id="confirmKategoriEdit">Confirm</button>
                     <button type="button" id="closeKategoriButton">Close</button>
                 </div>
             </div>
-
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
