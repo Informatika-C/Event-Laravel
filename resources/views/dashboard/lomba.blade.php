@@ -289,7 +289,7 @@
         </div>
 
         <!-- Kategori Modal Edit -->
-        <div id="kategoriModal" class="modal bg-modal">
+        <div id="kategoriModalEdit" class="modal bg-modal">
             <div class="modal-content">
                 <h2>Kategori Lomba</h2>
                 <input type="hidden" name="lomba_id" id="lomba_id">
@@ -304,7 +304,7 @@
 
                 <div class="CC">
                     <button id="confirmKategoriEdit">Confirm</button>
-                    <button type="button" id="closeKategoriButton">Close</button>
+                    <button type="button" id="closeEditKategoriButton">Close</button>
                 </div>
             </div>
         </div>

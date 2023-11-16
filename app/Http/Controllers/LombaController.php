@@ -105,15 +105,20 @@ class LombaController extends Controller
             // get kategori from request as array
             $kategori_ids = $request->input('kategori');
 
-            KategoriLomba::where('lomba_id', $id)->delete();
-            
+            if($kategori_ids == -1){
+                KategoriLomba::where('lomba_id', $id)->delete();
+            }
+
             // for each kategori, create a new KategoriLomba
-            if ($kategori_ids != null) {
-                foreach ($kategori_ids as $kategori_id) {
-                    KategoriLomba::create([
-                        'kategori_id' => $kategori_id,
-                        'lomba_id' => $id,
-                    ]);
+            if(is_array($kategori_ids)){
+                if ($kategori_ids != null) {
+                    KategoriLomba::where('lomba_id', $id)->delete();
+                    foreach ($kategori_ids as $kategori_id) {
+                        KategoriLomba::create([
+                            'kategori_id' => $kategori_id,
+                            'lomba_id' => $id,
+                        ]);
+                    }
                 }
             }
 
