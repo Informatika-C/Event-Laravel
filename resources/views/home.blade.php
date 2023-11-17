@@ -3,6 +3,7 @@
 
 @include('widgets.head')
 
+@isset($event_time)
 <script>
     var countdownDate = {{ $event_time }} * 1000;
 
@@ -27,6 +28,7 @@
         }
     }, 1000);
 </script>
+@endisset
 
 <body>
 
@@ -78,7 +80,9 @@
         <h2 class="outline-svg typ">Teknokrat</h2>
         <h2 class="outline-svg gradient typ">Indonesia</h2>
 
+        @isset($event_first)
         <div>{{ $event_first->nama_lomba }}</div>
+        @endisset
         <section id="countdown" class="countdown-section">
 
         </section>
