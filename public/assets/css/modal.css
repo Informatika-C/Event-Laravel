@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+:root {
+    --primary-color: #3a3b3c;
+    --panel-color: #06142e;
+    --panel-color-reverse: #e1dcd1;
+    --text-color: #f2f2f2;
+    --text-color-reverse: #1e2126;
+    --text-hover-color: #ffa500;
+    --text-hover-color-reverse: #3409e0;
+    --black-light-color: #ccc;
+    --border-color: #4d4c4c;
+    --toggle-color: #fff;
+    --box1-color: #3a3b3c;
+    --box2-color: #3a3b3c;
+    --box3-color: #3a3b3c;
+    --title-icon-color: #ccc;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--primary-color);
+}
+body.dark {
+    --primary-color: #0e4bf1;
+    --panel-color: #e1dcd1;
+    --panel-color-reverse: #06142e;
+    --text-color: #1e2126;
+    --text-color-reverse: #f2f2f2;
+    --text-hover-color: #3409e0;
+    --text-hover-color-reverse: #ffa500;
+    --black-light-color: #2e2d2d;
+    --border-color: #e6e5e5;
+    --toggle-color: #2e2d2d;
+    --box1-color: #4da3ff;
+    --box2-color: #ffe6ac;
+    --box3-color: #e7d1fc;
+    --title-icon-color: #fff;
+
+    --tran-05: all 0.5s ease-in-out;
+    --tran-03: all 0.3s ease;
+    --tran-03: all 0.2s ease;
+}
+
+/* CSS untuk modal */
+.modal {
+    display: none;
+    position: fixed;
+    background-image: url("../images/3.svg");
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: 770px 840px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--text-color-reverse);
+    color: var(--text-color);
+    padding: 20px;
+    border-radius: 20px;
+    z-index: 2;
+    max-width: 500px;
+    z-index: 9999;
+}
+
+.modal button {
+    font-size: 17px;
+    font-weight: 800;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 6px;
+    color: var(--panel-color);
+    background-color: var(--panel-color-reverse);
+    border: 1px transparent solid;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+}
+
+.modal button:hover {
+    background-color: var(--text-hover-color);
+    border: 1px var(--text-hover-color) solid;
+    color: var(--text-hover-color-reverse);
+}
+
+.CC {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+textarea,
+input {
+    border-radius: 6px;
+    border: 1px solid #201f2b;
+    box-shadow: none;
+    background-color: #f2f2f2;
+    color: #201f2b;
+    text-align: start;
+    margin-bottom: 12px;
+    padding: 5px;
+    font-size: 18px;
+    font-weight: 500;
+}

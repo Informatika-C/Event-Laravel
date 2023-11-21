@@ -13,14 +13,20 @@ class Lomba extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['event_id', 'nama_lomba', 'keterangan', 'ruangan_lomba', 'kuota_lomba', 'pelaksanaan_lomba'];
+    protected $fillable = ['event_id', 'nama_lomba', 'max_anggota', 'biaya_registrasi', 'keterangan', 'ruangan_lomba', 'kuota_lomba', 'pelaksanaan_lomba'];
 
     public function event()
     {
         return $this->belongsTo(EventLomba::class, 'event_id');
     }
+
     public function kategori()
     {
         return $this->belongsToMany(Kategori::class, 'kategori_lomba');
+    }
+
+    public function kelompok()
+    {
+        return $this->belongsToMany(Kelompok::class, 'lomba_kelompok');
     }
 }

@@ -12,11 +12,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // check if user login
-        if (auth()->user()) {
-            // untuk user menampilkan event berdasarkan rekomendasi
-            return view('home');
-        }
+        // // check if user login
+        // if (auth()->user()) {
+        //     // untuk user menampilkan event berdasarkan rekomendasi
+        //     return view('home');
+        // }
 
         // ----------------------------- //
 

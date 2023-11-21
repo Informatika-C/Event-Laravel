@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\EventLomba;
 use App\Models\Kategori;
 use App\Models\KategoriLomba;
+use App\Models\Kelompok;
+use App\Models\KelompokPeserta;
 use App\Models\Lomba;
+use App\Models\LombaKelompok;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class LombaController extends Controller
 {
@@ -184,5 +188,89 @@ class LombaController extends Controller
         $lomba->update();
 
         return redirect()->back()->with('success', 'Image uploaded successfully.');
+    }
+
+    public function register(Request $request){
+        try{
+            $validatedData = $request->validate([
+                'lomba_id' => 'required|exists:lomba,id',
+                'kelompok_id' => 'required|exists:kelompok,id',
+            ]);
+
+            $lomba = Lomba::find($validatedData['lomba_id']);
+            $kelompok = Kelompok::find($validatedData['kelompok_id']);
+
+            // check if kelompok already registered
+            $isRegistered = LombaKelompok::where('lomba_id', $lomba->id)->where('kelompok_id', $kelompok->id)->first();
+            if($isRegistered != null){
+               throw ValidationException::withMessages([
+                    'kelompok_id' => 'Kelompok sudah terdaftar pada lomba ini.',
+                ]);
+            }
+
+            // create new LombaKelompok
+            $lombaKelompok = LombaKelompok::create([
+                'lomba_id' => $lomba->id,
+                'kelompok_id' => $kelompok->id,
+            ]);
+
+            return response()->json([
+                'message' => 'Kelompok berhasil terdaftar pada lomba ini.',
+                'lombaKelompok' => $lombaKelompok,
+            ], 200);
+        }
+        catch (ValidationException $e) {
+                return response()->json([
+                    'message' => $e->getMessage(),
+                ], 422);
+            }
+    }
+
+    public function unregister(){
+        return "unregister";
+    }
+
+    public function registerSolo(Request $request){
+        // validate
+        $validatedData = $request->validate([
+            'password' => 'required|string',
+            'lomba_id' => 'required|exists:lomba,id',
+        ]);
+
+        // check password with user password
+        $hasher = app('hash');
+        $user = auth()->user();
+        if(!$hasher->check($validatedData['password'], $user->password)){
+            return back()->with('error', 'Password salah.');
+        }
+
+        // get user id
+        $user_id = auth()->user()->id;
+
+        // check 'solo_'.$user_id, if exist return already exist
+        $kelompok = Kelompok::where('nama_kelompok', 'solo_'.$user_id)->first();
+        if(!$kelompok){
+            // create new kelompok
+            $kelompok = Kelompok::create([
+                'nama_kelompok' => 'solo_'.$user_id,
+                'ketua_id' => $user_id,
+            ]);
+
+            // insert user to kelompok_peserta
+            KelompokPeserta::create([
+                'kelompok_id' => $kelompok->id,
+                'peserta_id' => $user_id,
+            ]);
+        }
+
+        // set request kelompok_id to kelompok->id
+        $request->merge(['kelompok_id' => $kelompok->id]);
+
+        $this->register($request);
+
+        // get lomba name
+        $lomba = Lomba::find($request->input('lomba_id'))->nama_lomba;
+
+        return back()->with('success', 'Berhasil mendaftar '. $lomba);
     }
 }

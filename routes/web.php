@@ -10,8 +10,10 @@ use App\Http\Controllers\LombaController;
 use App\Http\Controllers\PenyelenggaraController;
 use App\Http\Controllers\ContestantController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KelompokController;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use App\Models\Admin;
+use App\Models\Kelompok;
 use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +93,15 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function () {
     Route::get('/profile', function () {
         return view('profile');
     })->name('user.profile');
+});
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::post('/lomba/register', [LombaController::class, 'register'])->name('lomba.register');
+    Route::post('/lomba/register/solo', [LombaController::class, 'registerSolo'])->name('lomba.register.solo');
+    Route::delete('/lomba/register', [LombaController::class, 'unregister'])->name('lomba.unregister');
+
+    Route::get('/kelompok', [KelompokController::class, 'index'])->name('kelompok');
+    Route::post('/kelompok', [KelompokController::class, 'store'])->name('kelompok.store');
 });
 
 Route::Group(['middleware' => ['guest']], function () {

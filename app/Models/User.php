@@ -44,4 +44,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function kelompok()
+    {
+        return $this->belongsToMany(Kelompok::class, 'kelompok_peserta', 'peserta_id', 'kelompok_id');
+    }
 }
