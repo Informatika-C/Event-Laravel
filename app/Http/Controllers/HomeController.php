@@ -60,7 +60,7 @@ class HomeController extends Controller
         $lombas = $event_id ? Lomba::where('event_id', $event_id)->get() : Lomba::all();
 
         // get user id and get all kelompok join with user id in kelompok_peserta table
-        $user_id = auth()->user()->id;
+        $user_id = auth()->user()->id ?? -1;
         $kelompoks = KelompokPeserta::where('peserta_id', $user_id)->get();
 
         // join lombas with kelompoks in lomba_kelompok if join add in lombas "is_join" column
