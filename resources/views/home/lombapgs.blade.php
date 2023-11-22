@@ -52,13 +52,13 @@
                             @else
                                 <p class="card-text">
                                     <span class="status">
-                                        Solo - <i class="fa-solid fa-user"></i>
+                                        Solo - <i class="fa-solid fa-user"></i> 1
                                     </span>
                                 </p>
                             @endif
                             <p class="card-text">
                                 <span class="status">
-                                    Kuota Maximum - <i class="fa-solid fa-user-group"></i>{{ $lomba->kuota_lomba }}
+                                    Kuota Peserta - <i class="fa-solid fa-user-group"></i> {{$lomba->pesertaRegistered}}/{{ $lomba->kuota_lomba }}
                                 </span>
                             </p>
                             <p class="card-text">Pelaksanaan:

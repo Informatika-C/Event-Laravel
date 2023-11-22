@@ -270,6 +270,22 @@ class LombaController extends Controller
         // get user id
         $user_id = auth()->user()->id;
 
+        // get name
+        $lomba = Lomba::find($request->input('lomba_id'));
+
+        // check peserta registered
+        $lombaKelompoks = LombaKelompok::where('lomba_id', $lomba->id)->get();
+        $pesertaRegistered = 0;
+
+        foreach ($lombaKelompoks as $lombaKelompok) {
+            $kelompokPesertas = KelompokPeserta::where('kelompok_id', $lombaKelompok->kelompok_id)->get();
+            $pesertaRegistered += count($kelompokPesertas);
+        }
+
+        if($pesertaRegistered + 1 > $lomba->kuota_lomba){
+            return back()->with('error', 'Kuota lomba sudah penuh.');
+        }
+
         // check 'solo_'.$user_id, if exist return already exist
         $kelompok = Kelompok::where('nama_kelompok', 'solo_'.$user_id)->first();
         if(!$kelompok){
@@ -291,10 +307,7 @@ class LombaController extends Controller
 
         $this->register($request);
 
-        // get lomba name
-        $lomba = Lomba::find($request->input('lomba_id'))->nama_lomba;
-
-        return back()->with('success', 'Berhasil mendaftar '. $lomba);
+        return back()->with('success', 'Berhasil mendaftar '. $lomba->nama_lomba);
     }
 
     public function registerGrup(Request $request){
@@ -326,6 +339,22 @@ class LombaController extends Controller
             return back()->with('error', 'Password salah.');
         }
 
+        // get lomba
+        $lomba = Lomba::find($request->input('lomba_id'));
+
+        // check peserta registered
+        $lombaKelompoks = LombaKelompok::where('lomba_id', $lomba->id)->get();
+        $pesertaRegistered = 0;
+
+        foreach ($lombaKelompoks as $lombaKelompok) {
+            $kelompokPesertas = KelompokPeserta::where('kelompok_id', $lombaKelompok->kelompok_id)->get();
+            $pesertaRegistered += count($kelompokPesertas);
+        }
+
+        if($pesertaRegistered + count($anggota) > $lomba->kuota_lomba){
+            return back()->with('error', 'Kuota lomba sudah penuh.');
+        }
+
         // create new kelompok and ketua as first anggota
         $kelompok = Kelompok::create([
             'nama_kelompok' => $validatedData['nama_grup'],
@@ -345,9 +374,6 @@ class LombaController extends Controller
 
         $this->register($request);
 
-        // get lomba name
-        $lomba = Lomba::find($request->input('lomba_id'))->nama_lomba;
-
-        return back()->with('success', 'Berhasil mendaftar '. $lomba);
+        return back()->with('success', 'Berhasil mendaftar '. $lomba->nama_lomba);
     }
 }

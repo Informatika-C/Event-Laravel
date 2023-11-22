@@ -73,8 +73,19 @@ class HomeController extends Controller
                 }
                 $lomba->is_join = false;
             }
+    
+            // check peserta registered
+            $lombaKelompoks = LombaKelompok::where('lomba_id', $lomba->id)->get();
+            $pesertaRegistered = 0;
+    
+            foreach ($lombaKelompoks as $lombaKelompok) {
+                $kelompokPesertas = KelompokPeserta::where('kelompok_id', $lombaKelompok->kelompok_id)->get();
+                $pesertaRegistered += count($kelompokPesertas);
+            }
+
+            $lomba->pesertaRegistered = $pesertaRegistered;
         }
-        
+
         return view('home.lombapgs', compact('lombas', 'event_id', 'event'));
     }
 
