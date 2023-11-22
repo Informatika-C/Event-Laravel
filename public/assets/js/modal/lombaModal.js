@@ -372,6 +372,8 @@ $(document).ready(function () {
                 $("#keterangan").val(response.lomba.keterangan);
                 $("#ruangan_lomba").val(response.lomba.ruangan_lomba);
                 $("#kuota_lomba").val(response.lomba.kuota_lomba);
+                $("#max_anggota").val(response.lomba.max_anggota);
+                $("#biaya_registrasi").val(response.lomba.biaya_registrasi);
 
                 const convertedDateTimeString = response.lomba.pelaksanaan_lomba.replace(" ", "T");
                 $("#pelaksanaan_lomba").val(convertedDateTimeString);
@@ -394,6 +396,8 @@ $(document).ready(function () {
                 $("#keterangan").val(response.lomba.keterangan);
                 $("#ruangan_lomba").val(response.lomba.ruangan_lomba);
                 $("#kuota_lomba").val(response.lomba.kuota_lomba);
+                $("#max_anggota").val(response.lomba.max_anggota);
+                $("#biaya_registrasi").val(response.lomba.biaya_registrasi);
 
                 var formattedDate = new Date(response.lomba.pelaksanaan_lomba)
                     .toISOString()

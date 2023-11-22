@@ -55,6 +55,8 @@ class LombaController extends Controller
                 'keterangan' => 'required|string',
                 'ruangan_lomba' => 'required|string',
                 'kuota_lomba' => 'required|integer',
+                'max_anggota' => 'required|integer',
+                'biaya_registrasi' => 'required|integer',
                 'pelaksanaan_lomba' => 'required|date',
                 'event_id' => 'required|exists:event_lomba,id',
             ]);
@@ -103,6 +105,8 @@ class LombaController extends Controller
             $lomba->keterangan = $request->input('keterangan') ?? $lomba->keterangan;
             $lomba->ruangan_lomba = $request->input('ruangan_lomba') ?? $lomba->ruangan_lomba;
             $lomba->kuota_lomba = $request->input('kuota_lomba') ?? $lomba->kuota_lomba;
+            $lomba->max_anggota = $request->input('max_anggota') ?? $lomba->max_anggota;
+            $lomba->biaya_registrasi = $request->input('biaya_registrasi') ?? $lomba->biaya_registrasi;
             $lomba->pelaksanaan_lomba = $request->input('pelaksanaan_lomba') ?? $lomba->pelaksanaan_lomba;
 
             $lomba->update();

@@ -60,6 +60,8 @@
                         <th>Keterangan</th>
                         <th>Ruangan Lomba</th>
                         <th>Kuota Lomba</th>
+                        <th>Maximal Anggota</th>
+                        <th>Biaya Registrasi</th>
                         <th>Kategori</th>
                         <th>Pelaksanaan Lomba</th>
                         <th>Action</th>
@@ -81,6 +83,16 @@
                             <td>
                                 <span class="status confirmed">
                                     <i class="fa-solid fa-user-group">{{ $lomba->kuota_lomba }}</i>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="status confirmed">
+                                    <i class="fa-solid fa-user">{{ $lomba->max_anggota }}</i>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="status confirmed">
+                                    <i class="fa-solid fa-money-bill">{{ $lomba->biaya_registrasi }}</i>
                                 </span>
                             </td>
                             <td class="kategory">
@@ -164,6 +176,12 @@
                     <label for="kuota_lomba">Kuota Lomba:</label>
                     <input type="number" name="kuota_lomba" required>
 
+                    <label for="max_anggota">Maximal Anggota PerTim:</label>
+                    <input type="number" name="max_anggota" required>
+
+                    <label for="biaya_registrasi">Biaya Registrasi:</label>
+                    <input type="number" name="biaya_registrasi" required>
+
                     <label for="pelaksanaan_lomba">Pelaksanaan Lomba:</label>
                     <input type="datetime-local" name="pelaksanaan_lomba" required>
 
@@ -202,6 +220,12 @@
 
                     <label for="kuota_lomba">Kuota Lomba:</label>
                     <input type="number" name="kuota_lomba" id="kuota_lomba" required>
+
+                    <label for="max_anggota">Maximal Anggota PerTim:</label>
+                    <input type="number" name="max_anggota" id="max_anggota" required>
+
+                    <label for="biaya_registrasi">Biaya Registrasi:</label>
+                    <input type="number" name="biaya_registrasi" id="biaya_registrasi" required>
 
                     <label for="pelaksanaan_lomba">Pelaksanaan Lomba:</label>
                     <input type="datetime-local" id="pelaksanaan_lomba" name="pelaksanaan_lomba" required>
