@@ -58,7 +58,7 @@
             <input id='lomba-id-input' type="hidden" name="lomba_id">
 
             <div class="CC">
-                <button type="submit">Keluar Lomba</button>
+                <button type="submit">Keluar</button>
                 <button type="button" id="closeButton">Close</button>
             </div>
         </form>

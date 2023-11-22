@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\DB;
 
 class LombaController extends Controller
 {
@@ -239,6 +240,12 @@ class LombaController extends Controller
 
         // get kelompok by kelompok id
         $kelompok = Kelompok::find($lombaKelompok->kelompok_id);
+
+        // if kelompok is solo, delete only lomba_kelompok
+        if($kelompok->nama_kelompok == 'solo_'.auth()->user()->id){
+            $lombaKelompok->delete();
+            return back()->with('success', 'Kelompok berhasil keluar pada lomba' . $lomba->nama_lomba);
+        }
 
         // delete kelompok peserta
         KelompokPeserta::where('kelompok_id', $kelompok->id)->delete();

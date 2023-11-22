@@ -96,8 +96,8 @@ $(document).ready(function () {
         lomba = $.parseJSON(lomba);
 
         // set Modal Title to "Keluar Lomba"
-        modal.find("#modal-title").html("Keluar Lomba " + lomba.nama_lomba);
-        
+        modal.find("#modal-title").html("Keluar " + lomba.nama_lomba);
+
         modal.find("#lomba-id-input").val(lomba.id);
 
         modal.css("display", "block");
