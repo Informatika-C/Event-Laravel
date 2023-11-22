@@ -22,3 +22,24 @@
         </div>
     </form>
 </div>
+
+<div id='grup-form' style="display: none">
+    <form method="POST" action="/lomba/register/grup">
+        @csrf
+        <input id='lomba-id-input' type="hidden" name="lomba_id">
+
+        <label for="nama-grup">Nama Grup:</label>
+        <input autocomplete="off" type="text" name="nama_grup" id="nama-grup" placeholder="Nama Grup" required>
+
+        <div id='anggota-grup' style="display: flex; flex-direction: column; margin-bottom: 1em">
+        </div>
+
+        <label for="password">Konfirmasi Password:</label>
+        <input autocomplete="off" type="password" name="password" id="password" placeholder="Password" required>
+
+        <div class="CC">
+            <button type="submit">Daftar</button>
+            <button type="button" id="closeButton">Close</button>
+        </div>
+    </form>
+</div>

@@ -273,4 +273,47 @@ class LombaController extends Controller
 
         return back()->with('success', 'Berhasil mendaftar '. $lomba);
     }
+
+    public function registerGrup(Request $request){
+        // validate
+        $validatedData = $request->validate([
+            'nama_grup' => 'required|string|unique:kelompok,nama_kelompok',
+            'password' => 'required|string',
+            'lomba_id' => 'required|exists:lomba,id',
+            'anggota' => 'required|array',
+        ]);
+
+        // check password with user password
+        $hasher = app('hash');
+        $user = auth()->user();
+        if(!$hasher->check($validatedData['password'], $user->password)){
+            return back()->with('error', 'Password salah.');
+        }
+
+        $anggota = $validatedData['anggota'];
+
+        // create new kelompok and ketua as first anggota
+        $kelompok = Kelompok::create([
+            'nama_kelompok' => $validatedData['nama_grup'],
+            'ketua_id' => $anggota[0]
+        ]);
+
+        // insert anggota to kelompok_peserta
+        foreach ($anggota as $peserta_id) {
+            KelompokPeserta::create([
+                'kelompok_id' => $kelompok->id,
+                'peserta_id' => $peserta_id,
+            ]);
+        }
+
+        // set request kelompok_id to kelompok->id
+        $request->merge(['kelompok_id' => $kelompok->id]);
+
+        $this->register($request);
+
+        // get lomba name
+        $lomba = Lomba::find($request->input('lomba_id'))->nama_lomba;
+
+        return back()->with('success', 'Berhasil mendaftar '. $lomba);
+    }
 }

@@ -55,4 +55,16 @@ class ContestantController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
+
+    public function search(Request $request)
+    {
+        $user = [];
+        if($request->has('q')) {
+            $search = $request->q;
+            $user = User::select("id", "name")
+                ->where('name', 'LIKE', "%$search%")
+                ->get();
+        }
+        return response()->json($user);
+    }
 }

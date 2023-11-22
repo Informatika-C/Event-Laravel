@@ -98,11 +98,14 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::post('/lomba/register', [LombaController::class, 'register'])->name('lomba.register');
     Route::post('/lomba/register/solo', [LombaController::class, 'registerSolo'])->name('lomba.register.solo');
+    Route::post('/lomba/register/grup', [LombaController::class, 'registerGrup'])->name('lomba.register.grup');
     Route::delete('/lomba/register', [LombaController::class, 'unregister'])->name('lomba.unregister');
 
     Route::get('/kelompok', [KelompokController::class, 'index'])->name('kelompok');
     Route::post('/kelompok', [KelompokController::class, 'store'])->name('kelompok.store');
 });
+
+Route::get('/ajax-autocomplete-contestant', [ContestantController::class, 'search'])->name('ajax-autocomplete-contestant');
 
 Route::Group(['middleware' => ['guest']], function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
