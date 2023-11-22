@@ -227,7 +227,23 @@ class LombaController extends Controller
     }
 
     public function unregister(){
-        return "unregister";
+        $validatedData = request()->validate([
+            'lomba_id' => 'required|exists:lomba,id',
+        ]);
+
+        // get kelompok by user id and lomba id
+        $kelompoks = KelompokPeserta::where('peserta_id', auth()->user()->id)->get();
+        $lomba = Lomba::find($validatedData['lomba_id']);
+
+        $lombaKelompok = LombaKelompok::where('lomba_id', $lomba->id)->whereIn('kelompok_id', $kelompoks->pluck('kelompok_id'))->first();
+
+        // get kelompok by kelompok id
+        $kelompok = Kelompok::find($lombaKelompok->kelompok_id);
+
+        // delete kelompok peserta
+        KelompokPeserta::where('kelompok_id', $kelompok->id)->delete();
+
+        return back()->with('success', 'Kelompok berhasil keluar pada lomba' . $lomba->nama_lomba);
     }
 
     public function registerSolo(Request $request){
@@ -275,13 +291,26 @@ class LombaController extends Controller
     }
 
     public function registerGrup(Request $request){
-        // validate
-        $validatedData = $request->validate([
-            'nama_grup' => 'required|string|unique:kelompok,nama_kelompok',
-            'password' => 'required|string',
-            'lomba_id' => 'required|exists:lomba,id',
-            'anggota' => 'required|array',
-        ]);
+        try{
+            $validatedData = $request->validate([
+                'nama_grup' => 'required|string|unique:kelompok,nama_kelompok',
+                'password' => 'required|string',
+                'lomba_id' => 'required|exists:lomba,id',
+                'anggota' => 'required|array',
+            ]);
+            $anggota = $validatedData['anggota'];
+
+            // check if anggota same each other
+            $anggota_unique = array_unique($anggota);
+            if(count($anggota) != count($anggota_unique)){
+                throw ValidationException::withMessages([
+                    'anggota' => 'Anggota not unique.',
+                ]);
+            }
+        }
+        catch (ValidationException $e) {
+            return back()->with('error', $e->getMessage());
+        }
 
         // check password with user password
         $hasher = app('hash');
@@ -289,8 +318,6 @@ class LombaController extends Controller
         if(!$hasher->check($validatedData['password'], $user->password)){
             return back()->with('error', 'Password salah.');
         }
-
-        $anggota = $validatedData['anggota'];
 
         // create new kelompok and ketua as first anggota
         $kelompok = Kelompok::create([

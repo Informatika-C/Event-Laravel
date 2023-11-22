@@ -64,7 +64,11 @@
                             <p class="card-text">Pelaksanaan:
                                 {{ \Carbon\Carbon::parse($lomba->pelaksanaan_lomba)->format('l, j F Y') }}</p>
                         </div>
+                        @if($lomba->is_join == false)
                         <button id="join-buttton" data-lomba="{{$lomba}}" class="jointbtn"> Joint Event</button>
+                        @else
+                        <button id="out-buttton" data-lomba="{{$lomba}}" class="jointbtn" style="background: red; color:white"> Out Event</button>
+                        @endif
                     </div>
                 </div>
             @endforeach

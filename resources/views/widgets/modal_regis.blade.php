@@ -1,6 +1,6 @@
 <div id='join-lomba-modal' class="modal bg-modal">
     <div class="modal-content">
-        <div style="font-size: 2em; margin-bottom: 0.5em;">
+        <div id='modal-title' style="font-size: 2em; margin-bottom: 0.5em;">
             Join 
             <span id="nama-lomba-modal"></span>
         </div>
@@ -42,4 +42,25 @@
             <button type="button" id="closeButton">Close</button>
         </div>
     </form>
+</div>
+
+{{--  --}}
+
+<div id='out-lomba-modal' class="modal bg-modal">
+    <div class="modal-content">
+        <div id='modal-title' style="font-size: 2em; margin-bottom: 0.5em;">
+            Join 
+            <span id="nama-lomba-modal"></span>
+        </div>
+        <form method="POST" action="/lomba/register">
+            @method('DELETE')
+            @csrf
+            <input id='lomba-id-input' type="hidden" name="lomba_id">
+
+            <div class="CC">
+                <button type="submit">Keluar Lomba</button>
+                <button type="button" id="closeButton">Close</button>
+            </div>
+        </form>
+    </div>
 </div>

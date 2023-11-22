@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use function Ramsey\Uuid\v1;
 use App\Models\EventLomba;
+use App\Models\KelompokPeserta;
 use App\Models\Lomba;
+use App\Models\LombaKelompok;
 use DateTime;
 
 class HomeController extends Controller
@@ -57,6 +59,22 @@ class HomeController extends Controller
         // $event_id = $request->input('event_id');
         $lombas = $event_id ? Lomba::where('event_id', $event_id)->get() : Lomba::all();
 
+        // get user id and get all kelompok join with user id in kelompok_peserta table
+        $user_id = auth()->user()->id;
+        $kelompoks = KelompokPeserta::where('peserta_id', $user_id)->get();
+
+        // join lombas with kelompoks in lomba_kelompok if join add in lombas "is_join" column
+        foreach ($lombas as $lomba) {
+            foreach ($kelompoks as $kelompok) {
+                $lomba_kelompok = LombaKelompok::where('lomba_id', $lomba->id)->where('kelompok_id', $kelompok->kelompok_id)->first();
+                if ($lomba_kelompok) {
+                    $lomba->is_join = true;
+                    break;
+                }
+                $lomba->is_join = false;
+            }
+        }
+        
         return view('home.lombapgs', compact('lombas', 'event_id', 'event'));
     }
 

@@ -87,6 +87,27 @@ $(document).ready(function () {
         modal.find("#lomba-id-input").val(lomba.id);
     });
 
+    $(document).on("click", "#out-buttton", function () {
+        var modal = $("#out-lomba-modal");
+        modal.css("display", "none");
+
+        // get data-lomba
+        var lomba = $(this).attr("data-lomba");
+        lomba = $.parseJSON(lomba);
+
+        // set Modal Title to "Keluar Lomba"
+        modal.find("#modal-title").html("Keluar Lomba " + lomba.nama_lomba);
+        
+        modal.find("#lomba-id-input").val(lomba.id);
+
+        modal.css("display", "block");
+    });
+
+    $(document).on("click", "#out-lomba-modal #closeButton", function () {
+        var modal = $("#out-lomba-modal");
+        modal.css("display", "none");
+    });
+
     $(document).on("click", "#join-lomba-modal #closeButton", function () {
         var modal = $("#join-lomba-modal");
         modal.css("display", "none");
