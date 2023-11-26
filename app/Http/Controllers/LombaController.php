@@ -114,12 +114,12 @@ class LombaController extends Controller
             // get kategori from request as array
             $kategori_ids = $request->input('kategori');
 
-            if($kategori_ids == -1){
+            if ($kategori_ids == -1) {
                 KategoriLomba::where('lomba_id', $id)->delete();
             }
 
             // for each kategori, create a new KategoriLomba
-            if(is_array($kategori_ids)){
+            if (is_array($kategori_ids)) {
                 if ($kategori_ids != null) {
                     KategoriLomba::where('lomba_id', $id)->delete();
                     foreach ($kategori_ids as $kategori_id) {
@@ -195,8 +195,9 @@ class LombaController extends Controller
         return redirect()->back()->with('success', 'Image uploaded successfully.');
     }
 
-    public function register(Request $request){
-        try{
+    public function register(Request $request)
+    {
+        try {
             $validatedData = $request->validate([
                 'lomba_id' => 'required|exists:lomba,id',
                 'kelompok_id' => 'required|exists:kelompok,id',
@@ -207,8 +208,8 @@ class LombaController extends Controller
 
             // check if kelompok already registered
             $isRegistered = LombaKelompok::where('lomba_id', $lomba->id)->where('kelompok_id', $kelompok->id)->first();
-            if($isRegistered != null){
-               throw ValidationException::withMessages([
+            if ($isRegistered != null) {
+                throw ValidationException::withMessages([
                     'kelompok_id' => 'Kelompok sudah terdaftar pada lomba ini.',
                 ]);
             }
@@ -220,18 +221,18 @@ class LombaController extends Controller
             ]);
 
             return response()->json([
-                'message' => 'Kelompok berhasil terdaftar pada lomba ini.',
+                'message' => 'Pendaftaran Berhasil.',
                 'lombaKelompok' => $lombaKelompok,
             ], 200);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 422);
         }
-        catch (ValidationException $e) {
-                return response()->json([
-                    'message' => $e->getMessage(),
-                ], 422);
-            }
     }
 
-    public function unregister(){
+    public function unregister()
+    {
         $validatedData = request()->validate([
             'lomba_id' => 'required|exists:lomba,id',
         ]);
@@ -246,18 +247,19 @@ class LombaController extends Controller
         $kelompok = Kelompok::find($lombaKelompok->kelompok_id);
 
         // if kelompok is solo, delete only lomba_kelompok
-        if($kelompok->nama_kelompok == 'solo_'.auth()->user()->id){
+        if ($kelompok->nama_kelompok == 'solo_' . auth()->user()->id) {
             $lombaKelompok->delete();
-            return back()->with('success', 'Kelompok berhasil keluar pada lomba' . $lomba->nama_lomba);
+            return back()->with('success', 'Berhasil keluar lomba' . $lomba->nama_lomba);
         }
 
         // delete kelompok peserta
         KelompokPeserta::where('kelompok_id', $kelompok->id)->delete();
 
-        return back()->with('success', 'Kelompok berhasil keluar pada lomba' . $lomba->nama_lomba);
+        return back()->with('success', 'Berhasil keluar lomba' . $lomba->nama_lomba);
     }
 
-    public function registerSolo(Request $request){
+    public function registerSolo(Request $request)
+    {
         // validate
         $validatedData = $request->validate([
             'password' => 'required|string',
@@ -267,7 +269,7 @@ class LombaController extends Controller
         // check password with user password
         $hasher = app('hash');
         $user = auth()->user();
-        if(!$hasher->check($validatedData['password'], $user->password)){
+        if (!$hasher->check($validatedData['password'], $user->password)) {
             return back()->with('error', 'Password salah.');
         }
 
@@ -286,16 +288,16 @@ class LombaController extends Controller
             $pesertaRegistered += count($kelompokPesertas);
         }
 
-        if($pesertaRegistered + 1 > $lomba->kuota_lomba){
+        if ($pesertaRegistered + 1 > $lomba->kuota_lomba) {
             return back()->with('error', 'Kuota lomba sudah penuh.');
         }
 
         // check 'solo_'.$user_id, if exist return already exist
-        $kelompok = Kelompok::where('nama_kelompok', 'solo_'.$user_id)->first();
-        if(!$kelompok){
+        $kelompok = Kelompok::where('nama_kelompok', 'solo_' . $user_id)->first();
+        if (!$kelompok) {
             // create new kelompok
             $kelompok = Kelompok::create([
-                'nama_kelompok' => 'solo_'.$user_id,
+                'nama_kelompok' => 'solo_' . $user_id,
                 'ketua_id' => $user_id,
             ]);
 
@@ -311,11 +313,12 @@ class LombaController extends Controller
 
         $this->register($request);
 
-        return back()->with('success', 'Berhasil mendaftar '. $lomba->nama_lomba);
+        return back()->with('success', 'Berhasil mendaftar ' . $lomba->nama_lomba);
     }
 
-    public function registerGrup(Request $request){
-        try{
+    public function registerGrup(Request $request)
+    {
+        try {
             $validatedData = $request->validate([
                 'nama_grup' => 'required|string|unique:kelompok,nama_kelompok',
                 'password' => 'required|string',
@@ -326,20 +329,19 @@ class LombaController extends Controller
 
             // check if anggota same each other
             $anggota_unique = array_unique($anggota);
-            if(count($anggota) != count($anggota_unique)){
+            if (count($anggota) != count($anggota_unique)) {
                 throw ValidationException::withMessages([
                     'anggota' => 'Anggota not unique.',
                 ]);
             }
-        }
-        catch (ValidationException $e) {
+        } catch (ValidationException $e) {
             return back()->with('error', $e->getMessage());
         }
 
         // check password with user password
         $hasher = app('hash');
         $user = auth()->user();
-        if(!$hasher->check($validatedData['password'], $user->password)){
+        if (!$hasher->check($validatedData['password'], $user->password)) {
             return back()->with('error', 'Password salah.');
         }
 
@@ -355,7 +357,7 @@ class LombaController extends Controller
             $pesertaRegistered += count($kelompokPesertas);
         }
 
-        if($pesertaRegistered + count($anggota) > $lomba->kuota_lomba){
+        if ($pesertaRegistered + count($anggota) > $lomba->kuota_lomba) {
             return back()->with('error', 'Kuota lomba sudah penuh.');
         }
 
@@ -378,6 +380,6 @@ class LombaController extends Controller
 
         $this->register($request);
 
-        return back()->with('success', 'Berhasil mendaftar '. $lomba->nama_lomba);
+        return back()->with('success', 'Berhasil mendaftar ' . $lomba->nama_lomba);
     }
 }
