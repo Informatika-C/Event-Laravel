@@ -4,39 +4,52 @@
 @include('widgets.head')
 
 @isset($event_time)
-<script>
-    var countdownDate = {{ $event_time }} * 1000;
+    <script>
+        var countdownDate = {{ $event_time }} * 1000;
 
-    var x = setInterval(function() {
-        var now = new Date().getTime();
-        // remove last 
-        var distance = countdownDate - now;
+        var x = setInterval(function() {
+            var now = new Date().getTime();
+            // remove last 
+            var distance = countdownDate - now;
 
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor(
+                (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            );
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            var daysText = days;
+            var hoursText = hours;
+            var minutesText = minutes;
+            var secondsText = seconds;
 
-        document.getElementById("countdown").innerHTML =
-            days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+            // Tampilkan waktu dalam elemen dengan id "countdown"
+            document.getElementById("countdown-days").innerHTML = daysText;
+            document.getElementById("countdown-hours").innerHTML = hoursText;
+            document.getElementById("countdown-minutes").innerHTML = minutesText;
+            document.getElementById("countdown-seconds").innerHTML = secondsText;
 
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("countdown").innerHTML = "EXPIRED";
-        }
-    }, 1000);
-</script>
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    </script>
 @endisset
+
+<script src="{{ asset('assets/js/animated.js') }}" type="module"></script>
 
 <body>
 
     @include('widgets.notify')
+
     <canvas id="world"></canvas>
     <div class="all">
-        <div id="home" class="container">
+        <div class="navonHome">
             @include('widgets.navbar')
+        </div>
+        <div id="home" class="container">
+
 
             <div class="content">
                 <div class="welcome">
@@ -80,12 +93,55 @@
         <h2 class="outline-svg typ">Teknokrat</h2>
         <h2 class="outline-svg gradient typ">Indonesia</h2>
 
-        @isset($event_first)
-        <div>{{ $event_first->nama_lomba }}</div>
-        @endisset
-        <section id="countdown" class="countdown-section">
+        <section class="coundown-section">
+            <div class="event-name">{{ $event_first->nama_lomba }}</div>
+            <div class="count-wrap">
+                {{-- <img
+                    class="img-card"src="{{ asset('storage/banner/' . $event_first->id . '/' . $event_first->banner) }}" /> --}}
+                <div class="count-right">
+                    <div class="descript">{{ $event_first->deskripsi }}</div>
+                    <b>{{ $event_first->tempat }}</b>
+                    <div>
+                        Dilaksanakan pada :
+                        {{ \Carbon\Carbon::parse($event_first->tanggal_pendaftaran)->format('l, j F Y') }}
+                    </div>
+                    <div>{{ \Carbon\Carbon::parse($event_first->tanggal_penutupan_pendaftaran)->format('l, j F Y') }}
+                    </div>
+                    <div>{{ \Carbon\Carbon::parse($event_first->tanggal_pelaksanaan)->format('l, j F Y') }}</div>
+                    <div>
+                        <span class="status confirmed">
+                            <i class="fa-solid fa-user-group">{{ $event_first->add }}</i>
+                        </span>
+                    </div>
+                    <div>{{ $event_first->penyelenggara->nama_penyelenggara }}</div>
+                </div>
+            </div>
 
+            <div class="body-count">
+                <div id="countdown" class="clock-container">
+                    <div class="count-letter">CountDown</div>
+                    <div class="clock-col">
+                        <h5 id="countdown-days" class="clock-timer"></h5>
+                        <h6 class="clock-label">Day</h6>
+                    </div>
+                    <div class="clock-col">
+                        <h5 id="countdown-hours" class="clock-timer"></h5>
+                        <h6 class="clock-label">Hours</h6>
+                    </div>
+                    <div class="clock-col">
+                        <h5 id="countdown-minutes" class="clock-timer"></h5>
+                        <h6 class="clock-label">Minutes</h6>
+                    </div>
+                    <div class="clock-col">
+                        <h5 id="countdown-seconds" class="clock-timer"></h5>
+                        <h6 class="clock-label">Seconds</h6>
+                    </div>
+                </div>
+                <button class="joint">JOINT Now!</button>
+            </div>
         </section>
+
+
 
         <section id="about" class="about-section">
             <div class="marquee">
@@ -137,13 +193,17 @@
                 </div>
             </div>
             <div class="marquee2">
-                <h4 class="text">Fakultas Teknik dan Ilmu Komputer - Fakultas Ekonomi Dan Bisnis - FAKULTAS SASTRA DAN
+                <h4 class="text">Fakultas Teknik dan Ilmu Komputer - Fakultas Ekonomi Dan Bisnis - FAKULTAS SASTRA
+                    DAN
                     ILMU PENDIDIKAN -&nbsp;</h4>
-                <h4 class="text">Fakultas Teknik dan Ilmu Komputer - Fakultas Ekonomi Dan Bisnis - FAKULTAS SASTRA DAN
+                <h4 class="text">Fakultas Teknik dan Ilmu Komputer - Fakultas Ekonomi Dan Bisnis - FAKULTAS SASTRA
+                    DAN
                     ILMU PENDIDIKAN -&nbsp;</h4>
-                <h4 class="text">Fakultas Teknik dan Ilmu Komputer - Fakultas Ekonomi Dan Bisnis - FAKULTAS SASTRA DAN
+                <h4 class="text">Fakultas Teknik dan Ilmu Komputer - Fakultas Ekonomi Dan Bisnis - FAKULTAS SASTRA
+                    DAN
                     ILMU PENDIDIKAN -&nbsp;</h4>
-                <h4 class="text">Fakultas Teknik dan Ilmu Komputer - Fakultas Ekonomi Dan Bisnis - FAKULTAS SASTRA DAN
+                <h4 class="text">Fakultas Teknik dan Ilmu Komputer - Fakultas Ekonomi Dan Bisnis - FAKULTAS SASTRA
+                    DAN
                     ILMU PENDIDIKAN -&nbsp;</h4>
             </div>
         </section>
@@ -166,8 +226,8 @@
                     <div class="bottom">
                         <h3 data-aos="fade-right" data-aos-delay="400" data-aos-duration="1200">© 2023 CONST - All
                             Rights Reserved.</h3>
-                        <button onclick="window.location.href='./page/events.html'" data-aos="zoom-in"
-                            data-aos-delay="800" data-aos-duration="2000">Selengkapnya</button>
+                        <button data-aos="zoom-in" data-aos-delay="800" data-aos-duration="2000"
+                            onclick="window.location.href='{{ route('home.eventpgs') }}'">Selengkapnya</button>
                     </div>
                 </div>
             </section>
@@ -180,8 +240,9 @@
                         <a href="{{ route('home.lombapgs', ['event_id' => $event->id]) }}" class="card-link">
                             <div class="card-container">
                                 <div class="card">
-                                    <div class="fornt"><img class="img-card"
-                                            src="{{ asset('storage/banner/' . $event->id . '/' . $event->banner) }}" />
+                                    <div class="fornt">
+                                        <img
+                                            class="img-card"src="{{ asset('storage/banner/' . $event->id . '/' . $event->banner) }}" />
                                     </div>
                                     <div class="back"></div>
                                     <div class="infomation">
@@ -196,7 +257,7 @@
                                     <div class="li_co_vi">
                                         <div class="view bg" title="Quota">
                                             <i class="fa-solid fa-user-lock"></i>
-                                            <div class="num">{{ $event->kuota }}</div>
+                                            <div class="num">{{ $event->add }}</div>
                                         </div>
 
                                         <div class="coment bg" title="Location">
@@ -270,51 +331,8 @@
             </div>
         </section>
     </div>
-    <div id="contact">
-        <div class="footer-container">
-            <div class="contact">
-                <h3>Contact Us</h3>
-                <ul class="contact-text">
-                    <li>Email: contact@example.com</li>
-                    <li>Phone: (123) 456-7890</li>
-                    <li>Address: 123 Main Street, City</li>
-                </ul>
-            </div>
-            <div class="route-page">
-                <h3>Route Pages</h3>
-                <ul class="contact-text">
-                    <li><a href="#home" title="Home">Home</a></li>
-                    <li><a href="#about" title="About">About Us</a></li>
-                    <li><a href="#events" title="Events">Events</a></li>
-                    <li><a href="#contact" title="Contacts">Contacts</a></li>
-                    <li class="route-btm">
-                        @if (Auth::guard('admin')->check())
-                            <h4>{{ auth()->guard('admin')->user()->name }}</h4>
-                            <div class=" route-icons-btm">
-                                <a href="{{ route('dashboard') }}"><i class="fa-solid fa-laptop-code"
-                                        title="Dashboard"></i></a>
-                                <a href="{{ route('logout') }}"><i class="fa-solid fa-door-open"
-                                        title="LogOut"></i></a>
-                            </div>
-                        @elseif(Auth::check())
-                            {{-- <h4>{{ auth()->user()->name }}</h4> --}}
-                            <a class="log" href="{{ route('logout') }}" onclick="resetSeenNotification()"
-                                title="LogOut">LogOut</a>
-                        @else
-                            <a class="log" href="{{ route('login') }}" title="LogIn">LogIn</a>
-                        @endif
-                    </li>
-                </ul>
-            </div>
 
-            <div class="img-footer">
-                <img src="{{ asset('assets/images/uti.png') }}" alt="img-footer" />
-            </div>
-        </div>
-    </div>
-    <footer>
-        <p class="copyright">&copy; 2023 Const. All Rights Reserved.</p>
-    </footer>
+    @include('widgets.footer')
 
 </body>
 

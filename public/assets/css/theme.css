@@ -1,61 +1,31 @@
+:root {
+    --domi-color: #06142e;
+    --domi-color-rev: #e1dcd1;
+    --text-color: #f2f2f2;
+    --text-color-rev: #1e2126;
+    --text-hov: #ffa500;
+    --text-hov-rev: #3409e0;
+    --split-color: #f1916d;
+    --marquee-color: #bd83b8;
+    --marquee-text-color: #c3ff00;
+}
+
 body.dark-mode {
-    background-color: #e1dcd1;
-    color: #1e2126;
-}
-body.dark-mode #about-section {
-    background-color: #e1dcd1;
-    color: #1e2126;
-}
-
-body.dark-mode .menu a:hover {
-    color: #3409e0;
-}
-body.dark-mode a > i::after {
-    color: #3409e0;
-}
-
-body.dark-mode .brand a {
-    color: #1e2126;
-}
-body.dark-mode .menu a {
-    color: #1e2126;
-}
-
-body.dark-mode .about-text h2 {
-    color: #bd83b8;
-}
-body.dark-mode .about-text h2:nth-child(2) {
-    color: #1e2126;
-}
-body.dark-mode .events-text h2 {
-    color: #bd83b8;
-}
-body.dark-mode .events-text h2:nth-child(2) {
-    color: #1e2126;
-}
-body.dark-mode .about-section .marquee2 {
-    background-color: #1e2126;
-}
-body.dark-mode .about-section .marquee2 .text {
-    color: #bd83b8;
+    --domi-color: #e1dcd1;
+    --domi-color-rev: #06142e;
+    --text-color: #1e2126;
+    --text-color-rev: #f2f2f2;
+    --text-hov: #3409e0;
+    --text-hov-rev: #ffa500;
+    --split-color: #bd83b8;
+    --marquee-color: #1e2126;
+    --marquee-text-color: #bd83b8;
 }
 
 body.dark-mode .navbar {
     background-color: rgba(203, 227, 221, 0);
     backdrop-filter: blur(16px) saturate(120%) contrast(105%);
     -webkit-backdrop-filter: blur(16px) saturate(120%) contrast(105%);
-}
-
-body.dark-mode .menu a {
-    color: #1e2126;
-}
-body.dark-mode .btn a {
-    color: #fff;
-}
-body.dark-mode .hi-box p {
-    font-weight: 500;
-    color: #000000;
-    background-color: rgba(135, 145, 143, 0.932);
 }
 
 .toggle-btn {

@@ -1,49 +1,198 @@
-<table>
-    <thead>
-        <tr>
-            <th>
-                <span class="custom-checkbox">
-                    <input type="checkbox" id="checkbox_selectAll">
-                    <label for="checkbox_selectAll"></label>
-                </span>
-            </th>
-            <th>Code #</th>
-            {{-- <th>Banner</th> --}}
-            <th>Name</th>
-            <th>Deskripsi</th>
-            <th>Tempat</th>
-            {{-- <th>Kuota</th> --}}
-            <th>Pendaftaran</th>
-            <th>Penutupan</th>
-            <th>Pelaksanaan</th>
-            <th>Penyelenggara</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                <span class="custom-checkbox">
-                    <input type="checkbox" id="checkbox_selectAll">
-                    <label for="checkbox_selectAll"></label>
-                </span>
-            </td>
-            <td class="show-tr-modal" data-tr-modal="tr-modal-1">#PW-0001</td>
-            {{-- <td><img class="banner" src="{{ asset('assets/images/card.png') }}" alt="banner"></td> --}}
-            <td>Campus Expo</td>
-            <td class="descript">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat fuga optio iste doloribus architecto suscipit repellendus ea. Nihil, modi! Sint?</td>
-            <td>Universitas Teknokrat Indonesia</td>
-            {{-- <td>
-                <span class="status confirmed"><i class="fa-solid fa-user-group">30</i></span>
-            </td> --}}
-            <td>11 Apr 2023</td>
-            <td>20 Aug 2023</td>
-            <td>1 Sep 2023</td>
-            <td>HIMA FTIK</td>
-            <td class="action">
-                <button href="#" title="Edit" class="show-modal" data-modal="editModal"><i class="fa-solid fa-pen-clip"></i></button>
-                <button href="#" title="Delete" class="show-modal" data-modal="deleteModal"><i class="fa-solid fa-trash"></i></button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            .carousel {
+                overflow: hidden;
+                width: 100%;
+                position: relative;
+            }
+
+            .carousel-container {
+                display: flex;
+                transition: transform 0.5s ease-in-out;
+            }
+
+            .card {
+                flex: 0 0 auto;
+                width: calc(25% - 20px);
+                margin-right: 20px;
+                box-sizing: border-box;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 15px;
+                text-align: center;
+                overflow: hidden;
+            }
+
+            .card img {
+                width: 100%;
+                height: auto;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .card-content {
+                padding: 15px;
+                text-align: center;
+            }
+
+            .carousel-btn {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                font-size: 24px;
+            }
+
+            .prev {
+                left: 10px;
+            }
+
+            .next {
+                right: 10px;
+            }
+
+            .carousel-container:hover .carousel-btn {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="carousel">
+            <div class="carousel-container">
+                <div class="card">
+                    <img
+                        src="https://via.placeholder.com/300"
+                        alt="Card Image"
+                    />
+                    <div class="card-content">
+                        <p>Card 1 Information</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img
+                        src="https://via.placeholder.com/300"
+                        alt="Card Image"
+                    />
+                    <div class="card-content">
+                        <p>Card 2 Information</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img
+                        src="https://via.placeholder.com/300"
+                        alt="Card Image"
+                    />
+                    <div class="card-content">
+                        <p>Card 3 Information</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img
+                        src="https://via.placeholder.com/300"
+                        alt="Card Image"
+                    />
+                    <div class="card-content">
+                        <p>Card 4 Information</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img
+                        src="https://via.placeholder.com/300"
+                        alt="Card Image"
+                    />
+                    <div class="card-content">
+                        <p>Card 1 Information</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img
+                        src="https://via.placeholder.com/300"
+                        alt="Card Image"
+                    />
+                    <div class="card-content">
+                        <p>Card 2 Information</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img
+                        src="https://via.placeholder.com/300"
+                        alt="Card Image"
+                    />
+                    <div class="card-content">
+                        <p>Card 3 Information</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img
+                        src="https://via.placeholder.com/300"
+                        alt="Card Image"
+                    />
+                    <div class="card-content">
+                        <p>Card 4 Information</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img
+                        src="https://via.placeholder.com/300"
+                        alt="Card Image"
+                    />
+                    <div class="card-content">
+                        <p>Card 5 Information</p>
+                    </div>
+                </div>
+                <!-- Tambahkan card untuk setiap slide tambahan -->
+            </div>
+            <div class="carousel-btn prev" onclick="prevSlide()">&#10094;</div>
+            <div class="carousel-btn next" onclick="nextSlide()">&#10095;</div>
+        </div>
+
+        <script>
+            let currentIndex = 0;
+            const container = document.querySelector(".carousel-container");
+            const cardWidth = document.querySelector(".card").offsetWidth + 20;
+            const cardsPerSlide = 4;
+            const totalCards = container.children.length;
+            const totalSlides = Math.ceil(totalCards / cardsPerSlide);
+
+            function nextSlide() {
+                currentIndex += cardsPerSlide;
+
+                if (currentIndex >= totalCards) {
+                    currentIndex = 0;
+                }
+
+                updateCarousel();
+            }
+
+            function prevSlide() {
+                currentIndex -= cardsPerSlide;
+
+                if (currentIndex < 0) {
+                    currentIndex = Math.max(0, totalCards - cardsPerSlide);
+                }
+
+                updateCarousel();
+            }
+
+            function updateCarousel() {
+                const remainingCards = totalCards - currentIndex;
+                const cardsToSlide = Math.min(cardsPerSlide, remainingCards);
+
+                container.style.transform = `translateX(-${
+                    currentIndex * cardWidth
+                }px)`;
+
+                document.querySelector(".prev").style.display =
+                    currentIndex === 0 ? "none" : "block";
+
+                document.querySelector(".next").style.display =
+                    currentIndex >= totalCards - cardsPerSlide
+                        ? "none"
+                        : "block";
+            }
+        </script>
+    </body>
+</html>
