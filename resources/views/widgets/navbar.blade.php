@@ -1,6 +1,6 @@
 <div class="navbar" id="myNavbar" data-aos="fade-down" data-aos-duration="1500">
     <div class="brand">
-        <a class="active" href="/" title="Home">
+        <a href="/" title="Home">
             @if (request()->routeIs('home.eventpgs'))
                 Tvent
             @elseif (request()->routeIs('home.lombapgs'))

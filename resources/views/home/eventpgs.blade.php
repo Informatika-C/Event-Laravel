@@ -14,13 +14,17 @@
 <script src="{{ asset('assets/js/daftarLombaModal.js') }}"></script>
 
 <body>
-    @include('widgets.navbar')
+    <div class="navonHome">
+        @include('widgets.navbar')
+    </div>
+
     <div class="blog__section">
+        {{-- <img class="bg-image"src="{{ asset('assets/images/widhtimg2.jpg') }}" /> --}}
         <div class="blog__title">All</div>
         <div class="blog__list">
             @isset($events)
                 @foreach ($events as $event)
-                    <a href="{{ route('home.lombapgs', ['event_id' => $event->id]) }}" class="card-link">
+                    <a href="{{ route('home.lombapgs', ['event_id' => $event->id]) }}" class="linked">
                         <div class="blog__item">
                             <div class="blog__image_container">
                                 <img class="blog__image"

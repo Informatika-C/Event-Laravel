@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/countdown.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/lomba.css') }}" />
     <script src="{{ asset('assets/js/theme.js') }}" type="module"></script>
     <script src="{{ asset('assets/js/animated.js') }}" type="module"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
