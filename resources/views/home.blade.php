@@ -44,10 +44,10 @@
     @include('widgets.notify')
 
     <canvas id="world"></canvas>
+    <div class="navonHome">
+        @include('widgets.navbar')
+    </div>
     <div class="all">
-        <div class="navonHome">
-            @include('widgets.navbar')
-        </div>
         <div id="home" class="container">
 
 

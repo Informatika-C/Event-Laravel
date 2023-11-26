@@ -1,10 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
-}
-
 :root {
     --primary-color: #3a3b3c;
     --panel-color: #06142e;
@@ -21,12 +14,7 @@
     --box3-color: #3a3b3c;
     --title-icon-color: #ccc;
 }
-
-body {
-    min-height: 100vh;
-    background-color: var(--primary-color);
-}
-body.dark {
+body.dark-mode {
     --primary-color: #0e4bf1;
     --panel-color: #e1dcd1;
     --panel-color-reverse: #06142e;
@@ -51,22 +39,40 @@ body.dark {
 .modal {
     display: none;
     position: fixed;
-    background-image: url("../images/3.svg");
-    background-repeat: no-repeat;
-    background-position: left top;
+    bottom: 0;
+    right: 0;
+    min-width: none;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.749);
+    z-index: 9995;
+}
+.modal-content {
+    position: fixed;
+    background: rgb(6, 20, 46);
+    background: linear-gradient(
+        45deg,
+        var(--panel-color) 52%,
+        var(--text-hover-color) 68%,
+        var(--panel-color-reverse) 91%
+    );
     background-size: 770px 840px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--text-color-reverse);
+    /* background-color: var(--panel-color); */
     color: var(--text-color);
-    padding: 20px;
+    padding: 30px;
     border-radius: 20px;
-    z-index: 2;
-    max-width: 500px;
-    z-index: 999;
+    z-index: 99999;
+    max-width: fit-content;
+    width: 100%;
+    height: auto;
+    z-index: 9999;
+    box-shadow: 0px 7px 8px 2px rgba(0, 0, 0, 0.63);
+    -webkit-box-shadow: 0px 7px 8px 2px rgba(0, 0, 0, 0.63);
+    -moz-box-shadow: 0px 7px 8px 2px rgba(0, 0, 0, 0.63);
 }
-
 .modal button {
     font-size: 17px;
     font-weight: 800;
@@ -94,11 +100,14 @@ body.dark {
     text-align: center;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    justify-content: end;
+    align-items: end;
+    padding-top: 10px;
     gap: 8px;
 }
-
+/* *{
+    border: 2px solid white;
+} */
 textarea,
 input {
     border-radius: 6px;
@@ -111,6 +120,38 @@ input {
     padding: 5px;
     font-size: 18px;
     font-weight: 500;
+}
+span.select2-dropdown {
+    background: rgba(255, 255, 255, 0.2);
+    border: solid 1px rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 16px #1126;
+    z-index: 999999;
+}
+span#nama-lomba-modal {
+    font-weight: 800;
+    letter-spacing: -3px;
+    font-size: 2.8rem;
+    /* color: var(--text-hover-color-reverse); */
+}
+#anggota-grup label {
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+li.select2-results__option.select2-results__option--selectable.select2-results__option--highlighted[aria-selected="true"] {
+    background-color: #06142e;
+    border: none;
+    margin-inline: 12px;
+    font-size: 16;
+    font-weight: 500;
+    border-radius: 8px;
+}
+
+[aria-selected="false"],
+[aria-selected="false"]:not([aria-selected]) {
+    padding: 12px;
+    /* border-bottom: solid 1px rgba(255, 255, 255, 0.7); */
 }
 
 li {

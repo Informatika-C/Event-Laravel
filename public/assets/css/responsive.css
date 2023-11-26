@@ -45,6 +45,7 @@
         align-items: center;
         padding: 0;
         margin: 0;
+        z-index: 9999;
     }
     .navbar ul {
         list-style: none;
@@ -53,6 +54,7 @@
         justify-content: center;
         align-items: center;
         padding-right: 15px;
+        z-index: 9999;
     }
     .navbar .brand {
         padding: 0;
@@ -70,6 +72,7 @@
         /* left: 50%; */
         z-index: 1;
         border-radius: 5px;
+        z-index: 9999;
         border: 0.1rem rgb(182, 175, 175) solid;
     }
     .menu > li {
@@ -276,6 +279,7 @@
         align-items: center;
         padding: 0;
         margin: 0;
+        z-index: 9999;
     }
     .navbar ul {
         list-style: none;
@@ -284,6 +288,7 @@
         justify-content: center;
         align-items: center;
         padding-right: 22px;
+        z-index: 9999;
     }
     .menu {
         display: flex;
@@ -298,6 +303,7 @@
         /* left: 50%; */
         z-index: 1;
         border-radius: 7px;
+        z-index: 9999;
         border: 0.1rem rgb(182, 175, 175) solid;
     }
     .menu li .nav-dropdown {
