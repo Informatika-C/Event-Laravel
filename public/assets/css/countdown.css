@@ -6,6 +6,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: var(--domi-color-rev);
+    color: var(--text-color-rev);
 }
 .event-name {
     font-size: 4rem;
@@ -14,14 +16,14 @@
     position: absolute;
     left: 0;
     top: -25px;
-    color: white;
+    color: var(--text-color-rev);
     text-align: start;
     font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: -4px;
 }
 .joint {
-    color: white;
+    color: var(--text-color-rev);
     text-align: start;
     text-wrap: nowrap;
     background-color: #10a7e8;

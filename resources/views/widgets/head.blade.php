@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/about.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/events.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/footer.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/countdown.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/lomba.css') }}" />

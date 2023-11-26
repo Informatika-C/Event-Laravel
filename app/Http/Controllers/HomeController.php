@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use function Ramsey\Uuid\v1;
+use Illuminate\Support\Facades\View;
 use App\Models\EventLomba;
 use App\Models\KelompokPeserta;
 use App\Models\Lomba;
 use App\Models\LombaKelompok;
+use Carbon\Carbon;
+
 use DateTime;
 
 class HomeController extends Controller
@@ -21,6 +24,8 @@ class HomeController extends Controller
         // }
 
         // ----------------------------- //
+
+
 
         // untuk guest/admin menampilkan event berdasarkan 5 terbaru 
         // get newest 5 events and join with penyelenggara table with eloquent
@@ -46,7 +51,13 @@ class HomeController extends Controller
         $event_time = new DateTime($event_first->tanggal_pendaftaran);
         $event_time = $event_time->getTimestamp();
 
-        return view('home', [
+        foreach ($events as $event) {
+            $event['add'] = 0;
+            foreach ($event->lomba as $lomba) {
+                $event['add'] += $lomba->kuota_lomba;
+            }
+        }
+        return View::make('home', [
             'events' => $events,
             'event_first' => $event_first,
             'event_time' => $event_time,
@@ -73,11 +84,11 @@ class HomeController extends Controller
                 }
                 $lomba->is_join = false;
             }
-    
+
             // check peserta registered
             $lombaKelompoks = LombaKelompok::where('lomba_id', $lomba->id)->get();
             $pesertaRegistered = 0;
-    
+
             foreach ($lombaKelompoks as $lombaKelompok) {
                 $kelompokPesertas = KelompokPeserta::where('kelompok_id', $lombaKelompok->kelompok_id)->get();
                 $pesertaRegistered += count($kelompokPesertas);
@@ -87,6 +98,12 @@ class HomeController extends Controller
         }
 
         return view('home.lombapgs', compact('lombas', 'event_id', 'event'));
+    }
+
+    public function showEventPage()
+    {
+        $events = EventLomba::all();
+        return view('home.eventpgs', compact('events'));
     }
 
     public function showCountdown($id)

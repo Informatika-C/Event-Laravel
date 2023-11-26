@@ -42,3 +42,17 @@ Breadcrumbs::for('dashboard.lomba', function ($trail, $event_id) {
     $trail->parent('dashboard.events');
     $trail->push('Lomba', route('dashboard.lomba', $event_id));
 });
+
+Breadcrumbs::for('home', function ($trail) {
+    $trail->push('home', route('home'));
+});
+
+Breadcrumbs::for('home.eventpgs', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Events', route('home.eventpgs'));
+});
+
+Breadcrumbs::for('home.lombapgs', function ($trail, $event_id) {
+    $trail->parent('home.eventpgs');
+    $trail->push('Lomba', route('home.lombapgs', $event_id));
+});

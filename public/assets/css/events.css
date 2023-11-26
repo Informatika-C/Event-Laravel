@@ -3,6 +3,32 @@
     height: 100%;
     overflow: hidden;
 }
+body.dark-mode {
+    --gradient-1: rgba(6, 20, 46, 1);
+    --gradient-2: rgba(49, 141, 193, 1);
+    --gradient-3: rgba(189, 131, 184, 1);
+    --gradient-4: rgba(32, 33, 34, 1);
+    --gradient: linear-gradient(
+        149deg,
+        rgba(6, 20, 46, 1) 16%,
+        rgba(49, 141, 193, 1) 36%,
+        rgba(189, 131, 184, 1) 66%,
+        rgba(32, 33, 34, 1) 89%
+    );
+}
+:root {
+    --gradient-1: rgba(6, 20, 46, 1);
+    --gradient-2: rgba(16, 51, 114, 1);
+    --gradient-3: rgba(175, 173, 168, 1);
+    --gradient-4: rgba(225, 220, 209, 1);
+    --gradient: linear-gradient(
+        319deg,
+        rgba(225, 220, 209, 1) 13%,
+        rgba(175, 173, 168, 1) 37%,
+        rgba(16, 51, 114, 1) 61%,
+        rgba(6, 20, 46, 1) 86%
+    );
+}
 .top-content {
     display: flex;
     flex-direction: row;
@@ -56,12 +82,12 @@ button:hover {
     top: 0;
     left: 0;
     margin: 0;
-    color: #f1916d;
+    color: var(--split-color);
     animation: moveUp 3s infinite;
 }
 
 .events-text h2:nth-child(2) {
-    color: #f2f2f2;
+    color: var(--text-color);
     top: 0;
     left: 10px;
     animation: moveDown 3s infinite;
@@ -128,8 +154,7 @@ button:hover {
     box-shadow: none;
     border: 2px white solid;
     transition: all 0.5s ease-in-out;
-    transform: perspective(1000px) rotateX(-8deg) rotateY(14deg) rotateZ(-4deg)
-        translateY(-40px);
+    transform: translateY(-40px);
 }
 
 .card:hover img {
@@ -157,7 +182,16 @@ button:hover {
     position: absolute;
     bottom: -73px;
     right: -16px;
-    background: #1e2126;
+    background: rgb(6, 20, 46);
+    background: linear-gradient(
+        45deg,
+        var(--gradient-1) 27%,
+        var(--gradient-2) 50%,
+        var(--gradient-3) 89%,
+        var(--gradient-4) 100%
+    );
+    box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.15),
+        0 15px 90px 30px rgba(0, 0, 0, 0.25);
     width: 352px;
     height: 307px;
     border-radius: 10px;
