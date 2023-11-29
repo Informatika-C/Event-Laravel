@@ -8,6 +8,9 @@
     --split-color: #f1916d;
     --marquee-color: #bd83b8;
     --marquee-text-color: #c3ff00;
+    --extra-color: #1e2126;
+    --back-drop: #fbffff48;
+    /* --extra-color: #b51a2b; */
 }
 
 body.dark-mode {
@@ -20,6 +23,8 @@ body.dark-mode {
     --split-color: #bd83b8;
     --marquee-color: #1e2126;
     --marquee-text-color: #bd83b8;
+    --extra-color: #f39f5a;
+    --back-drop: #1718184e;
 }
 
 body.dark-mode .navbar {

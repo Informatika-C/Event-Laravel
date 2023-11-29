@@ -15,6 +15,19 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{{ asset('assets/js/daftarLombaModal.js') }}"></script>
 
+<script>
+    // Menampilkan alert
+    document.addEventListener('DOMContentLoaded', function() {
+        var alert = document.querySelector('.alert');
+        if (alert) {
+            alert.classList.remove('hide');
+            setTimeout(function() {
+                alert.classList.add('hide');
+            }, 10000);
+        }
+    });
+</script>
+
 <body>
     @include('widgets.navbar')
     <img class="bg-image"src="{{ asset('assets/images/widhtimg.jpg') }}" />
@@ -25,15 +38,7 @@
             <h5 class="evetnName">
                 <b>{{ $lomba->event->nama_lomba }} - Lomba List</b>
                 <br>
-                @if (session('success'))
-                    <div>
-                        {{ session('success') }}
-                    </div>
-                @elseif(session('error'))
-                    <div>
-                        <div style="color: red">{{ session('error') }}</div>
-                    </div>
-                @endif
+                @include('widgets.alert')
             </h5>
         @endforeach
         <div class='movie-list'>
@@ -47,7 +52,7 @@
                         <div class="ppl">
                             <p>
                                 Room
-                                <span>{{ $lomba->ruangan_lomba }}<i class="fa-solid fa-building-user"></i></span>
+                                <span>{{ $lomba->ruangan_lomba }} <i class="fa-solid fa-building-user"></i></span>
                             </p>
                             @if ($lomba->max_anggota > 1)
                                 <p>
@@ -56,8 +61,8 @@
                                 </p>
                             @else
                                 <p>
-
-                                    Solo - <i class="fa-solid fa-user"></i> 1
+                                    Solo
+                                    <span> 1 <i class="fa-solid fa-user"></i></span>
                                 </p>
                             @endif
                             <p>

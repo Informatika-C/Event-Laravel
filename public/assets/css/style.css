@@ -107,7 +107,7 @@ div.brand {
 .navbar .memu {
     z-index: 9999;
 }
-ul .active {
+ul .activeNav {
     padding: 12px 7px;
     margin: 0;
     border-radius: 5px;
