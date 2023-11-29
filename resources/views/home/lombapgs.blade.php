@@ -52,7 +52,7 @@
                         <div class="ppl">
                             <p>
                                 Room
-                                <span>{{ $lomba->ruangan_lomba }}<i class="fa-solid fa-building-user"></i></span>
+                                <span>{{ $lomba->ruangan_lomba }} <i class="fa-solid fa-building-user"></i></span>
                             </p>
                             @if ($lomba->max_anggota > 1)
                                 <p>
@@ -61,8 +61,8 @@
                                 </p>
                             @else
                                 <p>
-
-                                    Solo - <i class="fa-solid fa-user"></i> 1
+                                    Solo
+                                    <span> 1 <i class="fa-solid fa-user"></i></span>
                                 </p>
                             @endif
                             <p>

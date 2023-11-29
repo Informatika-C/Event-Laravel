@@ -15,7 +15,7 @@
         <ul class="menu" id="navbarOverlay">
             <li>
                 <a href="{{ route('home') }}" title="Home"
-                    class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
+                    class="{{ request()->routeIs('home') ? 'activeNav' : '' }}">Home</a>
             </li>
             <li>
                 <a href="{{ route('home') }}#about" title="About Us">
@@ -24,7 +24,7 @@
             </li>
             <li>
                 <a href="{{ route('home.eventpgs') }}"
-                    title="Events"class="{{ Route::currentRouteName() == 'home.eventpgs' || Route::currentRouteName() == 'home.lombapgs' ? 'active' : '' }}">
+                    title="Events"class="{{ Route::currentRouteName() == 'home.eventpgs' || Route::currentRouteName() == 'home.lombapgs' ? 'activeNav' : '' }}">
                     @if (Route::currentRouteName() == 'home.lombapgs')
                         Lomba
                     @else

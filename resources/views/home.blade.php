@@ -94,17 +94,23 @@
         <h2 class="outline-svg gradient typ">Indonesia</h2>
 
         <section class="coundown-section">
-            <div class="event-name">{{ $event_first->nama_lomba }}</div>
+            <h5>Ayo Ikuti!</h5>
             <div class="count-wrap">
-                {{-- <img
-                    class="img-card"src="{{ asset('storage/banner/' . $event_first->id . '/' . $event_first->banner) }}" /> --}}
+                <div class="count-left">
+                    <div class="event-name-left">{{ $event_first->nama_lomba }}</div>
+                    <img
+                        class="img-card"src="{{ asset('storage/banner/' . $event_first->id . '/' . $event_first->banner) }}" />
+                    <div class="desc">{{ $event_first->deskripsi }}</div>
+                </div>
                 <div class="count-right">
-                    <div class="descript">{{ $event_first->deskripsi }}</div>
-                    <b>{{ $event_first->tempat }}</b>
-                    <div>
-                        Dilaksanakan pada :
-                        {{ \Carbon\Carbon::parse($event_first->tanggal_pendaftaran)->format('l, j F Y') }}
+                    <div class="event-name">{{ $event_first->nama_lomba }}</div>
+                    <div class="place">
+                        Berlokasi Di
+                        <b>{{ $event_first->tempat }}</b>
                     </div>
+                    {{-- <div>
+                        {{ \Carbon\Carbon::parse($event_first->tanggal_pendaftaran)->format('l, j F Y') }}
+                    </div> --}}
                     <div>{{ \Carbon\Carbon::parse($event_first->tanggal_penutupan_pendaftaran)->format('l, j F Y') }}
                     </div>
                     <div>{{ \Carbon\Carbon::parse($event_first->tanggal_pelaksanaan)->format('l, j F Y') }}</div>
@@ -141,10 +147,8 @@
             </div>
         </section>
 
-
-
         <section id="about" class="about-section">
-            <div class="marquee">
+            <div class="marquee" style="margin-top: 2rem">
                 <h4 class="text">
                     <img src="{{ asset('assets/images/1.svg') }}" alt="Image 1" />
                     <img src="{{ asset('assets/images/1.svg') }}" alt="Image 2" />
@@ -188,7 +192,7 @@
 
                 <div class="video-container">
                     <video autoplay loop muted>
-                        <source src="{{ asset('assets/images/vid.mp4') }}" type="video/mp4" />
+                        <source src="{{ asset('assets/images/demo.mp4') }}" type="video/mp4" />
                     </video>
                 </div>
             </div>

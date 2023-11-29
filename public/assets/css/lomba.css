@@ -33,7 +33,7 @@ img.bg-image {
     position: relative;
     margin: 16px;
     padding: 0;
-    width: 272px;
+    width: 260px;
     height: 350px;
     border-radius: 12px;
     box-shadow: 0 8px 16px #1126;
@@ -71,7 +71,7 @@ img.bg-image {
 }
 
 .movie-item:nth-child(4n + 1) {
-    width: 438px;
+    width: 430px;
 }
 .movie-item:nth-child(4n + 1) h2 {
     font-size: 2em;

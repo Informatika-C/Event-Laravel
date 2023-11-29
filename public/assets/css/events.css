@@ -32,18 +32,21 @@ body.dark-mode {
 .top-content {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: start;
     max-width: 100%;
-    padding-bottom: 12rem;
-    gap: 4rem;
+    padding: 6rem;
+    /* background-color: red; */
+    gap: 2rem;
 }
 .events-Info {
+    /* background-color: blueviolet; */
     display: flex;
+    float: left;
     flex-direction: column;
     position: relative;
     text-align: start;
-    width: 500px;
+    width: 400px;
     height: 300px;
     justify-content: space-between;
 }
@@ -54,7 +57,8 @@ body.dark-mode {
 .events-section p {
     text-align: justify;
     padding-top: 2.3rem;
-    padding-right: 3rem;
+    padding-right: 0;
+    padding-bottom: 0;
     font-size: 16px;
 }
 .events-text {
@@ -112,9 +116,6 @@ button:hover {
         transform: translateY(0);
     }
 }
-.carousel {
-    width: 600px;
-}
 
 @keyframes marquee {
     0% {
@@ -125,11 +126,18 @@ button:hover {
         transform: translate(-100%, 0);
     }
 }
+.carousel {
+    width: 900px;
+}
 
 .carousel-item img {
-    max-width: 100%;
+    max-width: 900px;
+    --card-ratio: auto 16/9;
+    width: 100%;
     height: 300px;
-    border-radius: 2px;
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 8px;
     box-shadow: 10px 10px 29px 0px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 10px 10px 29px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 10px 10px 29px 0px rgba(0, 0, 0, 0.75);
@@ -437,4 +445,25 @@ button:hover {
     flex-direction: row;
     gap: 15px;
     /* padding: 2rem; */
+}
+
+.container-horizon {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.card-horizon {
+    flex: 0 0 auto;
+    width: 200px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card-horizon img {
+    width: 100%;
+    height: auto;
 }
