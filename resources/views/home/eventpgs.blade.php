@@ -17,6 +17,7 @@
     <div class="navonHome">
         @include('widgets.navbar')
     </div>
+    </div>
     <div class="sidebar close">
         {{-- <div class="logo-details">
             <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
@@ -65,24 +66,6 @@
                     <li><a href="#">Bulan Ini</a></li>
                     <li><a href="#">Bulan Depan</a></li>
                     <li><a href="#">Tahun Depan</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bx-pie-chart-alt-2"></i>
-                    <span class="link_name">Analytics</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Analytics</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bx-line-chart"></i>
-                    <span class="link_name">Chart</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Chart</a></li>
                 </ul>
             </li>
             {{-- <li>

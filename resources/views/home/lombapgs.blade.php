@@ -30,7 +30,52 @@
 
 <body>
     @include('widgets.navbar')
-    <img class="bg-image"src="{{ asset('assets/images/widhtimg.jpg') }}" />
+    @foreach ($lombas->take(1) as $lomba)
+        <div class="top__section">
+            <div class="event-info-container">
+                <div class="event-info">
+                    <img
+                        class="bg-image"src="{{ asset('storage/banner/' . $lomba->event->id . '/' . $lomba->event->banner) }}" />
+
+                    <div class="info-container">
+                        <div class="info-top">
+                            <h3>{{ $lomba->event->nama_lomba }}</h3>
+                            {{-- <p class="event-desc">{{ $lomba->event->deskripsi }}</p> --}}
+                            <ul>
+                                <li>
+                                    <i class="fa-solid fa-calendar-check"></i>
+                                    {{ \Carbon\Carbon::parse($lomba->event->tanggal_pendaftaran)->format(' j F Y') }}
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-calendar-xmark"></i>
+                                    {{ \Carbon\Carbon::parse($lomba->event->tanggal_penutupan_pendaftaran)->format(' j F Y') }}
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-fire"></i>
+                                    {{ \Carbon\Carbon::parse($lomba->event->tanggal_pelaksanaan)->format(' j F Y') }}
+                                </li>
+                                <li><i class="fa-solid fa-location-dot"></i> {{ $lomba->event->tempat }}</li>
+                            </ul>
+                        </div>
+                        <div class="info-bottom">
+                            <span class="divider"></span>
+                            <div class="penyelenggara">
+                                <img class="bg-author"src="{{ asset('assets/images/mongo.png') }}" />
+                                <div class="author-info">
+                                    <p class="show-p">Dilaksanakan oleh</p>
+                                    <p class="hidden-p">Pelaksana</p>
+                                    <h6>{{ $lomba->event->penyelenggara->nama_penyelenggara }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hiden-desc">
+                <p>{{ $lomba->event->deskripsi }}</p>
+            </div>
+        </div>
+    @endforeach
 
     <div class="blog__section">
         {!! Breadcrumbs::render() !!}

@@ -263,7 +263,9 @@ a > i {
     font-weight: bold;
     position: relative;
 }
-
+i.fas.fa-bars {
+    color: var(--text-color);
+}
 /* a > i::after {
     position: absolute;
     opacity: 0;
