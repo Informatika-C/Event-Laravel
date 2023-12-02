@@ -105,7 +105,7 @@
 .marquee .text {
     display: inline-block;
     text-indent: 0;
-    animation: marquee 16s linear infinite;
+    animation: marquee 50s linear infinite;
 }
 .marquee2 {
     width: 100%;

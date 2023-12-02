@@ -3,7 +3,7 @@
         <div class="contact">
             <h3>Contact Us</h3>
             <ul class="contact-text">
-                <li>Email: contact@example.com</li>
+                <li>Email: const@yahoo.com</li>
                 <li>Phone: (123) 456-7890</li>
                 <li>Address: 123 Main Street, City</li>
             </ul>

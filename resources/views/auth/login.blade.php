@@ -2,6 +2,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('assets/css/sign.css') }}" />
+    <title id="pageTitle"></title>
+</head>
 </head>
 
 <body>
@@ -18,12 +20,12 @@
 
             <div class="input">
                 <label for="email">{{ __('E-Mail Address') }}</label>
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                    value="{{ old('email') }}" required autocomplete="email" autofocus />
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus />
                 @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                 @enderror
             </div>
             <div class="input">
@@ -31,9 +33,9 @@
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
                     name="password" required autocomplete="current-password" />
                 @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                 @enderror
             </div>
             <div class="check">
@@ -57,42 +59,42 @@
             <h3>{{ __('Register') }}</h3>
             <div class="input">
                 <label for="name">{{ __('Name') }}</label>
-                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                    value="{{ old('name') }}" required autocomplete="name" autofocus />
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus />
                 @error('name')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                 @enderror
             </div>
             <div class="input">
                 <label for="email">{{ __('E-Mail Address') }}</label>
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                    value="{{ old('email') }}" required autocomplete="email" />
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                    name="email" value="{{ old('email') }}" required autocomplete="email" />
                 @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                 @enderror
             </div>
             <div class="input">
                 <label for="email">{{ __('NPM') }}</label>
-                <input id="npm" type="number" class="form-control @error('npm') is-invalid @enderror" name="npm"
-                    value="{{ old('npm') }}" required autocomplete="npm" />
+                <input id="npm" type="number" class="form-control @error('npm') is-invalid @enderror"
+                    name="npm" value="{{ old('npm') }}" required autocomplete="npm" />
                 @error('npm')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                 @enderror
             </div>
             <div class="input">
                 <label for="email">{{ __('Phone') }}</label>
-                <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone"
-                    value="{{ old('phone') }}" required autocomplete="phone" />
+                <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror"
+                    name="phone" value="{{ old('phone') }}" required autocomplete="phone" />
                 @error('phone')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                 @enderror
             </div>
             <div class="input">
@@ -100,19 +102,19 @@
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
                     name="password" required autocomplete="new-password" />
                 @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                 @enderror
             </div>
             <div class="input">
                 <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
-                    autocomplete="new-password" />
+                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                    required autocomplete="new-password" />
                 @error('password_confirmation')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                 @enderror
             </div>
 
@@ -124,24 +126,42 @@
         </form>
     </div>
     <script>
-    const logInButton = document.querySelector(".log-in");
-    const signIn = document.querySelector(".signIn");
-    const signUp = document.querySelector(".signUp");
-    const backButton = document.querySelector(".back");
+        const logInButton = document.querySelector(".log-in");
+        const signIn = document.querySelector(".signIn");
+        const signUp = document.querySelector(".signUp");
+        const backButton = document.querySelector(".back");
 
-    logInButton.addEventListener("click", function() {
-        signIn.classList.add("active-dx");
-        signUp.classList.add("inactive-sx");
-        signUp.classList.remove("active-sx");
-        signIn.classList.remove("inactive-dx");
-    });
+        function setJudulHalaman() {
+            const pageTitle = document.getElementById("pageTitle");
 
-    backButton.addEventListener("click", function() {
-        signUp.classList.add("active-sx");
-        signIn.classList.add("inactive-dx");
-        signIn.classList.remove("active-dx");
-        signUp.classList.remove("inactive-sx");
-    });
+            if (signIn.classList.contains("active-dx")) {
+                pageTitle.innerText = "Tvent - Login";
+            } else if (signUp.classList.contains("active-sx")) {
+                pageTitle.innerText = "Tvent - Register";
+            } else {
+                pageTitle.innerText = "Tvent - Login";
+            }
+        }
+
+        setJudulHalaman();
+
+        logInButton.addEventListener("click", function() {
+            signIn.classList.add("active-dx");
+            signUp.classList.add("inactive-sx");
+            signUp.classList.remove("active-sx");
+            signIn.classList.remove("inactive-dx");
+
+            setJudulHalaman();
+        });
+
+        backButton.addEventListener("click", function() {
+            signUp.classList.add("active-sx");
+            signIn.classList.add("inactive-dx");
+            signIn.classList.remove("active-dx");
+            signUp.classList.remove("inactive-sx");
+
+            setJudulHalaman();
+        });
     </script>
 
 </body>

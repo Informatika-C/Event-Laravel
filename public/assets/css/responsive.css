@@ -239,6 +239,14 @@
         padding: 10px;
         max-width: 190px;
     }
+    .horizon-card {
+        display: none;
+    }
+    #countdown h5 {
+        color: black;
+        font-size: 2rem;
+        font-weight: 700;
+    }
 }
 
 @media (min-width: 291px) and (max-width: 767px) {
@@ -494,6 +502,19 @@
     .notify-container {
         padding: 10px;
         max-width: 190px;
+    }
+    .horizon-card {
+        display: none;
+    }
+    /* .count-wrap .count-left {
+        background-color: red;
+        max-width: 100%;
+        width: 100%;
+    } */
+    #countdown h5 {
+        color: black;
+        font-size: 2.5rem;
+        font-weight: 700;
     }
 }
 
