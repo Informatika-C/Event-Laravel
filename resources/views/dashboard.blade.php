@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}" />
     <link rel="icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon">
-    <title>Dashboard</title>
+    <title>Tvent - Dashboard</title>
 </head>
 
 <body>

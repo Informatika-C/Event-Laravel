@@ -1,43 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 
-@include('widgets.head')
+<head>
+    @include('widgets.head')
+    <title>Tvent - HomePage</title>
 
-@isset($event_time)
-    <script>
-        var countdownDate = {{ $event_time }} * 1000;
+    @isset($event_time)
+        <script>
+            var countdownDate = {{ $event_time }} * 1000;
 
-        var x = setInterval(function() {
-            var now = new Date().getTime();
-            // remove last 
-            var distance = countdownDate - now;
+            var x = setInterval(function() {
+                var now = new Date().getTime();
+                // remove last 
+                var distance = countdownDate - now;
 
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor(
-                (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-            );
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            var daysText = days;
-            var hoursText = hours;
-            var minutesText = minutes;
-            var secondsText = seconds;
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor(
+                    (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                );
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                var daysText = days;
+                var hoursText = hours;
+                var minutesText = minutes;
+                var secondsText = seconds;
 
-            // Tampilkan waktu dalam elemen dengan id "countdown"
-            document.getElementById("countdown-days").innerHTML = daysText;
-            document.getElementById("countdown-hours").innerHTML = hoursText;
-            document.getElementById("countdown-minutes").innerHTML = minutesText;
-            document.getElementById("countdown-seconds").innerHTML = secondsText;
+                // Tampilkan waktu dalam elemen dengan id "countdown"
+                document.getElementById("countdown-days").innerHTML = daysText;
+                document.getElementById("countdown-hours").innerHTML = hoursText;
+                document.getElementById("countdown-minutes").innerHTML = minutesText;
+                document.getElementById("countdown-seconds").innerHTML = secondsText;
 
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("countdown").innerHTML = "EXPIRED";
-            }
-        }, 1000);
-    </script>
-@endisset
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("countdown").innerHTML = "EXPIRED";
+                }
+            }, 1000);
+        </script>
+    @endisset
 
-<script src="{{ asset('assets/js/animated.js') }}" type="module"></script>
+    <script src="{{ asset('assets/js/animated.js') }}" type="module"></script>
+</head>
 
 <body>
 
@@ -56,7 +59,7 @@
                     <h1 class="lead">
                         <b data-aos="fade-right" data-aos-delay="300" data-aos-duration="2000">HI !</b>
                     </h1>
-                    <a href="#about">
+                    <a href="#count">
                         <i class="fa-solid fa-chevron-down animated"></i>
                     </a>
                 </div>
@@ -93,33 +96,58 @@
         <h2 class="outline-svg typ">Teknokrat</h2>
         <h2 class="outline-svg gradient typ">Indonesia</h2>
 
-        <section class="coundown-section">
-            <h5>Ayo Ikuti!</h5>
+        <section id="count" class="coundown-section">
+            {{-- <h5>Ayo Ikuti!</h5> --}}
             <div class="count-wrap">
                 <div class="count-left">
-                    <div class="event-name-left">{{ $event_first->nama_lomba }}</div>
+                    <div class="event-name-left">{{ $event_first->nama_lomba }}.</div>
                     <img
-                        class="img-card"src="{{ asset('storage/banner/' . $event_first->id . '/' . $event_first->banner) }}" />
-                    <div class="desc">{{ $event_first->deskripsi }}</div>
+                        class="img-count"src="{{ asset('storage/banner/' . $event_first->id . '/' . $event_first->banner) }}" />
+                    <div class="desc">{{ $event_first->deskripsi }}.</div>
+                    <div class="place">
+                        Berlokasi Di
+                        <b>
+                            {{ $event_first->tempat }}
+                        </b>
+                        total kuota
+                        <b>
+                            <i class="fa-solid fa-user-group">{{ $event_first->add }}</i> orang
+                        </b>
+                        <br>
+                        Pendaftaran dibuka pada tanggal
+                        <b>
+                            {{ \Carbon\Carbon::parse($event_first->tanggal_pendaftaran)->format('l, j F Y') }}
+                            -
+                            {{ \Carbon\Carbon::parse($event_first->tanggal_penutupan_pendaftaran)->format('l, j F Y') }}
+                        </b>
+                        dan Event akan di mulai pada
+                        <b>
+                            {{ \Carbon\Carbon::parse($event_first->tanggal_pelaksanaan)->format('l, j F Y') }}
+                        </b>
+                    </div>
+                    <div class="invitation">
+                        <span class="status">
+                            Ayo Segera daftarkan timmu!
+                        </span>
+                        <div class="inv-btm">
+                            note by
+                            <h6>{{ $event_first->penyelenggara->nama_penyelenggara }}</h6>
+                        </div>
+                    </div>
                 </div>
                 <div class="count-right">
                     <div class="event-name">{{ $event_first->nama_lomba }}</div>
-                    <div class="place">
-                        Berlokasi Di
-                        <b>{{ $event_first->tempat }}</b>
+                    <div class="horizon-card">
+                        <div class="category-letter">CateGory</div>
+
+                        {{-- <img src="{{ asset('storage/lomba/poster/' . $lomba->id . '/' . $lomba->poster) }}" /> --}}
+                        <div class="cardZone">Category 2</div>
+                        <div class="cardZone">Category 3</div>
+                        <div class="cardZone">Category 4</div>
+                        <div class="cardZone">Category 5</div>
+                        <div class="cardZone">Category 6</div>
+                        <div class="cardZone">Category 7</div>
                     </div>
-                    {{-- <div>
-                        {{ \Carbon\Carbon::parse($event_first->tanggal_pendaftaran)->format('l, j F Y') }}
-                    </div> --}}
-                    <div>{{ \Carbon\Carbon::parse($event_first->tanggal_penutupan_pendaftaran)->format('l, j F Y') }}
-                    </div>
-                    <div>{{ \Carbon\Carbon::parse($event_first->tanggal_pelaksanaan)->format('l, j F Y') }}</div>
-                    <div>
-                        <span class="status confirmed">
-                            <i class="fa-solid fa-user-group">{{ $event_first->add }}</i>
-                        </span>
-                    </div>
-                    <div>{{ $event_first->penyelenggara->nama_penyelenggara }}</div>
                 </div>
             </div>
 

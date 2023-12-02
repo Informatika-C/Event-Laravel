@@ -20,5 +20,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
     <link rel="icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon">
-    <title>Tvent - HomePage</title>
 </head>

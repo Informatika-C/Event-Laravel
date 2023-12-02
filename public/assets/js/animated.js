@@ -36,7 +36,7 @@ function initGSAP() {
 
     gsap.to(leadElement, {
         duration: 2,
-        delay: 4.5,
+        delay: 3.5,
         text: "<b>JOIN</b> WITH US",
     });
     // gsap.from(".display-4", {
@@ -52,11 +52,7 @@ function initGSAP() {
 // Call the initGSAP function when the DOM is ready
 document.addEventListener("DOMContentLoaded", initGSAP);
 
-// Rest of your code...
-
 const typElements = document.querySelectorAll(".typ");
-const contentElement = document.querySelector(".about-section");
-
 const textOptions = [
     "Become a Winner",
     "Discover New Possibilities",
@@ -65,32 +61,64 @@ const textOptions = [
 
 let typTextChanged = false;
 
-function changeTypText(text) {
-    typTextChanged = true;
-    typElements.forEach((element) => {
+const observer = new IntersectionObserver(
+    (entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting && !typTextChanged) {
+                typTextChanged = true;
+                changeTypText();
+                observer.unobserve(entry.target);
+            }
+        });
+    },
+    { threshold: 0.5 }
+);
+
+// Merekam setiap elemen yang akan diawasi
+typElements.forEach((element) => observer.observe(element));
+
+function changeTypText() {
+    const shuffledTextOptions = [...textOptions].sort(
+        () => Math.random() - 0.5
+    );
+    typElements.forEach((element, index) => {
         if (element) {
-            gsap.to(element, { duration: 2, text: text });
+            gsap.to(element, {
+                duration: 2,
+                delay: 2,
+                text: shuffledTextOptions[index],
+                opacity: 1,
+            });
         }
     });
 }
+// const typElements = document.querySelectorAll(".typ");
+// const contentElement = document.querySelector(".coundown-section");
 
-window.addEventListener("scroll", () => {
-    const contentRect = contentElement
-        ? contentElement.getBoundingClientRect()
-        : null;
+// const textOptions = [
+//     "Become a Winner",
+//     "Discover New Possibilities",
+//     "Unlock Your Potential",
+// ];
 
-    if (
-        contentRect &&
-        contentRect.top <= window.innerHeight &&
-        contentRect.bottom >= 0
-    ) {
-        if (!typTextChanged) {
-            const randomText =
-                textOptions[Math.floor(Math.random() * textOptions.length)];
-            changeTypText(randomText);
-        }
-    }
-});
+// let typTextChanged = false;
+
+// function changeTypText() {
+//     typTextChanged = true;
+
+//     // Mengacak urutan array textOptions
+//     const shuffledTextOptions = [...textOptions].sort(
+//         () => Math.random() - 0.5
+//     );
+
+//     typElements.forEach((element, index) => {
+//         if (element) {
+//             gsap.to(element, { duration: 2, text: shuffledTextOptions[index] });
+//         }
+//     });
+// }
+
+// changeTypText();
 
 const iconContainer = document.querySelector(".icon-container");
 const contentEl = document.querySelector(".content");

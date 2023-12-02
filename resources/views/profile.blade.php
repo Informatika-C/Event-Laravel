@@ -1,6 +1,11 @@
 <html lang="en">
-@include('widgets.head')
-<link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}" />
+
+<head>
+    @include('widgets.head')
+    <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}" />
+
+    <title>{{ Auth::user()->name }} - ProfilePage</title>
+</head>
 
 <body>
     @include('widgets.navbar')
