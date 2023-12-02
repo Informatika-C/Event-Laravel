@@ -10,6 +10,7 @@
     --marquee-text-color: #c3ff00;
     --extra-color: #1e2126;
     --back-drop: #fbffff48;
+    --none-color: #00000000;
     /* --extra-color: #b51a2b; */
 }
 
@@ -25,6 +26,7 @@ body.dark-mode {
     --marquee-text-color: #bd83b8;
     --extra-color: #f39f5a;
     --back-drop: #1718184e;
+    --none-color: #00000000;
 }
 
 body.dark-mode .navbar {
@@ -53,7 +55,7 @@ body.dark-mode .navbar {
     padding: 21.8px;
     text-align: center;
     justify-content: center;
-    background-color: rgb(30, 255, 128);
+    background-color: #ffa500;
     position: relative;
     cursor: pointer;
     border-radius: 0.3rem;

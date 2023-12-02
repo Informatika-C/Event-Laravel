@@ -64,14 +64,6 @@ img.bg-image {
     color: #999898;
     font: 300 0.8rem "Montserrat", sans-serif;
 }
-.sidebar-bg {
-    background-color: white;
-    background-image: url("../images/4.svg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 40% -200%;
-    background-size: 450px 550px;
-}
 .sidebar {
     position: fixed;
     top: 85px;
@@ -79,15 +71,11 @@ img.bg-image {
     height: 100%;
     width: 260px;
     box-shadow: none;
-    background-color: var(--domi-color);
-    background-image: url("../images/4.svg");
+    background-color: var(--text-hov-rev);
+    /* background-image: url("../images/4.svg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 40% -200%;
-    /* background-size: 450px 550px; */
-    /* background-color: #1e212600;
-    backdrop-filter: blur(40px) saturate(85%) contrast(100%);
-    -webkit-backdrop-filter: blur(16px) saturate(100%) contrast(100%); */
+    background-position: 40% -200%; */
     z-index: 100;
     transition: all 0.5s ease;
 }

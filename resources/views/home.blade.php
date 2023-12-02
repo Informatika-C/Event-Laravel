@@ -147,6 +147,94 @@
             </div>
         </section>
 
+        <section id="events" class="events-section">
+            <div class="marquee" style="margin-top: 2rem">
+                <h4 class="text">
+                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 1" />
+                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 2" />
+                    <img src="{{ asset('assets/images/2.svg') }}" alt="Image 3" />
+                </h4>
+                <h4 class="text">
+                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 1" />
+                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 2" />
+                    <img src="{{ asset('assets/images/2.svg') }}" alt="Image 3" />
+                </h4>
+                <h4 class="text">
+                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 1" />
+                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 2" />
+                    <img src="{{ asset('assets/images/2.svg') }}" alt="Image 3" />
+                </h4>
+                <h4 class="text">
+                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 1" />
+                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 2" />
+                    <img src="{{ asset('assets/images/2.svg') }}" alt="Image 3" />
+                </h4>
+            </div>
+            <section class="top-content">
+                <div class="carousel">
+                    <div class="carousel-item"><img src="{{ asset('assets/images/carrousel1.JPG') }}" /></div>
+                    <div class="carousel-item"><img src="{{ asset('assets/images/carrousel2.JPG') }}" /></div>
+                    <div class="carousel-item"><img src="{{ asset('assets/images/carrousel3.JPG') }}" /></div>
+                </div>
+                <div class="events-Info">
+                    <div class="events-text">
+                        <h2>EVENT</h2>
+                        <h2>EVENT</h2>
+                    </div>
+                    <p data-aos="fade-down" data-aos-delay="300" data-aos-duration="2000">Lorem ipsum dolor, sit amet
+                        consectetur adipisicing. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt,
+                        voluptates.</p>
+                    <div class="bottom">
+                        <h3 data-aos="fade-right" data-aos-delay="400" data-aos-duration="1200">© 2023 CONST - All
+                            Rights Reserved.</h3>
+                        <button data-aos="zoom-in" data-aos-delay="800" data-aos-duration="2000"
+                            onclick="window.location.href='{{ route('home.eventpgs') }}'">Selengkapnya</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Events section -->
+
+            <section class="grid-card" data-aos="fade-left" data-aos-delay="700" data-aos-duration="2000">
+
+                @isset($events)
+                    @foreach ($events as $event)
+                        <a href="{{ route('home.lombapgs', ['event_id' => $event->id]) }}" class="card-link">
+                            <div class="card-container">
+                                <div class="card">
+                                    <div class="fornt">
+                                        <img
+                                            class="img-card"src="{{ asset('storage/banner/' . $event->id . '/' . $event->banner) }}" />
+                                    </div>
+                                    <div class="back"></div>
+                                    <div class="infomation">
+                                        <img src="{{ asset('storage/poster/' . $event->id . '/' . $event->poster) }}"
+                                            class="profile_image" />
+                                        <div class="names">
+                                            <div class="project_name">{{ $event->nama_lomba }}</div>
+                                            <div class="user_name">{{ $event->penyelenggara->nama_penyelenggara }} </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="li_co_vi">
+                                        <div class="view bg" title="Quota">
+                                            <i class="fa-solid fa-user-lock"></i>
+                                            <div class="num">{{ $event->add }}</div>
+                                        </div>
+
+                                        <div class="coment bg" title="Location">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                            <div class="num">{{ $event->tempat }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                @endisset
+            </section>
+        </section>
+
         <section id="about" class="about-section">
             <div class="marquee" style="margin-top: 2rem">
                 <h4 class="text">
@@ -209,93 +297,6 @@
                 <h4 class="text">Fakultas Teknik dan Ilmu Komputer - Fakultas Ekonomi Dan Bisnis - FAKULTAS SASTRA
                     DAN
                     ILMU PENDIDIKAN -&nbsp;</h4>
-            </div>
-        </section>
-
-        <section id="events" class="events-section">
-            <section class="top-content">
-                <div class="carousel">
-                    <div class="carousel-item"><img src="{{ asset('assets/images/carrousel1.JPG') }}" /></div>
-                    <div class="carousel-item"><img src="{{ asset('assets/images/carrousel2.JPG') }}" /></div>
-                    <div class="carousel-item"><img src="{{ asset('assets/images/carrousel3.JPG') }}" /></div>
-                </div>
-                <div class="events-Info">
-                    <div class="events-text">
-                        <h2>EVENT</h2>
-                        <h2>EVENT</h2>
-                    </div>
-                    <p data-aos="fade-down" data-aos-delay="300" data-aos-duration="2000">Lorem ipsum dolor, sit amet
-                        consectetur adipisicing. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt,
-                        voluptates.</p>
-                    <div class="bottom">
-                        <h3 data-aos="fade-right" data-aos-delay="400" data-aos-duration="1200">© 2023 CONST - All
-                            Rights Reserved.</h3>
-                        <button data-aos="zoom-in" data-aos-delay="800" data-aos-duration="2000"
-                            onclick="window.location.href='{{ route('home.eventpgs') }}'">Selengkapnya</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Events section -->
-
-            <section class="grid-card" data-aos="fade-left" data-aos-delay="700" data-aos-duration="2000">
-                @isset($events)
-                    @foreach ($events as $event)
-                        <a href="{{ route('home.lombapgs', ['event_id' => $event->id]) }}" class="card-link">
-                            <div class="card-container">
-                                <div class="card">
-                                    <div class="fornt">
-                                        <img
-                                            class="img-card"src="{{ asset('storage/banner/' . $event->id . '/' . $event->banner) }}" />
-                                    </div>
-                                    <div class="back"></div>
-                                    <div class="infomation">
-                                        <img src="{{ asset('storage/poster/' . $event->id . '/' . $event->poster) }}"
-                                            class="profile_image" />
-                                        <div class="names">
-                                            <div class="project_name">{{ $event->nama_lomba }}</div>
-                                            <div class="user_name">{{ $event->penyelenggara->nama_penyelenggara }} </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="li_co_vi">
-                                        <div class="view bg" title="Quota">
-                                            <i class="fa-solid fa-user-lock"></i>
-                                            <div class="num">{{ $event->add }}</div>
-                                        </div>
-
-                                        <div class="coment bg" title="Location">
-                                            <i class="fa-solid fa-location-dot"></i>
-                                            <div class="num">{{ $event->tempat }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    @endforeach
-                @endisset
-            </section>
-            <div class="marquee">
-                <h4 class="text">
-                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 1" />
-                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 2" />
-                    <img src="{{ asset('assets/images/2.svg') }}" alt="Image 3" />
-                </h4>
-                <h4 class="text">
-                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 1" />
-                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 2" />
-                    <img src="{{ asset('assets/images/2.svg') }}" alt="Image 3" />
-                </h4>
-                <h4 class="text">
-                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 1" />
-                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 2" />
-                    <img src="{{ asset('assets/images/2.svg') }}" alt="Image 3" />
-                </h4>
-                <h4 class="text">
-                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 1" />
-                    <img src="{{ asset('assets/images/1.svg') }}" alt="Image 2" />
-                    <img src="{{ asset('assets/images/2.svg') }}" alt="Image 3" />
-                </h4>
             </div>
         </section>
 
