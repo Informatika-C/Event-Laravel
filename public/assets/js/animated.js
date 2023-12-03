@@ -1,28 +1,3 @@
-// CARROUSEL
-let slideIndex = 0;
-showSlides();
-
-function showSlides() {
-    let slides = document.getElementsByClassName("carousel-item");
-
-    // Periksa apakah slides ada atau tidak
-    if (!slides || slides.length === 0) {
-        return; // Hentikan eksekusi jika tidak ada elemen
-    }
-
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-
-    // Pastikan slideIndex tidak melebihi jumlah slides
-    slideIndex = slideIndex >= slides.length ? 0 : slideIndex;
-
-    slides[slideIndex].style.display = "block";
-    slideIndex++;
-
-    setTimeout(showSlides, 3000);
-}
-
 // TEXT
 AOS.init({});
 
