@@ -106,8 +106,9 @@
                                         <p class="card__text">{{ $event->deskripsi }}</p>
                                         <div class="blog__author_container">
                                             <div class="blog__author_avatar">
-                                                <img src="{{ asset('storage/poster/' . $event->id . '/' . $event->poster) }}"
-                                                    class="blog__author_avatar_image">
+                                                <img src="{{ asset('storage/penyelenggara/logo/' . $event->penyelenggara->id . '/' . $event->penyelenggara->logo) }}"
+                                                    class="blog__author_avatar_image" />
+
                                                 <div class="blog__author_avatar_over"></div>
                                             </div>
                                             <div class="blog__author_details">

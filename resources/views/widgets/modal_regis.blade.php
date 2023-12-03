@@ -1,7 +1,7 @@
 <div id='join-lomba-modal' class="modal bg-modal">
     <div class="modal-content">
         <div id='modal-title' style="font-size: 2em; margin-bottom: 0.5em;">
-            Join 
+            Join
             <span id="nama-lomba-modal"></span>
         </div>
         <div id='form-join-lomba'></div>
@@ -31,7 +31,7 @@
         <label for="nama-grup">Nama Grup:</label>
         <input autocomplete="off" type="text" name="nama_grup" id="nama-grup" placeholder="Nama Grup" required>
 
-        <div id='anggota-grup' style="display: flex; flex-direction: column; margin-bottom: 1em">
+        <div id='anggota-grup'>
         </div>
 
         <label for="password">Konfirmasi Password:</label>
@@ -49,7 +49,7 @@
 <div id='out-lomba-modal' class="modal bg-modal">
     <div class="modal-content">
         <div id='modal-title' style="font-size: 2em; margin-bottom: 0.5em;">
-            Join 
+            Join
             <span id="nama-lomba-modal"></span>
         </div>
         <form method="POST" action="/lomba/register">

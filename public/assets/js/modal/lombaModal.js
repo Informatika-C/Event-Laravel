@@ -57,6 +57,9 @@ $(document).ready(function () {
                     var id = kategori[i].id;
                     var nama_kategori = kategori[i].nama_kategori;
 
+                    // create a container div for each checkbox and label
+                    var container = $("<div class='category-label'></div>");
+
                     var checkbox = document.createElement("input");
                     checkbox.type = "checkbox";
                     checkbox.name = "kategori[]";
@@ -68,11 +71,12 @@ $(document).ready(function () {
                     label.htmlFor = "kategori" + id;
                     label.appendChild(document.createTextNode(nama_kategori));
 
-                    var br = document.createElement("br");
+                    // append checkbox and label to the container div
+                    container.append(checkbox);
+                    container.append(label);
 
-                    kategoriList.append(checkbox);
-                    kategoriList.append(label);
-                    kategoriList.append(br);
+                    // append the container div to kategoriList
+                    kategoriList.append(container);
                 }
             },
         });
@@ -100,6 +104,9 @@ $(document).ready(function () {
                 var id = response.kategori.id;
                 var nama_kategori = response.kategori.nama_kategori;
 
+                // create a container div for each checkbox and label
+                var container = $("<div class='category-label'></div>");
+
                 var checkbox = document.createElement("input");
                 checkbox.type = "checkbox";
                 checkbox.name = "kategori[]";
@@ -111,19 +118,20 @@ $(document).ready(function () {
                 label.htmlFor = "kategori" + id;
                 label.appendChild(document.createTextNode(nama_kategori));
 
-                var br = document.createElement("br");
+                // append checkbox and label to the container div
+                container.append(checkbox);
+                container.append(label);
 
-                kategoriList.append(checkbox);
-                kategoriList.append(label);
-                kategoriList.append(br);
+                // append the container div to kategoriList
+                kategoriList.append(container);
 
                 // reset input
                 input.val("");
             },
             error: function (response) {
                 console.log(response);
-            }
-    });
+            },
+        });
     });
 
     $(document).on("click", "#confirmKategori", function () {
@@ -136,11 +144,14 @@ $(document).ready(function () {
         // get all checked value from kategoriList and put it in kategoriListModal
         var kategori = kategoriList.find("input[name='kategori[]']:checked");
         kategoriListModal.html("");
-        
+
         // make for loop to make checkbox
         for (var i = 0; i < kategori.length; i++) {
             var id = kategori[i].value;
             var nama_kategori = kategori[i].nextSibling.textContent;
+
+            // create a container div for each checkbox and label
+            var container = $("<div class='category-label'></div>");
 
             var checkbox = document.createElement("input");
             checkbox.type = "checkbox";
@@ -153,11 +164,12 @@ $(document).ready(function () {
             label.htmlFor = "kategori" + id;
             label.appendChild(document.createTextNode(nama_kategori));
 
-            var br = document.createElement("br");
+            // append checkbox and label to the container div
+            container.append(checkbox);
+            container.append(label);
 
-            kategoriListModal.append(checkbox);
-            kategoriListModal.append(label);
-            kategoriListModal.append(br);
+            // append the container div to kategoriListModal
+            kategoriListModal.append(container);
         }
 
         // close modal
@@ -180,12 +192,15 @@ $(document).ready(function () {
         // get all checked value from kategoriList and put it in kategoriListModal
         var kategori = kategoriList.find("input[name='kategori[]']:checked");
         kategoriListModal.html("");
-        
+
         // make for loop to make checkbox
-        if(kategori.length > 0) {
+        if (kategori.length > 0) {
             for (var i = 0; i < kategori.length; i++) {
                 var id = kategori[i].value;
                 var nama_kategori = kategori[i].nextSibling.textContent;
+
+                // create a container div for each checkbox and label
+                var container = $("<div class='category-label'></div>");
 
                 var checkbox = document.createElement("input");
                 checkbox.type = "checkbox";
@@ -198,15 +213,15 @@ $(document).ready(function () {
                 label.htmlFor = "kategori" + id;
                 label.appendChild(document.createTextNode(nama_kategori));
 
-                var br = document.createElement("br");
+                // append checkbox and label to the container div
+                container.append(checkbox);
+                container.append(label);
 
-                kategoriListModal.append(checkbox);
-                kategoriListModal.append(label);
-                kategoriListModal.append(br);
+                // append the container div to kategoriListModal
+                kategoriListModal.append(container);
             }
-        }
-        else {
-            // appent integer -1 value to kategoriListModal not array
+        } else {
+            // append integer -1 value to kategoriListModal not array
             var checkbox = document.createElement("input");
             checkbox.type = "number";
             checkbox.name = "kategori";
@@ -248,7 +263,7 @@ $(document).ready(function () {
                 type: "GET",
                 url: "/kategori/lomba/" + id,
                 success: function (res) {
-                    console.log(res)
+                    console.log(res);
                     // get all id and put it in arrayOfKategori
                     for (var i = 0; i < res.length; i++) {
                         arrayOfKategori.push(res[i].id);
@@ -261,12 +276,17 @@ $(document).ready(function () {
                             var kategori = response.kategoris;
                             var kategoriList = modal.find("#kategoriList");
                             kategoriList.html("");
-            
+
                             // make for loop to make checkbox and make it checked if id is in arrayOfKategori
                             for (var i = 0; i < kategori.length; i++) {
                                 var id = kategori[i].id;
                                 var nama_kategori = kategori[i].nama_kategori;
-            
+
+                                // create a container div for each checkbox and label
+                                var container = $(
+                                    "<div class='category-label'></div>"
+                                );
+
                                 var checkbox = document.createElement("input");
                                 checkbox.type = "checkbox";
                                 checkbox.name = "kategori[]";
@@ -274,26 +294,27 @@ $(document).ready(function () {
                                 checkbox.id = "kategori" + id;
                                 checkbox.checked = false;
 
-                                if(arrayOfKategori.includes(id)) {
+                                if (arrayOfKategori.includes(id)) {
                                     checkbox.checked = true;
                                 }
-            
+
                                 var label = document.createElement("label");
                                 label.htmlFor = "kategori" + id;
-                                label.appendChild(document.createTextNode(nama_kategori));
-            
-                                var br = document.createElement("br");
-            
-                                kategoriList.append(checkbox);
-                                kategoriList.append(label);
-                                kategoriList.append(br);
+                                label.appendChild(
+                                    document.createTextNode(nama_kategori)
+                                );
+
+                                // append checkbox and label to the container div
+                                container.append(checkbox);
+                                container.append(label);
+
+                                // append the container div to kategoriList
+                                kategoriList.append(container);
                             }
                         },
                     });
-                }
-            })
-    
-            
+                },
+            });
         });
     });
 
@@ -375,7 +396,8 @@ $(document).ready(function () {
                 $("#max_anggota").val(response.lomba.max_anggota);
                 $("#biaya_registrasi").val(response.lomba.biaya_registrasi);
 
-                const convertedDateTimeString = response.lomba.pelaksanaan_lomba.replace(" ", "T");
+                const convertedDateTimeString =
+                    response.lomba.pelaksanaan_lomba.replace(" ", "T");
                 $("#pelaksanaan_lomba").val(convertedDateTimeString);
             },
         });
@@ -439,7 +461,7 @@ $(document).ready(function () {
             url: "/dashboard/lomba/show/" + id,
             success: function (response) {
                 loader.hide();
-                if(response.lomba.poster == null) {
+                if (response.lomba.poster == null) {
                     posterContainer.style.display = "block";
                     posterContainer.src = "/assets/images/blank.jpg";
                     posterContainer.alt = "Blank Image";
