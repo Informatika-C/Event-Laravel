@@ -34,7 +34,7 @@ jobs:
       - name: set up environment variables
         run: |
           echo "APP_URL=https://tvent.azurewebsites.net" >> .env
-          echo "APP_KEY="
+          echo "APP_KEY=" >> .env
           echo "DB_CONNECTION=mysql" >> .env
           echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
           echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
