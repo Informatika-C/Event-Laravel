@@ -53,6 +53,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::get('/dashboard/penyelenggara/edit/{id}', [PenyelenggaraController::class, 'edit']);
     Route::get('/dashboard/penyelenggara/show/{id}', [PenyelenggaraController::class, 'show']);
     Route::delete('/dashboard/penyelenggara/destroy/{id}', [PenyelenggaraController::class, 'destroy']);
+    Route::put('/dashboard/penyelenggara/upload-image', [PenyelenggaraController::class, 'uploadImage'])->name('dashboard.penyelenggara.uploadImage');
 
 
     Route::get('/dashboard/lomba/id/{event_id}', [LombaController::class, 'index'])->name('dashboard.lomba');

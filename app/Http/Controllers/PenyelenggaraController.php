@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Models\Penyelenggara;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Storage;
 
 class PenyelenggaraController extends Controller
 {
@@ -91,5 +92,33 @@ class PenyelenggaraController extends Controller
         } catch (\Exception) {
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
+    }
+
+    public function uploadImage(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'logo' => 'image|mimes:jpeg,jpg,png|max:2048',
+        ]);
+
+        $id = $request->input('id');
+
+        $logo = $request->file('logo');
+        if ($logo != null) $logoExt = $logo->getClientOriginalExtension();
+
+        // delete old image
+        if ($logo != null) Storage::deleteDirectory('public/penyelenggara/logo/' . $id);
+
+        if ($logo != null) {
+            Storage::putFileAs('public/penyelenggara/logo/' . $id, $logo, 'logo_' . $id . '.' . $logoExt);
+        }
+
+        // update image path in database
+        $penyelenggara = Penyelenggara::find($id);
+        if ($logo != null) $penyelenggara->logo = 'logo_' . $id . '.' . $logoExt;
+
+        $penyelenggara->update();
+
+        return redirect()->back()->with('success', 'Image uploaded successfully.');
     }
 }

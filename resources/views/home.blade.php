@@ -236,7 +236,7 @@
                                     </div>
                                     <div class="back"></div>
                                     <div class="infomation">
-                                        <img src="{{ asset('storage/poster/' . $event->id . '/' . $event->poster) }}"
+                                        <img src="{{ asset('storage/penyelenggara/logo/' . $event->penyelenggara->id . '/' . $event->penyelenggara->logo) }}"
                                             class="profile_image" />
                                         <div class="names">
                                             <div class="project_name">{{ $event->nama_lomba }}</div>

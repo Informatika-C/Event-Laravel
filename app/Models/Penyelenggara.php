@@ -16,6 +16,7 @@ class Penyelenggara extends Model
     protected $fillable = [
         'nama_penyelenggara',
         'no_telp',
+        'logo'
     ];
     public function events()
     {

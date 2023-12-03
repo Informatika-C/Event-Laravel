@@ -1,6 +1,28 @@
 @extends('dashboard')
 
 @section('content')
+    <script>
+        function changeLogo(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                // get modal 
+                var modal = document.getElementById("upImageModal");
+                // get banner container
+                var posterContainer = modal.querySelector("#logo-container");
+
+                reader.onload = function(e) {
+                    // create image element and add inside div with id="poster-container" in this modal
+                    posterContainer.style.display = "block";
+                    posterContainer.src = e.target.result;
+                    posterContainer.alt = "Logo";
+                    posterContainer.style.width = "10em";
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
     <h1>Penyelenggara</h1>
     <p>Welcome to the Penyelenggara.</p>
     <div class="card detail">
@@ -55,6 +77,9 @@
                                 </button>
                                 <button class="deletebtn" type="button" del-id="{{ $penyelenggara->id }}">
                                     <i class="fa-solid fa-trash"></i>
+                                </button>
+                                <button class="upImagebtn" type="button" data-penyelenggara="{{ $penyelenggara }}">
+                                    <i class="fa-solid fa-image"></i>
                                 </button>
                             </td>
                     @endforeach
@@ -147,6 +172,35 @@
                     <button type="submit" id="confirmButton">Confirm</button>
                     <button type="button" id="closeButton">Tutup</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Upload Image Modal Edit -->
+        <div id="upImageModal" class="modal bg-modal">
+            <div class="modal-content">
+                <h2>Upload Image</h2>
+                <form id="upImageForm" action="/dashboard/penyelenggara/upload-image" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+
+                    <input type="hidden" name="id" id="id">
+
+                    <div style="display: flex; gap: 2em;">
+                        <div>
+                            <label for="poster">Logo:</label>
+                            <div class="loader"></div>
+                            <img id="logo-container" />
+                            <input type="file" accept="image/png, image/gif, image/jpeg" name="logo"
+                                id="logo" onchange="changeLogo(this);">
+                        </div>
+                    </div>
+
+                    <div class="CC">
+                        <button type="submit">Confirm</button>
+                        <button type="button" id="closeButton">Close</button>
+                    </div>
+                </form>
             </div>
         </div>
 

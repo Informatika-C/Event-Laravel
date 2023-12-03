@@ -120,4 +120,39 @@ $(document).ready(function () {
             },
         });
     });
+    
+    $(document).on("click",".upImagebtn", function(){
+        var penyelenggara = $(this).attr("data-penyelenggara");
+        penyelenggara = $.parseJSON(penyelenggara);
+
+        // get modal
+        var modal = $("#upImageModal");
+
+        // show modal
+        modal.css("display", "block");
+
+        // set id input
+        modal.find("#id").val(penyelenggara.id);
+
+        if(penyelenggara.logo == null){
+            modal.find("#logo-container").attr("src", "/assets/images/blank.jpg");
+
+            // set logo container size to 2em
+            modal.find("#logo-container").css("width", "10em");
+
+            // set loading to hidden and show image
+            modal.find(".loader").css("display", "none");
+            modal.find("#logo-container").css("display", "block");
+        }
+        else{
+            modal.find("#logo-container").attr("src", "/storage/penyelenggara/logo/" + penyelenggara.id + "/" + penyelenggara.logo );
+
+            // set logo container size to 2em
+            modal.find("#logo-container").css("width", "20em");
+
+            // set loading to hidden and show image
+            modal.find(".loader").css("display", "none");
+            modal.find("#logo-container").css("display", "block");
+        }
+    });
 });
