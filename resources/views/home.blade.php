@@ -96,6 +96,7 @@
         <h2 class="outline-svg typ">Teknokrat</h2>
         <h2 class="outline-svg gradient typ">Indonesia</h2>
 
+        @isset($event_first)
         <section id="count" class="coundown-section">
             {{-- <h5>Ayo Ikuti!</h5> --}}
             <div class="count-wrap">
@@ -176,6 +177,7 @@
                 <button class="joint">JOINT Now!</button>
             </div>
         </section>
+        @endisset
 
         <section id="events" class="events-section">
             <div class="marquee" style="margin-top: 2rem">
