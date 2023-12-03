@@ -36,17 +36,16 @@ body.dark-mode {
     align-items: start;
     max-width: 100%;
     padding: 6rem;
-    /* background-color: red; */
     gap: 2rem;
 }
 .events-Info {
-    /* background-color: blueviolet; */
     display: flex;
     float: left;
     flex-direction: column;
     position: relative;
     text-align: start;
-    width: 400px;
+    max-width: 25vw;
+    width: 100%;
     height: 300px;
     justify-content: space-between;
 }
@@ -126,21 +125,8 @@ button:hover {
         transform: translate(-100%, 0);
     }
 }
-.carousel {
+.carousel-container {
     width: 900px;
-}
-
-.carousel-item img {
-    max-width: 900px;
-    --card-ratio: auto 16/9;
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 10px 10px 29px 0px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: 10px 10px 29px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 10px 10px 29px 0px rgba(0, 0, 0, 0.75);
 }
 
 .grid-card {
@@ -466,4 +452,119 @@ button:hover {
 .card-horizon img {
     width: 100%;
     height: auto;
+}
+
+.carousel-container {
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+    border-radius: 24px;
+}
+.carousel {
+    margin: 24px 0px 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.carousel-sections-scroll {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 24px;
+}
+.carousel-sections {
+    height: 300px;
+    display: flex;
+    transition: 250ms transform ease-in;
+}
+
+.carousel-sections > div {
+    min-width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+.carousel {
+    position: relative;
+    border-radius: 24px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);
+    -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);
+}
+
+.prev-arrow {
+    position: absolute;
+    transform: translateX(20px);
+    animation: forwards 2s;
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out, transform 0.6s ease-out 0.1s;
+}
+
+.next-arrow {
+    position: absolute;
+    transform: translateX(-20px);
+    animation: forwards 2s;
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out, transform 0.6s ease-out 0.1s;
+}
+
+.prev-arrow {
+    left: 5px;
+}
+
+.next-arrow {
+    right: 5px;
+}
+
+.carousel:hover .prev-arrow,
+.carousel:hover .next-arrow {
+    opacity: 1;
+}
+
+.carousel:hover .prev-arrow {
+    transform: translateX(-25px);
+}
+
+.carousel:hover .next-arrow {
+    transform: translateX(25px);
+}
+
+.prev-arrow i,
+.next-arrow i {
+    font-size: 20px;
+    padding: 10.5px 15px;
+    color: #1e2126;
+    background-color: #f2f2f2;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(26, 25, 25, 0.371);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(26, 25, 25, 0.371);
+    box-shadow: 0px 2px 5px 0px rgba(26, 25, 25, 0.371);
+}
+
+.prev-arrow,
+.next-arrow {
+    z-index: 10;
+    margin: 0 auto;
+}
+
+.carousel-dots {
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: #afafaf;
+    margin: 0px 4px;
+    transition: 100ms all ease-in-out;
+}
+.carousel-dot.active {
+    width: 20px;
+    background-color: #5f5f5f;
 }

@@ -168,7 +168,7 @@
                     <input type="text" name="nama_lomba" required>
 
                     <label for="keterangan">Keterangan:</label>
-                    <textarea name="keterangan" required></textarea>
+                    <textarea name="keterangan" maxlength="255" required></textarea>
 
                     <label for="ruangan_lomba">Ruangan Lomba:</label>
                     <input type="text" name="ruangan_lomba" required>

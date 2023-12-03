@@ -148,6 +148,9 @@
         padding-inline: 1rem;
         gap: 10rem;
     }
+    .events-Info {
+        max-width: 100%;
+    }
 
     .logo {
         bottom: 20px;
@@ -409,6 +412,9 @@
         grid-template-columns: repeat(1, 1fr);
         padding-inline: 1rem;
         gap: 10rem;
+    }
+    .events-Info {
+        max-width: 100%;
     }
     .logo {
         bottom: 20px;
