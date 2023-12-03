@@ -34,6 +34,14 @@ class HomeController extends Controller
         // sort event by tanggal_penutupan_pendaftaran in ascending order
         $event_sort = $events->sortBy('tanggal_penutupan_pendaftaran');
 
+        if(count($event_sort) == 0) {
+            return View::make('home', [
+                'events' => $events,
+                'event_first' => null,
+                'event_time' => null,
+            ]);
+        }
+        
         $event_first = $event_sort[0];
         // make loop to chek if tanggal_penutupan_pendaftaran alredy past
         foreach ($event_sort as $event) {
