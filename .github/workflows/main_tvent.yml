@@ -31,12 +31,12 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
-      - name: set up environment variables
+      - name: copy .env file
+        run: cp '.env copy.example' .env
+
+      - name: set .env values
         run: |
-          echo "APP_ENV=production" > .env
-          echo "APP_DEBUG=false" >> .env
-          echo "APP_URL=https://tvent.azurewebsites.net" >> .env
-          echo "DB_CONNECTION=mysql" >> .env
+          echo "APP_NAME=Laravel" >> .env
           echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
           echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
           echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
