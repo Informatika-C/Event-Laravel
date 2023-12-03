@@ -95,7 +95,36 @@ body.dark-mode {
     border: 1px var(--text-hover-color) solid;
     color: var(--text-hover-color-reverse);
 }
+#anggota-grup {
+    display: flex;
+    flex-direction: column;
+    max-height: 300px;
+    height: 100%;
+    margin-bottom: 1em;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+#anggota-grup::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+}
 
+#anggota-grup::-webkit-scrollbar-track {
+    height: 10px;
+    background: var(--none-color);
+    border-radius: 12px;
+}
+
+#anggota-grup::-webkit-scrollbar-thumb {
+    width: 5px;
+    border-radius: 12px;
+    background-color: var(--text-color);
+    transition: all 0.3s ease-in;
+}
+#anggota-grup::-webkit-scrollbar-thumb:hover {
+    width: 7px;
+    background-color: red;
+}
 .CC {
     text-align: center;
     display: flex;

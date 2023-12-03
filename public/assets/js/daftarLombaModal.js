@@ -25,8 +25,7 @@ $(document).ready(function () {
 
             // set solo-form style in modal to block
             $("#form-join-lomba #solo-form").css("display", "block");
-        }
-        else {
+        } else {
             // copy group-form div to form-join-lomba div in modal
             grupForm.clone().appendTo("#form-join-lomba");
 
@@ -38,21 +37,35 @@ $(document).ready(function () {
 
             // make selectbox and label as many as max_anggota and append to anggota-grup div but on the first input set as ketua
             for (var i = 0; i < lomba.max_anggota; i++) {
-                if(i==0){
-                    var label = $("<label></label>").attr("for", "anggota-" + i).html("Anggota 1 / Ketua");
+                if (i == 0) {
+                    var label = $("<label></label>")
+                        .attr("for", "anggota-" + i)
+                        .html("Anggota 1 / Ketua");
+                } else {
+                    var label = $("<label></label>")
+                        .attr("for", "anggota-" + i)
+                        .html("Anggota " + (i + 1));
                 }
-                else{
-                    var label = $("<label></label>").attr("for", "anggota-" + i).html("Anggota " + (i + 1));
-                }
-                var selectBox = $("<select></select>").attr("id", "anggota-" + i).attr("name", "anggota[]").addClass("form-control");
+                var selectBox = $("<select></select>")
+                    .attr("id", "anggota-" + i)
+                    .attr("name", "anggota[]")
+                    .addClass("form-control");
 
                 selectBox.attr("required", "required");
-                
+
                 // add name class "search" to selectbox
                 selectBox.addClass("search-select");
 
                 // append label and selectbox to anggota-grup div
-                $("#form-join-lomba #grup-form #anggota-grup").append(label).append(selectBox);
+                $("#form-join-lomba #grup-form #anggota-grup")
+                    .append(label)
+                    .append(selectBox);
+            }
+            if (lomba.max_anggota > 4) {
+                $("#form-join-lomba #grup-form #anggota-grup").css(
+                    "overflow",
+                    "auto"
+                );
             }
         }
 
@@ -60,23 +73,23 @@ $(document).ready(function () {
 
         // set select2
         selectBox.select2({
-            placeholder: 'Select User',
+            placeholder: "Select User",
             ajax: {
-                url: '/ajax-autocomplete-contestant',
-                dataType: 'json',
+                url: "/ajax-autocomplete-contestant",
+                dataType: "json",
                 delay: 250,
                 processResults: function (data) {
                     return {
                         results: $.map(data, function (item) {
                             return {
                                 text: item.name,
-                                id: item.id
-                            }
-                        })
+                                id: item.id,
+                            };
+                        }),
                     };
                 },
                 cache: true,
-            }
+            },
         });
 
         // set modal style to block
@@ -109,6 +122,7 @@ $(document).ready(function () {
     });
 
     $(document).on("click", "#join-lomba-modal #closeButton", function () {
+        $("#form-join-lomba #grup-form #anggota-grup").css("overflow", "unset");
         var modal = $("#join-lomba-modal");
         modal.css("display", "none");
     });

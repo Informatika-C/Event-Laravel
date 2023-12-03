@@ -187,7 +187,7 @@
 
                     <div style="display: none;" id="kategoriListModal"></div>
 
-                    <div class="CC" style="margin-bottom: 1em">
+                    <div style="margin-bottom: 1em">
                         <button id="kategoriButton" type="button">Kategori</button>
                     </div>
 
@@ -232,7 +232,7 @@
 
                     <div style="display: none;" id="kategoriListModal"></div>
 
-                    <div class="CC" style="margin-bottom: 1em">
+                    <div style="margin-bottom: 1em">
                         <button id="editKategoriButton" type="button">Kategori</button>
                     </div>
 
@@ -300,7 +300,7 @@
                 <label for="kategori_id">Kategori:</label>
                 <div id="kategoriList"></div>
 
-                <input type="text" id="inputListkategori" placeholder="Tambah Kategori">
+                <input type="text" id="inputListkategori" placeholder="Tambah Kategori Baru">
                 <div style="width: 100%; display: flex; justify-content: center;">
                     <button type="button" id="addListKategoriButton" style="margin-bottom: 1em">Add</button>
                 </div>

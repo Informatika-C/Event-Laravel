@@ -250,6 +250,11 @@
         font-size: 2rem;
         font-weight: 700;
     }
+    #kategoriList {
+        max-height: 300px;
+        overflow: auto;
+        gap: 2px;
+    }
 }
 
 @media (min-width: 291px) and (max-width: 767px) {
