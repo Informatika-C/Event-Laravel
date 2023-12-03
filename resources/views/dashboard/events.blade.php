@@ -187,7 +187,7 @@
                     <input type="text" name="nama_lomba" id="name" required>
 
                     <label for="description">Description:</label>
-                    <textarea name="deskripsi" id="description" required></textarea>
+                    <textarea name="deskripsi" id="description" maxlength="255" required></textarea>
 
                     <label for="location">Location:</label>
                     <input type="text" name="tempat" id="location" required>

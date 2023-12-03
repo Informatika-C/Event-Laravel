@@ -102,8 +102,11 @@
             <div class="count-wrap">
                 <div class="count-left">
                     <div class="event-name-left">{{ $event_first->nama_lomba }}.</div>
-                    <img
-                        class="img-count"src="{{ asset('storage/banner/' . $event_first->id . '/' . $event_first->banner) }}" />
+                    <div class="img-count"
+                        style="background-image: url('{{ asset('storage/banner/' . $event_first->id . '/' . $event_first->banner) }}');">
+                    </div>
+                    {{-- <img
+                        class="img-count"src="{{ asset('storage/banner/' . $event_first->id . '/' . $event_first->banner) }}" /> --}}
                     <div class="desc">{{ $event_first->deskripsi }}.</div>
                     <div class="place">
                         Berlokasi Di
@@ -138,10 +141,9 @@
                 </div>
                 <div class="count-right">
                     <div class="event-name">{{ $event_first->nama_lomba }}</div>
+                    <div class="category-letter">CateGory</div>
                     <div class="horizon-card">
-                        <div class="category-letter">CateGory</div>
-
-                        {{-- <img src="{{ asset('storage/lomba/poster/' . $lomba->id . '/' . $lomba->poster) }}" /> --}}
+                        <div class="cardZone">Category 1</div>
                         <div class="cardZone">Category 2</div>
                         <div class="cardZone">Category 3</div>
                         <div class="cardZone">Category 4</div>
@@ -201,11 +203,34 @@
                 </h4>
             </div>
             <section class="top-content">
-                <div class="carousel">
-                    <div class="carousel-item"><img src="{{ asset('assets/images/carrousel1.JPG') }}" /></div>
-                    <div class="carousel-item"><img src="{{ asset('assets/images/carrousel2.JPG') }}" /></div>
-                    <div class="carousel-item"><img src="{{ asset('assets/images/carrousel3.JPG') }}" /></div>
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <div class="prev-arrow"><i class="fa-solid fa-angle-left"></i></div>
+
+                        <div class="carousel-sections-scroll">
+                            <div class="carousel-sections">
+                                <div class="carousel-section"
+                                    style="background-image: url('{{ asset('assets/images/carrousel1.JPG') }}');">
+                                </div>
+                                <div class="carousel-section"
+                                    style="background-image: url('{{ asset('assets/images/carrousel2.JPG') }}');">
+                                </div>
+                                <div class="carousel-section"
+                                    style="background-image: url('{{ asset('assets/images/carrousel3.JPG') }}');">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="next-arrow"><i class="fa-solid fa-angle-right"></i></div>
+
+                    </div>
+                    <div class="carousel-dots">
+                        <div class="carousel-dot"></div>
+                        <div class="carousel-dot"></div>
+                        <div class="carousel-dot"></div>
+                    </div>
                 </div>
+
                 <div class="events-Info">
                     <div class="events-text">
                         <h2>EVENT</h2>
@@ -369,6 +394,7 @@
 
     @include('widgets.footer')
 
+    <script src="{{ asset('assets/js/carousel.js') }}"></script>
 </body>
 
 </html>
