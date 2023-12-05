@@ -1068,7 +1068,6 @@ button:hover {
 .detail table th,
 .detail table td {
     padding: 0.6rem 0.2rem;
-    text-align: justify;
     font-size: 14px;
     transition: all 0.3s ease-out;
 }

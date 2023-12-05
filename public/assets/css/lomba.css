@@ -27,6 +27,30 @@
 .info-top {
     max-width: 60vw;
     width: 100%;
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+.info-top::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+}
+
+.info-top::-webkit-scrollbar-track {
+    height: 10px;
+    background: var(--none-color);
+    border-radius: 12px;
+}
+
+.info-top::-webkit-scrollbar-thumb {
+    width: 5px;
+    border-radius: 12px;
+    background-color: #1e2126;
+    transition: all 0.3s ease-in;
+}
+.info-top::-webkit-scrollbar-thumb:hover {
+    width: 7px;
+    background-color: red;
 }
 .bg-image {
     max-width: 65vw;

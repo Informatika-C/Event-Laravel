@@ -13,7 +13,7 @@ img.bg-image {
     margin: 1rem 0 0;
 }
 .card__content .blog__title {
-    color: var(--text-color);
+    color: #1e2126;
     font: 500 1.5rem "Montserrat", sans-serif;
     margin: 0 0 1.2rem;
 }
@@ -56,13 +56,23 @@ img.bg-image {
     .blog__author_name {
     color: #2a2a2a;
     font: 400 0.8rem "Montserrat", sans-serif;
+    max-width: 250px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .card__content
     .blog__author_container
     .blog__author_details
     .blog__author_date {
-    color: #999898;
+    color: #1e2126;
     font: 300 0.8rem "Montserrat", sans-serif;
+    max-width: 250px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .sidebar {
     position: fixed;
@@ -295,7 +305,7 @@ img.bg-image {
 }
 .home-section .home-content .bx-menu,
 .home-section .home-content .head-text {
-    color: var(--text-color);
+    color: #1e2126;
     font-size: 25px;
 }
 .home-section .home-content .bx-menu {
@@ -333,7 +343,7 @@ img.bg-image {
     box-sizing: border-box;
 }
 .content-card {
-    color: #696969;
+    color: #1e2126;
     font-style: normal;
     font-weight: 400;
     letter-spacing: 0;
@@ -431,10 +441,14 @@ img {
 
 .card__title {
     font-size: 1.2em;
-    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 400;
-    color: #696969;
+    color: #1e2126;
     text-transform: uppercase;
+    max-width: 250px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card__text {
@@ -445,15 +459,6 @@ img {
     text-overflow: ellipsis;
     max-width: 100%;
     max-height: 3em;
-    color: #999898;
+    color: #1e2126;
     font: 300 0.9rem "Montserrat", sans-serif;
-    /* font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 0.85em;
-    font-weight: 400;
-    text-align: left;
-    line-height: 20px;
-    flex: 1 1 auto;
-    margin-bottom: 1.25rem;
-    color: #4b4f56;
-    height: 3em; */
 }

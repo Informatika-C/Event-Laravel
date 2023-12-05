@@ -109,16 +109,16 @@
                             Diselenggarakan
                             oleh
                             @isset($event_first->penyelenggara)
-                            <b id="event-authors" class="event-authors">
-                                <span class="spn"
-                                    title="Click">{{ $event_first->penyelenggara->nama_penyelenggara }}</span>
+                                <b id="event-authors" class="event-authors">
+                                    <span class="spn"
+                                        title="Click">{{ $event_first->penyelenggara->nama_penyelenggara }}</span>
 
-                                <span class="event-penyelenggara">
-                                    <img
-                                        class="bg-author"src="{{ asset('storage/penyelenggara/logo/' . $event_first->penyelenggara->id . '/' . $event_first->penyelenggara->logo) }}" />
-                                    <h3>{{ $event_first->penyelenggara->nama_penyelenggara }}</h3>
-                                </span>
-                            </b>
+                                    <span class="event-penyelenggara">
+                                        <img
+                                            class="bg-author"src="{{ asset('storage/penyelenggara/logo/' . $event_first->penyelenggara->id . '/' . $event_first->penyelenggara->logo) }}" />
+                                        <h3>{{ $event_first->penyelenggara->nama_penyelenggara }}</h3>
+                                    </span>
+                                </b>
                             @endisset
                         </div>
 
@@ -213,28 +213,22 @@
                 <div class="carousel-container">
                     <div class="carousel">
                         <div class="prev-arrow"><i class="fa-solid fa-angle-left"></i></div>
-
                         <div class="carousel-sections-scroll">
                             <div class="carousel-sections">
-                                <div class="carousel-section"
-                                    style="background-image: url('{{ asset('assets/images/carrousel1.JPG') }}');">
-                                </div>
-                                <div class="carousel-section"
-                                    style="background-image: url('{{ asset('assets/images/carrousel2.JPG') }}');">
-                                </div>
-                                <div class="carousel-section"
-                                    style="background-image: url('{{ asset('assets/images/carrousel3.JPG') }}');">
-                                </div>
+                                @foreach ($eventCrsl['eventImages'] as $index => $imageUrl)
+                                    <div class="carousel-section{{ $index === 0 ? ' active' : '' }}"
+                                        style="background-image: url('{{ $imageUrl }}');">
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-
                         <div class="next-arrow"><i class="fa-solid fa-angle-right"></i></div>
-
                     </div>
                     <div class="carousel-dots">
-                        <div class="carousel-dot"></div>
-                        <div class="carousel-dot"></div>
-                        <div class="carousel-dot"></div>
+                        @for ($i = 0; $i < $eventCrsl['numImages']; $i++)
+                            <div class="carousel-dot{{ $i === 0 ? ' active' : '' }}"
+                                data-index="{{ $i }}"></div>
+                        @endfor
                     </div>
                 </div>
 
@@ -243,9 +237,8 @@
                         <h2>EVENT</h2>
                         <h2>EVENT</h2>
                     </div>
-                    <p data-aos="fade-down" data-aos-delay="300" data-aos-duration="2000">Lorem ipsum dolor, sit amet
-                        consectetur adipisicing. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt,
-                        voluptates.</p>
+                    <p data-aos="fade-down" data-aos-delay="300" data-aos-duration="2000">Tvent, Ayo Buka potensi
+                        dirimu, Temukan kesempatan baru, Raih impian dan Jadilah sang juara!</p>
                     <div class="bottom">
                         <h3 data-aos="fade-right" data-aos-delay="400" data-aos-duration="1200">© 2023 CONST - All
                             Rights Reserved.</h3>
@@ -270,14 +263,14 @@
                                     </div>
                                     <div class="back"></div>
                                     @isset($event->penyelenggara)
-                                    <div class="infomation">
-                                        <img src="{{ asset('storage/penyelenggara/logo/' . $event->penyelenggara->id . '/' . $event->penyelenggara->logo) }}"
-                                            class="profile_image" />
-                                        <div class="names">
-                                            <div class="project_name">{{ $event->nama_lomba }}</div>
-                                            <div class="user_name">{{ $event->penyelenggara->nama_penyelenggara }} </div>
+                                        <div class="infomation">
+                                            <img src="{{ asset('storage/penyelenggara/logo/' . $event->penyelenggara->id . '/' . $event->penyelenggara->logo) }}"
+                                                class="profile_image" />
+                                            <div class="names">
+                                                <div class="project_name">{{ $event->nama_lomba }}</div>
+                                                <div class="user_name">{{ $event->penyelenggara->nama_penyelenggara }} </div>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endisset
                                     <div class="li_co_vi">
                                         <div class="view bg" title="Quota">
@@ -327,23 +320,40 @@
                         <h2>ABOUT</h2>
                         <h2>ABOUT</h2>
                     </div>
-                    <p data-aos="fade-right" data-aos-delay="300" data-aos-duration="2000">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quaerat. Laboriosam provident
-                        quae beatae veniam eius alias doloribus iusto, molestias numquam odit vel facere nam, minima
-                        magni! Sunt, ullam aliquam. Unde velit
-                        reiciendis delectus quisquam laborum aspernatur quidem ipsa cupiditate ullam! Cupiditate
-                        consequuntur est nesciunt sint dolore ullam quam, sapiente, dignissimos nihil, maxime qui
-                        doloribus unde voluptatum aspernatur modi sunt
-                        voluptatem eligendi non mollitia nisi! Ad exercitationem molestiae ratione cumque tempore
-                        architecto incidunt illo, nobis repudiandae nesciunt, nam animi saepe minima deserunt
-                        consequatur. Quibusdam animi accusamus molestiae
-                        quo excepturi deserunt.
-                    </p>
+                    <div class="styled-list" data-aos="fade-right" data-aos-delay="300" data-aos-duration="2000">
+                        <b>
+                            Selamat Datang di Tvent: Menjelajahi Acara Kampus dengan Lebih Mudah!
+                        </b>
+
+                        Tvent adalah wadah eksklusif untuk menjelajahi dan mendaftar acara kampus yang penuh semangat.
+                        Didesain khusus untuk memudahkan Anda dalam merencanakan dan menghadiri setiap pertemuan,
+                        pameran, dan aktivitas kampus.
+                        <br><br>
+                        <b>Fitur Unggulan Tvent:</b>
+
+                        <ol>
+                            <li>Pendaftaran Acara yang Simpel: Daftar dan ikuti acara kampus favorit Anda dengan
+                                langkah-langkah pendaftaran yang sederhana dan cepat.</li>
+
+                            <li>Jelajahi Aktivitas Kampus: Temukan berbagai kegiatan kampus yang sesuai dengan minat dan
+                                hobi Anda. Jelajahi agenda acara kampus dalam hitungan klik.</li>
+
+                            <li>Komunitas Mahasiswa yang Solid: Sertai komunitas mahasiswa yang solid, berbagi
+                                pengalaman, dan dapatkan teman sejawat yang memiliki minat serupa.</li>
+
+                            <li>Berita Kampus Terkini: Tetap terinformasi dengan berita dan informasi terkini seputar
+                                kehidupan kampus. Dapatkan wawasan dari kegiatan dan acara terbaru.</li>
+                        </ol>
+
+                        Tvent diciptakan untuk memperkaya pengalaman kampus Anda. Jadikan Tvent sebagai teman setia
+                        dalam menjalani kehidupan kampus Anda. Bergabunglah sekarang dan raih momen berharga di setiap
+                        langkah Anda! Tvent: Temukan Kampus, Temukan Momen!
+                    </div>
                 </div>
 
                 <div class="video-container">
                     <video autoplay loop muted>
-                        <source src="{{ asset('assets/images/demo.mp4') }}" type="video/mp4" />
+                        <source src="{{ asset('assets/images/lv_0_20231108111358.mp4') }}" type="video/mp4" />
                     </video>
                 </div>
             </div>

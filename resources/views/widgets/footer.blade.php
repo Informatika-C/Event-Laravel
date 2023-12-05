@@ -4,7 +4,7 @@
             <h3>Contact Us</h3>
             <ul class="contact-text">
                 <li>Email: const@yahoo.com</li>
-                <li>Phone: (123) 456-7890</li>
+                <li>Phone: +6282183503540</li>
                 <li>Address: 123 Main Street, City</li>
             </ul>
         </div>
