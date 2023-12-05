@@ -26,8 +26,8 @@
 }
 .count-letter {
     position: absolute;
-    left: 0;
-    top: -25px;
+    left: 7px;
+    top: -33px;
     color: var(--text-color);
     text-align: start;
     font-size: 1.5rem;
@@ -88,12 +88,14 @@ div.category-letter {
     height: fit-content;
 }
 .count-left .desc {
+    display: inline-block;
     text-align: justify;
     text-indent: 12px;
 }
 .count-left .place {
     margin-top: 10px;
     text-align: justify;
+    display: inline-block;
     text-indent: 12px;
 }
 .count-left b:hover {
@@ -238,23 +240,67 @@ div.category-letter {
         display: none;
     }
 }
-.invitation {
-    padding: 12px;
-    max-width: fit-content;
-    margin-top: 0px;
-    border-radius: 15px;
-    background-color: #f2f2f2;
-    color: #1e2126;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 2%;
+
+span.status {
+    color: red;
+    font-size: 17px;
+    font-weight: 900;
 }
-.invitation .inv-btm h6 {
-    font-size: 20px;
-}
-.invitation .inv-btm {
+.event-penyelenggara.showp {
     display: flex;
-    align-items: end;
-    gap: 10px;
+}
+.desc b .spn {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.event-penyelenggara {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 5px;
+    padding: 10px 15px;
+    position: absolute;
+    top: -120%;
+    left: 100%;
+    width: max-content;
+    border-radius: 14px;
+    background: rgb(6, 20, 46);
+    background: linear-gradient(
+        -120deg,
+        rgba(6, 20, 46, 1) 27%,
+        rgba(16, 51, 114, 1) 50%,
+        rgba(175, 173, 168, 1) 89%,
+        rgba(225, 220, 209, 1) 100%
+    );
+    box-shadow: 0px 7px 8px 2px rgba(0, 0, 0, 0.63);
+    -webkit-box-shadow: 0px 7px 8px 2px rgba(0, 0, 0, 0.63);
+    -moz-box-shadow: 0px 7px 8px 2px rgba(0, 0, 0, 0.63);
+    color: #f2f2f2;
+
+    @media (max-width: 767px) {
+        position: static;
+        top: auto;
+        left: auto;
+        margin-left: 0;
+        padding: 7px 10px;
+        margin-top: 0;
+        width: max-content;
+    }
+}
+.event-penyelenggara h3 {
+    white-space: nowrap;
+    text-wrap: nowrap;
+}
+.bg-author {
+    height: 50px;
+    width: 100%;
+    max-width: 60px;
+    mix-blend-mode: color-burn;
+    object-fit: contain;
+}
+.event-authors {
+    position: relative;
 }
 .horizon-card {
     display: flex;

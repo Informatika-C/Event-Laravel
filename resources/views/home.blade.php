@@ -97,86 +97,91 @@
         <h2 class="outline-svg gradient typ">Indonesia</h2>
 
         @isset($event_first)
-        <section id="count" class="coundown-section">
-            {{-- <h5>Ayo Ikuti!</h5> --}}
-            <div class="count-wrap">
-                <div class="count-left">
-                    <div class="event-name-left">{{ $event_first->nama_lomba }}.</div>
-                    <div class="img-count"
-                        style="background-image: url('{{ asset('storage/banner/' . $event_first->id . '/' . $event_first->banner) }}');">
+            <section id="count" class="coundown-section">
+                {{-- <h5>Ayo Ikuti!</h5> --}}
+                <div class="count-wrap">
+                    <div class="count-left">
+                        <div class="event-name-left">{{ $event_first->nama_lomba }}</div>
+                        <div class="img-count"
+                            style="background-image: url('{{ asset('storage/banner/' . $event_first->id . '/' . $event_first->banner) }}');">
+                        </div>
+                        <div class="desc">{{ $event_first->deskripsi }}
+                            Diselenggarakan
+                            oleh
+                            <b id="event-authors" class="event-authors">
+                                <span class="spn"
+                                    title="Click">{{ $event_first->penyelenggara->nama_penyelenggara }}</span>
+
+                                <span class="event-penyelenggara">
+                                    <img
+                                        class="bg-author"src="{{ asset('storage/penyelenggara/logo/' . $event_first->penyelenggara->id . '/' . $event_first->penyelenggara->logo) }}" />
+                                    <h3>{{ $event_first->penyelenggara->nama_penyelenggara }}</h3>
+                                </span>
+                            </b>
+                        </div>
+
+                        <div class="place">
+                            Berlokasi Di
+                            <b>
+                                {{ $event_first->tempat }}
+                            </b>
+                            total kuota
+                            <b>
+                                <i class="fa-solid fa-user-group">{{ $event_first->add }}</i> orang
+                            </b>
+                            Pendaftaran dibuka pada
+                            <b>
+                                {{ \Carbon\Carbon::parse($event_first->tanggal_pendaftaran)->format('l, j F Y') }}
+                                -
+                                {{ \Carbon\Carbon::parse($event_first->tanggal_penutupan_pendaftaran)->format('l, j F Y') }}
+                            </b>
+                            dan Event akan di mulai pada
+                            <b>
+                                {{ \Carbon\Carbon::parse($event_first->tanggal_pelaksanaan)->format('l, j F Y') }}
+                            </b>
+                            <span class="status">
+                                Ayo Segera daftarkan timmu!
+                            </span>
+                        </div>
                     </div>
-                    {{-- <img
-                        class="img-count"src="{{ asset('storage/banner/' . $event_first->id . '/' . $event_first->banner) }}" /> --}}
-                    <div class="desc">{{ $event_first->deskripsi }}.</div>
-                    <div class="place">
-                        Berlokasi Di
-                        <b>
-                            {{ $event_first->tempat }}
-                        </b>
-                        total kuota
-                        <b>
-                            <i class="fa-solid fa-user-group">{{ $event_first->add }}</i> orang
-                        </b>
-                        <br>
-                        Pendaftaran dibuka pada tanggal
-                        <b>
-                            {{ \Carbon\Carbon::parse($event_first->tanggal_pendaftaran)->format('l, j F Y') }}
-                            -
-                            {{ \Carbon\Carbon::parse($event_first->tanggal_penutupan_pendaftaran)->format('l, j F Y') }}
-                        </b>
-                        dan Event akan di mulai pada
-                        <b>
-                            {{ \Carbon\Carbon::parse($event_first->tanggal_pelaksanaan)->format('l, j F Y') }}
-                        </b>
-                    </div>
-                    <div class="invitation">
-                        <span class="status">
-                            Ayo Segera daftarkan timmu!
-                        </span>
-                        <div class="inv-btm">
-                            note by
-                            <h6>{{ $event_first->penyelenggara->nama_penyelenggara }}</h6>
+                    <div class="count-right">
+                        <div class="event-name">{{ $event_first->nama_lomba }}</div>
+                        <div class="category-letter">CateGory</div>
+                        <div class="horizon-card">
+                            <div class="cardZone">Category 1</div>
+                            <div class="cardZone">Category 2</div>
+                            <div class="cardZone">Category 3</div>
+                            <div class="cardZone">Category 4</div>
+                            <div class="cardZone">Category 5</div>
+                            <div class="cardZone">Category 6</div>
+                            <div class="cardZone">Category 7</div>
                         </div>
                     </div>
                 </div>
-                <div class="count-right">
-                    <div class="event-name">{{ $event_first->nama_lomba }}</div>
-                    <div class="category-letter">CateGory</div>
-                    <div class="horizon-card">
-                        <div class="cardZone">Category 1</div>
-                        <div class="cardZone">Category 2</div>
-                        <div class="cardZone">Category 3</div>
-                        <div class="cardZone">Category 4</div>
-                        <div class="cardZone">Category 5</div>
-                        <div class="cardZone">Category 6</div>
-                        <div class="cardZone">Category 7</div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="body-count">
-                <div id="countdown" class="clock-container">
-                    <div class="count-letter">CountDown</div>
-                    <div class="clock-col">
-                        <h5 id="countdown-days" class="clock-timer"></h5>
-                        <h6 class="clock-label">Day</h6>
+                <div class="body-count">
+                    <div id="countdown" class="clock-container">
+                        <div class="count-letter">CountDown</div>
+                        <div class="clock-col">
+                            <h5 id="countdown-days" class="clock-timer"></h5>
+                            <h6 class="clock-label">Day</h6>
+                        </div>
+                        <div class="clock-col">
+                            <h5 id="countdown-hours" class="clock-timer"></h5>
+                            <h6 class="clock-label">Hours</h6>
+                        </div>
+                        <div class="clock-col">
+                            <h5 id="countdown-minutes" class="clock-timer"></h5>
+                            <h6 class="clock-label">Minutes</h6>
+                        </div>
+                        <div class="clock-col">
+                            <h5 id="countdown-seconds" class="clock-timer"></h5>
+                            <h6 class="clock-label">Seconds</h6>
+                        </div>
                     </div>
-                    <div class="clock-col">
-                        <h5 id="countdown-hours" class="clock-timer"></h5>
-                        <h6 class="clock-label">Hours</h6>
-                    </div>
-                    <div class="clock-col">
-                        <h5 id="countdown-minutes" class="clock-timer"></h5>
-                        <h6 class="clock-label">Minutes</h6>
-                    </div>
-                    <div class="clock-col">
-                        <h5 id="countdown-seconds" class="clock-timer"></h5>
-                        <h6 class="clock-label">Seconds</h6>
-                    </div>
+                    <button class="joint">JOINT Now!</button>
                 </div>
-                <button class="joint">JOINT Now!</button>
-            </div>
-        </section>
+            </section>
         @endisset
 
         <section id="events" class="events-section">
@@ -395,6 +400,25 @@
     @include('widgets.footer')
 
     <script src="{{ asset('assets/js/carousel.js') }}"></script>
+    <script>
+        var eventAuthors = document.getElementById('event-authors');
+        var penyelenggaraDiv = document.querySelector('.event-penyelenggara');
+
+        function togglePenyelenggara() {
+            penyelenggaraDiv.classList.toggle('showp');
+
+            if (penyelenggaraDiv.classList.contains('showp')) {
+                eventAuthors.style.color = 'var(--text-color-rev)';
+                eventAuthors.style.backgroundColor = 'var(--text-hov)';
+            } else {
+                eventAuthors.style.color = '';
+                eventAuthors.style.backgroundColor = '';
+            }
+        }
+
+        eventAuthors.addEventListener('click', togglePenyelenggara);
+    </script>
+
 </body>
 
 </html>
