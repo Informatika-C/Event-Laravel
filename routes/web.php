@@ -28,6 +28,26 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/pembayaran', function () {
+    $params = array(
+        'transaction_details' => array(
+            'order_id' => 2,
+            'gross_amount' => 1000000000,
+        )
+    );
+
+    try {
+        // Get Snap Payment Page URL
+        $paymentUrl = \Midtrans\Snap::createTransaction($params)->redirect_url;
+
+        // Redirect to Snap Payment Page
+        header('Location: ' . $paymentUrl);
+        dd($paymentUrl);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+});
+
 Route::get('/home/lombapgs/id/{event_id}', [HomeController::class, 'detailLomba'])->name('home.lombapgs');
 Route::get('/home/eventpgs', [HomeController::class, 'showEventPage'])->name('home.eventpgs');
 
