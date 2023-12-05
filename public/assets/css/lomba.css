@@ -175,6 +175,7 @@
     .info-container .info-top h3 {
         font-size: 1.2rem;
     }
+
     .info-bottom {
         display: flex;
         flex-direction: column;
@@ -232,7 +233,7 @@
         margin-bottom: 10px;
     }
     .info-top {
-        max-width: 20vw;
+        max-width: 60vw;
         width: 100%;
     }
     .info-bottom .penyelenggara {
