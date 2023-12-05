@@ -269,6 +269,7 @@
                                             class="img-card"src="{{ asset('storage/banner/' . $event->id . '/' . $event->banner) }}" />
                                     </div>
                                     <div class="back"></div>
+                                    @isset($event->penyelenggara)
                                     <div class="infomation">
                                         <img src="{{ asset('storage/penyelenggara/logo/' . $event->penyelenggara->id . '/' . $event->penyelenggara->logo) }}"
                                             class="profile_image" />
@@ -277,7 +278,7 @@
                                             <div class="user_name">{{ $event->penyelenggara->nama_penyelenggara }} </div>
                                         </div>
                                     </div>
-
+                                    @endisset
                                     <div class="li_co_vi">
                                         <div class="view bg" title="Quota">
                                             <i class="fa-solid fa-user-lock"></i>
