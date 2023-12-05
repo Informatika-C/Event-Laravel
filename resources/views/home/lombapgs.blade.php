@@ -60,7 +60,8 @@
                         <div class="info-bottom">
                             <span class="divider"></span>
                             <div class="penyelenggara">
-                                <img class="bg-author"src="{{ asset('storage/penyelenggara/logo/' . $lomba->event->penyelenggara->id . '/' . $lomba->event->penyelenggara->logo) }}" />
+                                <img
+                                    class="bg-author"src="{{ asset('storage/penyelenggara/logo/' . $lomba->event->penyelenggara->id . '/' . $lomba->event->penyelenggara->logo) }}" />
                                 <div class="author-info">
                                     <p class="show-p">Dilaksanakan oleh</p>
                                     <p class="hidden-p">Pelaksana</p>

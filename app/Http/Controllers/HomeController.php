@@ -34,14 +34,14 @@ class HomeController extends Controller
         // sort event by tanggal_penutupan_pendaftaran in ascending order
         $event_sort = $events->sortBy('tanggal_penutupan_pendaftaran');
 
-        if(count($event_sort) == 0) {
+        if (count($event_sort) == 0) {
             return View::make('home', [
                 'events' => $events,
                 'event_first' => null,
                 'event_time' => null,
             ]);
         }
-        
+
         $event_first = $event_sort[0];
         // make loop to chek if tanggal_penutupan_pendaftaran alredy past
         foreach ($event_sort as $event) {
@@ -65,7 +65,24 @@ class HomeController extends Controller
                 $event['add'] += $lomba->kuota_lomba;
             }
         }
+
+        // Example in your controller
+        $eventImages = []; // Array to store image URLs
+
+        $eventImages[] = asset("assets/images/crsl1.png");
+        $eventImages[] = asset("assets/images/crsl2.png");
+        // Assuming $events is the collection of your events
+        foreach ($events as $event) {
+            $imageUrl = asset("storage/banner/{$event->id}/{$event->banner}");
+            $eventImages[] = $imageUrl;
+        }
+        $eventCrsl = [
+            'eventImages' => $eventImages,
+            'numImages' => count($eventImages),
+        ];
+
         return View::make('home', [
+            'eventCrsl' => $eventCrsl,
             'events' => $events,
             'event_first' => $event_first,
             'event_time' => $event_time,
