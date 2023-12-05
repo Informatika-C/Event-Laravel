@@ -15,7 +15,7 @@ body {
     color: var(--text-color);
 }
 canvas {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
@@ -40,6 +40,7 @@ h4:first-letter {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 section {
     padding-bottom: 6rem;

@@ -46,13 +46,12 @@
 
     @include('widgets.notify')
 
-    <canvas id="world"></canvas>
     <div class="navonHome">
         @include('widgets.navbar')
     </div>
     <div class="all">
         <div id="home" class="container">
-
+            <canvas id="world"></canvas>
 
             <div class="content">
                 <div class="welcome">
@@ -181,7 +180,9 @@
                             <h6 class="clock-label">Seconds</h6>
                         </div>
                     </div>
-                    <button class="joint">JOINT Now!</button>
+                    <button class="joint"
+                        onclick="window.location.href='{{ route('home.lombapgs', ['event_id' => $event_first->id]) }}'">JOINT
+                        Now!</button>
                 </div>
             </section>
         @endisset

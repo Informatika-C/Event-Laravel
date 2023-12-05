@@ -31,8 +31,8 @@ class HomeController extends Controller
         // get newest 5 events and join with penyelenggara table with eloquent
         $events = EventLomba::with('penyelenggara')->orderBy('created_at', 'desc')->take(5)->get();
 
-        // sort event by tanggal_penutupan_pendaftaran in ascending order
-        $event_sort = $events->sortBy('tanggal_penutupan_pendaftaran');
+        // sort event by tanggal_pendaftaran in ascending order
+        $event_sort = $events->sortBy('tanggal_pendaftaran');
 
         if (count($event_sort) == 0) {
             return View::make('home', [
@@ -43,9 +43,9 @@ class HomeController extends Controller
         }
 
         $event_first = $event_sort[0];
-        // make loop to chek if tanggal_penutupan_pendaftaran alredy past
+        // make loop to chek if tanggal_pendaftaran alredy past
         foreach ($event_sort as $event) {
-            $event_time = new DateTime($event->tanggal_penutupan_pendaftaran);
+            $event_time = new DateTime($event->tanggal_pendaftaran);
             $event_time = $event_time->getTimestamp();
 
             if ($event_time < time()) {
@@ -56,7 +56,7 @@ class HomeController extends Controller
             break;
         }
 
-        $event_time = new DateTime($event_first->tanggal_penutupan_pendaftaran);
+        $event_time = new DateTime($event_first->tanggal_pendaftaran);
         $event_time = $event_time->getTimestamp();
 
         foreach ($events as $event) {
