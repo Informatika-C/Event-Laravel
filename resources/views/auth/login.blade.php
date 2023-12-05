@@ -12,7 +12,7 @@
         <h1 onclick="window.location.href='/'" title="Home">Tvent</h1>
     </div>
     <div class="container">
-        <form class="signIn" method="POST" action="{{ route('login') }}">
+        <form class="signIn" method="POST" action="/login">
             @csrf
 
             <h3 style="padding-bottom: 1rem">{{ __('Login') }}</h3>
@@ -54,7 +54,7 @@
             </div>
         </form>
 
-        <form class="signUp" method="POST" action="{{ route('register') }}">
+        <form class="signUp" method="POST" action="/register">
             @csrf
             <h3>{{ __('Register') }}</h3>
             <div class="input">
