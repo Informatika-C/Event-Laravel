@@ -108,6 +108,7 @@
                         <div class="desc">{{ $event_first->deskripsi }}
                             Diselenggarakan
                             oleh
+                            @isset($event_first->penyelenggara)
                             <b id="event-authors" class="event-authors">
                                 <span class="spn"
                                     title="Click">{{ $event_first->penyelenggara->nama_penyelenggara }}</span>
@@ -118,6 +119,7 @@
                                     <h3>{{ $event_first->penyelenggara->nama_penyelenggara }}</h3>
                                 </span>
                             </b>
+                            @endisset
                         </div>
 
                         <div class="place">
