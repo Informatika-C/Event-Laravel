@@ -160,7 +160,7 @@
         <div id="addModal" class="modal bg-modal">
             <div class="modal-content">
                 <h2>Tambah Lomba</h2>
-                <form method="POST" action="{{ route('dashboard.lomba.store') }}">
+                <form method="POST" action="/dashboard/lomba/store">
                     @csrf
                     <input type="hidden" name="event_id" value="{{ $event_id }}">
 
