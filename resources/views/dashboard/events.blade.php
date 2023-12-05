@@ -150,10 +150,12 @@
                         <span id="id"></span>
                     </strong>
                 </div>
+                @isset($event)
                 <div class="banner-container">
                     <img class="banner" id="info_banner"
                         src="{{ asset('storage/banner/' . $event->id . '/' . $event->banner) }}" alt="banner">
                 </div>
+                @endisset
                 <ul>
                     <li><strong>Deskripsi:</strong> <span id="info_deskripsi"></span></li>
                     <li class="tr-det inf">
