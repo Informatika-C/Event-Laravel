@@ -67,18 +67,9 @@ function init() {
         context = canvas.getContext("2d");
 
         // register event listeners
-        window.addEventListener("mousemove", documentMouseMoveHandler, false);
-        window.addEventListener("mousedown", documentMouseDownHandler, false);
-        window.addEventListener("mouseup", documentMouseUpHandler, false);
-        // document.addEventListener(
-        //     "touchstart",
-        //     documentTouchStartHandler,
-        //     false
-        // );
-        // document.addEventListener("touchmove", documentTouchMoveHandler, false);
-        document.addEventListener("touchmove", documentTouchStartHandler, {
-            passive: false,
-        });
+        window.addEventListener("pointerdown", documentInputDownHandler, false);
+        window.addEventListener("pointermove", documentInputMoveHandler, false);
+        window.addEventListener("pointerup", documentInputUpHandler, false);
 
         window.addEventListener("resize", windowResizeHandler, false);
 
@@ -120,39 +111,40 @@ function createParticles() {
     }
 }
 
-function documentMouseMoveHandler(event) {
-    mouseX = event.clientX - (window.innerWidth - SCREEN_WIDTH) * 0.5;
-    mouseY = event.clientY - (window.innerHeight - SCREEN_HEIGHT) * 0.5;
-}
+function documentInputDownHandler(event) {
+    if (event.touches) {
+        mouseX =
+            event.touches[0].clientX - (window.innerWidth - SCREEN_WIDTH) * 0.5;
+        mouseY =
+            event.touches[0].clientY -
+            (window.innerHeight - SCREEN_HEIGHT) * 0.5;
+    } else {
+        mouseX = event.clientX - (window.innerWidth - SCREEN_WIDTH) * 0.5;
+        mouseY = event.clientY - (window.innerHeight - SCREEN_HEIGHT) * 0.5;
+    }
 
-function documentMouseDownHandler(event) {
     mouseIsDown = true;
+    event.preventDefault();
 }
 
-function documentMouseUpHandler(event) {
+function documentInputMoveHandler(event) {
+    if (event.touches) {
+        mouseX =
+            event.touches[0].clientX - (window.innerWidth - SCREEN_WIDTH) * 0.5;
+        mouseY =
+            event.touches[0].clientY -
+            (window.innerHeight - SCREEN_HEIGHT) * 0.5;
+    } else {
+        mouseX = event.clientX - (window.innerWidth - SCREEN_WIDTH) * 0.5;
+        mouseY = event.clientY - (window.innerHeight - SCREEN_HEIGHT) * 0.5;
+    }
+
+    event.preventDefault();
+}
+
+function documentInputUpHandler(event) {
     mouseIsDown = false;
-}
-
-function documentTouchStartHandler(event) {
-    if (event.touches.length == 1) {
-        event.preventDefault();
-
-        mouseX =
-            event.touches[0].pageX - (window.innerWidth - SCREEN_WIDTH) * 0.5;
-        mouseY =
-            event.touches[0].pageY - (window.innerHeight - SCREEN_HEIGHT) * 0.5;
-    }
-}
-
-function documentTouchMoveHandler(event) {
-    if (event.touches.length == 1) {
-        event.preventDefault();
-
-        mouseX =
-            event.touches[0].pageX - (window.innerWidth - SCREEN_WIDTH) * 0.5;
-        mouseY =
-            event.touches[0].pageY - (window.innerHeight - SCREEN_HEIGHT) * 0.5;
-    }
+    event.preventDefault();
 }
 
 function windowResizeHandler() {
