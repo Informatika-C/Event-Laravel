@@ -81,11 +81,7 @@ img.bg-image {
     height: 100%;
     width: 260px;
     box-shadow: none;
-    background-color: var(--text-hov-rev);
-    /* background-image: url("../images/4.svg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 40% -200%; */
+    background-color: #1e2126;
     z-index: 100;
     transition: all 0.5s ease;
 }
@@ -343,6 +339,7 @@ img.bg-image {
     box-sizing: border-box;
 }
 .content-card {
+    background-color: var(--domi-color);
     color: #1e2126;
     font-style: normal;
     font-weight: 400;
