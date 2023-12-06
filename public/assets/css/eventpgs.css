@@ -287,8 +287,8 @@ img.bg-image {
 .home-section {
     position: relative;
     background: var(--domi-color);
-    height: 100%;
-    max-height: 1000vh;
+    height: auto;
+    max-height: 100%;
     top: 85px;
     left: 260px;
     width: calc(100% - 260px);
@@ -305,7 +305,7 @@ img.bg-image {
 }
 .home-section .home-content .bx-menu,
 .home-section .home-content .head-text {
-    color: #1e2126;
+    color: var(--text-color);
     font-size: 25px;
 }
 .home-section .home-content .bx-menu {
@@ -461,4 +461,9 @@ img {
     max-height: 3em;
     color: #1e2126;
     font: 300 0.9rem "Montserrat", sans-serif;
+}
+
+footer.btm-footer {
+    bottom: 0;
+    right: 0;
 }

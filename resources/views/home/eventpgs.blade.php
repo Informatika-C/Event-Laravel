@@ -85,7 +85,7 @@
     <section class="home-section">
         <div class="home-content">
             <i class="fa-solid fa-bars bx-menu"></i>
-            <span class="head-text">Drop Down Sidebar</span>
+            <span class="head-text">Event List</span>
         </div>
 
         <div class="content-card">
@@ -126,7 +126,9 @@
                 @endisset
             </ul>
         </div>
-        @include('widgets.footer')
+        <footer class="btm-footer">
+            @include('widgets.footer')
+        </footer>
     </section>
     <script>
         let arrow = document.querySelectorAll(".arrow");
