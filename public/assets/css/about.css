@@ -78,6 +78,7 @@
 
 .styled-list ol li {
     counter-increment: custom-counter;
+    color: var(--text-color);
     padding-left: 30px;
     text-indent: 0px;
     margin-bottom: 10px;
@@ -88,7 +89,7 @@
 .styled-list ol li::before {
     content: counter(custom-counter);
     font-weight: bold;
-    color: #3498db;
+    color: var(--text-hov);
     margin-right: 10px;
 }
 .video-container {
