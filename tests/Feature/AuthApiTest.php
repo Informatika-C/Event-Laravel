@@ -36,6 +36,26 @@ class AuthApiTest extends TestCase
         $response->assertJsonStructure(['token', 'user']);
     }
 
+    public function test_a_user_cannot_register_with_invalid_details(): void
+    {
+        $response = $this->post('/api/register', [
+            'name' => 'User',
+            'email' => 'haha'
+        ]);
+
+        $response->assertStatus(422);
+
+        $response->assertJsonStructure([
+            'message',
+            'errors' => [
+                'email',
+                'password',
+                'npm',
+                'phone'
+            ]
+         ]);
+    }
+
     public function test_a_user_can_login(): void
     {
         $this->createUser();
