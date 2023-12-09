@@ -214,20 +214,24 @@
                     <div class="prev-arrow"><i class="fa-solid fa-angle-left"></i></div>
                     <div class="carousel-sections-scroll">
                         <div class="carousel-sections">
-                            @foreach ($eventCrsl['eventImages'] as $index => $imageUrl)
-                                <div class="carousel-section{{ $index === 0 ? ' active' : '' }}"
-                                    style="background-image: url('{{ $imageUrl }}');">
-                                </div>
-                            @endforeach
+                            @isset($eventCrsl['eventImages'])
+                                @foreach ($eventCrsl['eventImages'] as $index => $imageUrl)
+                                    <div class="carousel-section{{ $index === 0 ? ' active' : '' }}"
+                                        style="background-image: url('{{ $imageUrl }}');">
+                                    </div>
+                                @endforeach
+                            @endisset
                         </div>
                     </div>
                     <div class="next-arrow"><i class="fa-solid fa-angle-right"></i></div>
                 </div>
                 <div class="carousel-dots">
-                    @for ($i = 0; $i < $eventCrsl['numImages']; $i++)
-                        <div class="carousel-dot{{ $i === 0 ? ' active' : '' }}" data-index="{{ $i }}">
-                        </div>
-                    @endfor
+                    @isset($eventCrsl['numImages'])
+                        @for ($i = 0; $i < $eventCrsl['numImages']; $i++)
+                            <div class="carousel-dot{{ $i === 0 ? ' active' : '' }}" data-index="{{ $i }}">
+                            </div>
+                        @endfor
+                    @endisset
                 </div>
             </div>
 
