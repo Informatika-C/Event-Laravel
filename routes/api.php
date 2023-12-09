@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,17 +13,7 @@ use App\Models\User;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('/tokens/create', function (Request $request) {
-    $user = User::find(1);
-
-    $token = $user->createToken("test");
- 
-    return [
-        'token' => $token->plainTextToken, 
-        'user' => $user
-    ];
+Route::controller(\App\Http\Controllers\ApiControllers\AuthController::class)->group(function () {
+    Route::post('/register', 'register');
+    Route::post('/login', 'login');
 });

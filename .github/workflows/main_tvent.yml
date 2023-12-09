@@ -48,6 +48,9 @@ jobs:
 
       - name: run migrations
         run: php artisan migrate --force
+
+      - name: test
+        run: php artisan test
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
