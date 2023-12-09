@@ -43,8 +43,17 @@ jobs:
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
           echo "ASSET_URL=https://tvent.azurewebsites.net" >> .env
 
+      - name: set up testing environment variables
+        run: |
+          echo "DB_CONNECTION=mysql" >> .env.testing
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env.testing
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env.testing
+          echo "DB_DATABASE=testing" >> .env.testing
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env.testing
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env.testing
+
       - name: test
-        run: php artisan test
+        run: php artisan test --env=testing
         
       - name: generate key
         run: php artisan key:generate
