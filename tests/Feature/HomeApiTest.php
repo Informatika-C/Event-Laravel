@@ -30,7 +30,7 @@ class HomeApiTest extends TestCase
         ]);
     }
 
-    public function test_a_user_can_get_event(): void
+    public function test_a_user_can_get_five_last_event(): void
     {
         EventLomba::factory()->count(10)->create();
 
@@ -38,7 +38,7 @@ class HomeApiTest extends TestCase
 
         $response->assertStatus(200);
 
-        $this->assertEquals(10, EventLomba::count());
+        $response->assertJsonCount(5, 'events');
 
         $response->assertJsonStructure([
             'events' => [
