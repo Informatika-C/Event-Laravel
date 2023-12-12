@@ -10,13 +10,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class EventLomba extends Model
 {
     use HasFactory;
+
     protected $table = 'event_lomba';
 
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'nama_lomba', 'deskripsi',
-        'tempat', 'tanggal_pendaftaran', 'tanggal_penutupan_pendaftaran', 'tanggal_pelaksanaan', 'penyelenggara_id',
+        'tempat', 'tanggal_pendaftaran',
+        'tanggal_penutupan_pendaftaran',
+        'tanggal_pelaksanaan', 'penyelenggara_id',
+        'banner', 'poster'
     ];
 
     public function penyelenggara(): HasOne
