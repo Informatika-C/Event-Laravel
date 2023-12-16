@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ApiControllers\AuthController;
+use App\Http\Controllers\ApiControllers\HomeController;
+use App\Http\Controllers\ApiControllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(\App\Http\Controllers\ApiControllers\AuthController::class)->group(function () {
+Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
 });
+
+Route::get('/home', [HomeController::class, 'index']);
+
+Route::get('/event/{kategori}', [EventController::class, 'index']);
