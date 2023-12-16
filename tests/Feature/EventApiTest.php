@@ -6,12 +6,19 @@ use App\Models\EventLomba;
 use App\Models\Kategori;
 use App\Models\KategoriLomba;
 use App\Models\Lomba;
+use App\Models\Penyelenggara;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class EventApiTest extends TestCase
 {
     use RefreshDatabase;
+
+    private function createPenyelenggara(): int
+    {
+        $penyelenggara = Penyelenggara::factory()->create();
+        return $penyelenggara->id;
+    }
 
     public function createKategori($nama_kategori): int
     {
@@ -23,9 +30,13 @@ class EventApiTest extends TestCase
         return $kategori->id;
     }
 
-    private function createEvent(): int
+    private function createEvent($penyelenggara_id): int
     {
-        $event = EventLomba::factory()->create();
+        $event = EventLomba::factory()->create(
+            [
+                'penyelenggara_id' => $penyelenggara_id,
+            ]
+        );
         return $event->id;
     }
 
@@ -53,9 +64,10 @@ class EventApiTest extends TestCase
 
     public function test_get_event_by_kategori()
     {
+        $id_penyelenggara = $this->createPenyelenggara();
         $id_kategori = $this->createKategori('sport');
 
-        $id_event = $this->createEvent();
+        $id_event = $this->createEvent($id_penyelenggara);
         $id_lomba = $this->createLomba($id_event);
         $this->createKategoriLomba($id_lomba, $id_kategori);
 
@@ -65,13 +77,14 @@ class EventApiTest extends TestCase
 
     public function test_json_respone_get_event_by_kategori()
     {
+        $id_penyelenggara = $this->createPenyelenggara();
         $id_kategori = $this->createKategori('sport');
 
-        $id_event = $this->createEvent();
+        $id_event = $this->createEvent($id_penyelenggara);
         $id_lomba = $this->createLomba($id_event);
         $this->createKategoriLomba($id_lomba, $id_kategori);
 
-        $id_event = $this->createEvent();
+        $id_event = $this->createEvent($id_penyelenggara);
         $id_lomba = $this->createLomba($id_event);
         $this->createKategoriLomba($id_lomba, $id_kategori);
 
@@ -87,6 +100,7 @@ class EventApiTest extends TestCase
                     "tanggal_penutupan_pendaftaran",
                     "banner",
                     "poster",
+                    "penyelenggara"
                 ]
             ]
         );
@@ -96,9 +110,10 @@ class EventApiTest extends TestCase
 
     public function test_get_event_by_kategori_not_found()
     {
+        $id_penyelenggara = $this->createPenyelenggara();
         $id_kategori = $this->createKategori('sport');
 
-        $id_event = $this->createEvent();
+        $id_event = $this->createEvent($id_penyelenggara);
         $id_lomba = $this->createLomba($id_event);
         $this->createKategoriLomba($id_lomba, $id_kategori);
 
@@ -108,9 +123,10 @@ class EventApiTest extends TestCase
 
     public function test_get_event_detail()
     {
+        $id_penyelenggara = $this->createPenyelenggara();
         $id_kategori = $this->createKategori('sport');
 
-        $id_event = $this->createEvent();
+        $id_event = $this->createEvent($id_penyelenggara);
         $id_lomba = $this->createLomba($id_event);
         $this->createKategoriLomba($id_lomba, $id_kategori);
 
@@ -120,9 +136,10 @@ class EventApiTest extends TestCase
 
     public function test_get_event_detail_not_found()
     {
+        $id_penyelenggara = $this->createPenyelenggara();
         $id_kategori = $this->createKategori('sport');
 
-        $id_event = $this->createEvent();
+        $id_event = $this->createEvent($id_penyelenggara);
         $id_lomba = $this->createLomba($id_event);
         $this->createKategoriLomba($id_lomba, $id_kategori);
 
@@ -132,9 +149,10 @@ class EventApiTest extends TestCase
 
     public function test_json_respone_get_event_detail()
     {
+        $id_penyelenggara = $this->createPenyelenggara();
         $id_kategori = $this->createKategori('sport');
 
-        $id_event = $this->createEvent();
+        $id_event = $this->createEvent($id_penyelenggara);
         $id_lomba = $this->createLomba($id_event);
         $this->createKategoriLomba($id_lomba, $id_kategori);
 
@@ -150,11 +168,23 @@ class EventApiTest extends TestCase
                 "tanggal_pelaksanaan",
                 "banner",
                 "poster",
-                "penyelenggara",
+                "penyelenggara" => [
+                    "id",
+                    "nama_penyelenggara",
+                    "logo",
+                    "no_telp",
+                ],
                 "lomba" => [
                     '*' => [
                         "id",
-                        "nama_lomba"
+                        "nama_lomba",
+                        "deskripsi",
+                        "max_anggota",
+                        "biaya_registrasi",
+                        "poster",
+                        "ruangan_lomba",
+                        "kuota_lomba",
+                        "pelaksanaan_lomba",
                     ]
                 ]
             ]

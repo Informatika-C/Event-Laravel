@@ -65,6 +65,23 @@ class EventLomba extends Model
             $query->where('nama_kategori', $nama_kategori);
         })->get();
 
+        // get penyelenggara with event.penyelenggara_id
+        $penyelenggara = Penyelenggara::whereIn('id', $event->pluck('penyelenggara_id'))->get();
+
+        // append penyelenggara to event
+        foreach ($event as $e) {
+            foreach ($penyelenggara as $p) {
+                if ($e->penyelenggara_id == $p->id) {
+                    $e->penyelenggara = $p;
+                }
+            }
+        }
+
+        // remove event.penyelenggara_id
+        foreach ($event as $e) {
+            unset($e->penyelenggara_id);
+        }
+
         if ($event == null) {
             return null;
         }
@@ -91,6 +108,17 @@ class EventLomba extends Model
         // change nama_lomba to nama_event
         $event['nama_event'] = $event['nama_lomba'];
         unset($event['nama_lomba']);
+
+        // remove lomba.event_id
+        foreach ($event['lomba'] as $lomba) {
+            unset($lomba['event_id']);
+        }
+
+        // change keterangan to deskripsi
+        foreach ($event['lomba'] as $lomba) {
+            $lomba['deskripsi'] = $lomba['keterangan'];
+            unset($lomba['keterangan']);
+        }
 
         $event = $event->toArray();
         return $event;
