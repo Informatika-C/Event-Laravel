@@ -23,4 +23,5 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::get('/home', [HomeController::class, 'index']);
 
-Route::get('/event/{kategori}', [EventController::class, 'index']);
+Route::get('/event/kategori/{kategori}', [EventController::class, 'byKategori']);
+Route::get('/event/detail/{id}', [EventController::class, 'show']);

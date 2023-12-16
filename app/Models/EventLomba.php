@@ -61,19 +61,38 @@ class EventLomba extends Model
 
     public static function getByKategori($nama_kategori): ?array
     {
-        $lomba = Lomba::whereHas('kategori', function ($query) use ($nama_kategori) {
+        $event = EventLomba::whereHas('lomba.kategori', function ($query) use ($nama_kategori) {
             $query->where('nama_kategori', $nama_kategori);
         })->get();
 
-        return $lomba->toArray();
+        if ($event == null) {
+            return null;
+        }
+
+        // change nama_lomba to nama_event
+        foreach ($event as $e) {
+            $e['nama_event'] = $e['nama_lomba'];
+            unset($e['nama_lomba']);
+        }
+
+        $event = $event->toArray();
+
+        return $event;
     }
 
-    public static function getWithPaginateByKategori($nama_kategori, $item_page = 5): ?array
+    public static function getWithDetailById($id): ?array
     {
-        $lomba = Lomba::whereHas('kategori', function ($query) use ($nama_kategori) {
-            $query->where('nama_kategori', $nama_kategori);
-        })->paginate($item_page);
+        $event = EventLomba::with('penyelenggara', 'lomba')->find($id);
 
-        return $lomba->toArray();
+        if ($event == null) {
+            return null;
+        }
+
+        // change nama_lomba to nama_event
+        $event['nama_event'] = $event['nama_lomba'];
+        unset($event['nama_lomba']);
+
+        $event = $event->toArray();
+        return $event;
     }
 }
