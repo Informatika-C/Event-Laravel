@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ApiControllers\AuthController;
 use App\Http\Controllers\ApiControllers\HomeController;
-use App\Http\Controllers\ApiControllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +21,3 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::get('/home', [HomeController::class, 'index']);
-
-Route::get('/event/{kategori}', [EventController::class, 'index']);
