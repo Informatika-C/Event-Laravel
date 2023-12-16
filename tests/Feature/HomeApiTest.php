@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\EventLomba;
-use Illuminate\Console\Scheduling\Event;
+use App\Models\Penyelenggara;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -32,7 +32,10 @@ class HomeApiTest extends TestCase
 
     public function test_a_user_can_get_five_last_event(): void
     {
-        EventLomba::factory()->count(10)->create();
+        $penyelenggara_id = Penyelenggara::factory()->create();
+        EventLomba::factory()->count(10)->create([
+            'penyelenggara_id' => $penyelenggara_id,
+        ]);
 
         $response = $this->get('/api/home');
 
@@ -51,6 +54,12 @@ class HomeApiTest extends TestCase
                     'tanggal_pelaksanaan',
                     'banner',
                     'poster',
+                    "penyelenggara" => [
+                        "id",
+                        "nama_penyelenggara",
+                        "logo",
+                        "no_telp",
+                    ],
                 ],
             ],
             'nerest_event' => [
@@ -62,6 +71,12 @@ class HomeApiTest extends TestCase
                 'tanggal_pelaksanaan',
                 'banner',
                 'poster',
+                "penyelenggara" => [
+                    "id",
+                    "nama_penyelenggara",
+                    "logo",
+                    "no_telp",
+                ],
             ],
         ]);
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiControllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\EventLomba;
+use App\Models\Penyelenggara;
 use DateTime;
 
 class HomeController extends Controller
@@ -23,8 +24,19 @@ class HomeController extends Controller
         ], 200);
     }
 
+    private function getPenyelenggara($event)
+    {
+        $penyelenggara = Penyelenggara::find($event["penyelenggara_id"]);
+
+        $event["penyelenggara"] = $penyelenggara;
+
+        return $event;
+    }
+
     private function fillterEvent($event): array
     {
+        $event = $this->getPenyelenggara($event);
+
         return [
             'id' => $event->id,
             'nama_event' => $event->nama_lomba,
@@ -34,6 +46,7 @@ class HomeController extends Controller
             'tanggal_pelaksanaan' => $event->tanggal_pelaksanaan,
             'banner' => $event->banner ? '/storage/banner/' . $event->id . '/' . $event->banner : null,
             'poster' => $event->poster ? '/storage/poster/' . $event->id . '/' . $event->poster : null,
+            'penyelenggara' => $event->penyelenggara ? $event->penyelenggara : null,
         ];
     }
 
