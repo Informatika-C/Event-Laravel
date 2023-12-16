@@ -13,7 +13,16 @@ class Lomba extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['event_id', 'nama_lomba', 'max_anggota', 'biaya_registrasi', 'keterangan', 'ruangan_lomba', 'kuota_lomba', 'pelaksanaan_lomba'];
+    protected $fillable = [
+        'event_id',
+        'nama_lomba',
+        'max_anggota',
+        'biaya_registrasi',
+        'keterangan',
+        'ruangan_lomba',
+        'kuota_lomba',
+        'pelaksanaan_lomba'
+    ];
 
     public function event()
     {
