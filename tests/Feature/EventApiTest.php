@@ -7,7 +7,6 @@ use App\Models\Kategori;
 use App\Models\KategoriLomba;
 use App\Models\Lomba;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class EventApiTest extends TestCase
@@ -51,61 +50,113 @@ class EventApiTest extends TestCase
         return $kategori_lomba->id;
     }
 
-    private function setUpEvent(): void
-    {
-        $id_kategori = $this->createKategori('sport');
-        $id_event = $this->createEvent();
-        $id_lomba = $this->createLomba($id_event);
-        $this->createKategoriLomba($id_lomba, $id_kategori);
-    }
 
     public function test_get_event_by_kategori()
     {
-        $this->setUpEvent();
+        $id_kategori = $this->createKategori('sport');
 
-        $response = $this->get('/api/event/sport');
+        $id_event = $this->createEvent();
+        $id_lomba = $this->createLomba($id_event);
+        $this->createKategoriLomba($id_lomba, $id_kategori);
+
+        $response = $this->get('/api/event/kategori/sport');
         $response->assertStatus(200);
     }
 
     public function test_json_respone_get_event_by_kategori()
     {
-        $this->setUpEvent();
+        $id_kategori = $this->createKategori('sport');
 
-        $response = $this->get('/api/event/sport');
+        $id_event = $this->createEvent();
+        $id_lomba = $this->createLomba($id_event);
+        $this->createKategoriLomba($id_lomba, $id_kategori);
+
+        $id_event = $this->createEvent();
+        $id_lomba = $this->createLomba($id_event);
+        $this->createKategoriLomba($id_lomba, $id_kategori);
+
+        $response = $this->get('/api/event/kategori/sport');
         $response->assertJsonStructure(
             [
-                "current_page",
-                "data",
-                "first_page_url",
-                "from",
-                "last_page",
-                "last_page_url",
-                "links",
-                "next_page_url",
-                "path",
-                "per_page",
-                "prev_page_url",
-                "to",
-                "total",
+                '*' => [
+                    "id",
+                    "nama_event",
+                    "deskripsi",
+                    "tanggal_pelaksanaan",
+                    "tanggal_pendaftaran",
+                    "tanggal_penutupan_pendaftaran",
+                    "banner",
+                    "poster",
+                ]
             ]
         );
-        $response->assertJson(
-            [
-                "current_page" => 1,
-                "per_page" => 10,
-            ]
-        );
+        $response->assertJsonCount(2);
         $response->assertStatus(200);
     }
 
     public function test_get_event_by_kategori_not_found()
     {
-        $this->setUpEvent();
+        $id_kategori = $this->createKategori('sport');
 
-        $response = $this->get('/api/event/gakAda');
-        $response->assertJson(
+        $id_event = $this->createEvent();
+        $id_lomba = $this->createLomba($id_event);
+        $this->createKategoriLomba($id_lomba, $id_kategori);
+
+        $response = $this->get('/api/event/kategori/gakAda');
+        $response->assertStatus(404);
+    }
+
+    public function test_get_event_detail()
+    {
+        $id_kategori = $this->createKategori('sport');
+
+        $id_event = $this->createEvent();
+        $id_lomba = $this->createLomba($id_event);
+        $this->createKategoriLomba($id_lomba, $id_kategori);
+
+        $response = $this->get('/api/event/detail/' . $id_event);
+        $response->assertStatus(200);
+    }
+
+    public function test_get_event_detail_not_found()
+    {
+        $id_kategori = $this->createKategori('sport');
+
+        $id_event = $this->createEvent();
+        $id_lomba = $this->createLomba($id_event);
+        $this->createKategoriLomba($id_lomba, $id_kategori);
+
+        $response = $this->get('/api/event/detail/99999');
+        $response->assertStatus(404);
+    }
+
+    public function test_json_respone_get_event_detail()
+    {
+        $id_kategori = $this->createKategori('sport');
+
+        $id_event = $this->createEvent();
+        $id_lomba = $this->createLomba($id_event);
+        $this->createKategoriLomba($id_lomba, $id_kategori);
+
+        $response = $this->get('/api/event/detail/' . $id_event);
+        $response->assertJsonStructure(
             [
-                'data' => [],
+                "id",
+                "nama_event",
+                "deskripsi",
+                "tempat",
+                "tanggal_pendaftaran",
+                "tanggal_penutupan_pendaftaran",
+                "tanggal_pelaksanaan",
+                "banner",
+                "poster",
+                "penyelenggara",
+                "lomba" => [
+                    '*' => [
+                        "id",
+                        "nama_lomba"
+                    ]
+                ]
             ]
         );
         $response->assertStatus(200);
