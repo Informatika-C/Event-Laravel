@@ -68,11 +68,11 @@ class EventLomba extends Model
         return $lomba->toArray();
     }
 
-    public static function getWithPaginateByKategori($nama_kategori, $item = 5): ?array
+    public static function getWithPaginateByKategori($nama_kategori, $item_page = 5): ?array
     {
         $lomba = Lomba::whereHas('kategori', function ($query) use ($nama_kategori) {
             $query->where('nama_kategori', $nama_kategori);
-        })->paginate($item);
+        })->paginate($item_page);
 
         return $lomba->toArray();
     }
