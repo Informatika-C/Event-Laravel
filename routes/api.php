@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApiControllers\AuthController;
 use App\Http\Controllers\ApiControllers\HomeController;
 use App\Http\Controllers\ApiControllers\EventController;
+use App\Http\Controllers\ApiControllers\LombaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,5 @@ Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/event/kategori/{kategori}', [EventController::class, 'byKategori']);
 Route::get('/event/detail/{id}', [EventController::class, 'show']);
+
+Route::get('/lomba/detail/{id}', [LombaController::class, 'show']);

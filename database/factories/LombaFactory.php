@@ -17,6 +17,7 @@ class LombaFactory extends Factory
     public function definition(): array
     {
         return [
+            'event_id' => \App\Models\EventLomba::factory()->create()->id,
             'nama_lomba' => $this->faker->name(),
             'max_anggota' => $this->faker->randomNumber(),
             'biaya_registrasi' => $this->faker->randomNumber(),
