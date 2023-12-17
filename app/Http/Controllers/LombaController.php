@@ -255,6 +255,9 @@ class LombaController extends Controller
         // delete kelompok peserta
         KelompokPeserta::where('kelompok_id', $kelompok->id)->delete();
 
+        // delete kelompok
+        $kelompok->delete();
+
         return back()->with('success', 'Berhasil keluar lomba' . $lomba->nama_lomba);
     }
 
