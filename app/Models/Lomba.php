@@ -38,4 +38,14 @@ class Lomba extends Model
     {
         return $this->belongsToMany(Kelompok::class, 'lomba_kelompok');
     }
+
+    public static function getPesertaRegistered($lomba_id)
+    {
+        $lomba_kelompok = LombaKelompok::where('lomba_id', $lomba_id)->get();
+        $jumlah_peserta = 0;
+        foreach ($lomba_kelompok as $lomba) {
+            $jumlah_peserta += KelompokPeserta::where('kelompok_id', $lomba->kelompok_id)->count();
+        }
+        return $jumlah_peserta;
+    }
 }

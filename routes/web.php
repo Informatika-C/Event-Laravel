@@ -139,3 +139,8 @@ Route::Group(['middleware' => ['guest']], function () {
 
 Route::get('/logout', [AuthController::class, 'logout'])
     ->name('logout');
+
+
+Route::get('/broadcast', function () {
+    return view('broadcast');
+});

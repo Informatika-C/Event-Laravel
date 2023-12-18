@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RegisterLomba;
 use App\Models\EventLomba;
 use App\Models\Kategori;
 use App\Models\KategoriLomba;
@@ -220,6 +221,9 @@ class LombaController extends Controller
                 'kelompok_id' => $kelompok->id,
             ]);
 
+            // dispatch event
+            RegisterLomba::dispatch($lomba);
+
             return response()->json([
                 'message' => 'Pendaftaran Berhasil.',
                 'lombaKelompok' => $lombaKelompok,
@@ -248,7 +252,12 @@ class LombaController extends Controller
 
         // if kelompok is solo, delete only lomba_kelompok
         if ($kelompok->nama_kelompok == 'solo_' . auth()->user()->id) {
+
             $lombaKelompok->delete();
+
+            // dispatch event
+            RegisterLomba::dispatch($lomba);
+
             return back()->with('success', 'Berhasil keluar lomba' . $lomba->nama_lomba);
         }
 
@@ -257,6 +266,9 @@ class LombaController extends Controller
 
         // delete kelompok
         $kelompok->delete();
+
+        // dispatch event
+        RegisterLomba::dispatch($lomba);
 
         return back()->with('success', 'Berhasil keluar lomba' . $lomba->nama_lomba);
     }
