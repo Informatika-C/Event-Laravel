@@ -182,10 +182,6 @@ class LombaController extends Controller
             $request->merge(['kelompok_id' => $kelompok->id]);
 
             $this->register($request);
-
-            return response()->json([
-                'message' => 'Successfully register to ' . $lomba->nama_lomba,
-            ], 200);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
@@ -196,8 +192,8 @@ class LombaController extends Controller
         DB::commit();
 
         return response()->json([
-            'message' => 'There is an error when register to lomba',
-        ], 500);
+            'message' => 'Successfully register to ' . $lomba->nama_lomba,
+        ], 200);
     }
 
     public function registerGrup(Request $request)
@@ -270,10 +266,6 @@ class LombaController extends Controller
             $request->merge(['kelompok_id' => $kelompok->id]);
 
             $this->register($request);
-
-            return response()->json([
-                'message' => 'Successfully register to ' . $lomba->nama_lomba,
-            ], 200);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
@@ -284,7 +276,7 @@ class LombaController extends Controller
         DB::commit();
 
         return response()->json([
-            'message' => 'There is an error when register to lomba',
-        ], 500);
+            'message' => 'Successfully register to ' . $lomba->nama_lomba,
+        ], 200);
     }
 }

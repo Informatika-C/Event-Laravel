@@ -148,7 +148,7 @@ class LombaApiTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_get_user_individu_registered()
+    public function test_get_user_solo_registered()
     {
         $kategori_id = $this->createKategori('sport');
         $penyelenggara_id = $this->createPenyelenggara();
@@ -159,13 +159,13 @@ class LombaApiTest extends TestCase
         // create user
         $user_id = $this->createUser();
 
-        // register user to individu_kelompok
+        // register user to solo_kelompok
         $kelompok_id = $this->createKelompok($user_id);
 
-        // register individu_kelompok peserta
+        // register solo_kelompok peserta
         $this->createKelompokPeserta($kelompok_id, $user_id);
 
-        // register individu_kelompok to lomba
+        // register solo_kelompok to lomba
         $this->createLombaKelompok($lomba_id, $kelompok_id);
 
         $response = $this->get('/api/lomba/detail/' . $lomba_id);
@@ -222,7 +222,7 @@ class LombaApiTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function test_user_register_lomba_individu()
+    public function test_user_register_lomba_solo()
     {
         // create lomba
         $kategori_id = $this->createKategori('sport');
@@ -261,7 +261,7 @@ class LombaApiTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_user_register_lomba_individu_with_wrong_password()
+    public function test_user_register_lomba_solo_with_wrong_password()
     {
         // create lomba
         $kategori_id = $this->createKategori('sport');
@@ -300,7 +300,7 @@ class LombaApiTest extends TestCase
         $response->assertStatus(422);
     }
 
-    public function test_user_register_lomba_individu_with_full_lomba()
+    public function test_user_register_lomba_solo_with_full_lomba()
     {
         // create lomba
         $kategori_id = $this->createKategori('sport');
@@ -363,6 +363,66 @@ class LombaApiTest extends TestCase
         );
 
         $response->assertStatus(422);
+    }
+
+    public function test_current_anggota_regis_after_register_solo()
+    {
+        // create lomba
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 1,
+                'kuota_lomba' => 10,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user1 = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+
+        Sanctum::actingAs($user1);
+
+        $this->post(
+            '/api/lomba/register/solo',
+            [
+                'lomba_id' => $lomba->id,
+                'password' => 'katasandi',
+            ]
+        );
+
+        // create user
+        $user2 = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+
+        Sanctum::actingAs($user2);
+
+        $this->post(
+            '/api/lomba/register/solo',
+            [
+                'lomba_id' => $lomba->id,
+                'password' => 'katasandi',
+            ]
+        );
+
+        $response = $this->get('/api/lomba/detail/' . $lomba->id);
+
+        $response->assertJson(
+            [
+                "anggota_terdaftar" => 2,
+            ]
+        );
+
+        $response->assertStatus(200);
     }
 
     public function test_user_register_lomba_grup()
@@ -452,6 +512,55 @@ class LombaApiTest extends TestCase
             ]
         );
         $response->assertStatus(422);
+    }
+
+    public function test_current_anggota_regis_after_register_grup()
+    {
+        // create lomba
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 3,
+                'kuota_lomba' => 10,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user1 = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+
+        Sanctum::actingAs($user1);
+
+        $user2_id = $this->createUser();
+        $user3_id = $this->createUser();
+
+        $this->post(
+            '/api/lomba/register/grup',
+            [
+                'lomba_id' => $lomba->id,
+                'nama_grup' => 'grup_1',
+                'anggota' => [$user1->id, $user2_id, $user3_id],
+                'password' => 'katasandi',
+            ]
+        );
+
+        $response = $this->get('/api/lomba/detail/' . $lomba->id);
+
+        $response->assertJson(
+            [
+                "anggota_terdaftar" => 3,
+            ]
+        );
+
+        $response->assertStatus(200);
     }
 
     public function test_event_registerLomba_dispatch_when_register_solo()
