@@ -288,7 +288,8 @@ class LombaController extends Controller
             return back()->with('error', 'Password salah.');
         }
 
-        DB::transaction(function () use ($request) {
+        DB::beginTransaction();
+        try {
             // get user id
             $user_id = auth()->user()->id;
 
@@ -324,7 +325,12 @@ class LombaController extends Controller
             $this->register($request);
 
             return back()->with('success', 'Berhasil mendaftar ' . $lomba->nama_lomba);
-        });
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'Terjadi kesalahan saat mendaftar lomba.');
+        }
+
+        DB::commit();
 
         return back()->with('error', 'Terjadi kesalahan saat mendaftar lomba.');
     }
@@ -358,7 +364,8 @@ class LombaController extends Controller
             return back()->with('error', 'Password salah.');
         }
 
-        DB::transaction(function () use ($request, $validatedData, $anggota) {
+        DB::beginTransaction();
+        try {
             // get lomba
             $lomba = Lomba::find($request->input('lomba_id'));
 
@@ -389,7 +396,10 @@ class LombaController extends Controller
             $this->register($request);
 
             return back()->with('success', 'Berhasil mendaftar ' . $lomba->nama_lomba);
-        });
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'Terjadi kesalahan saat mendaftar lomba.');
+        }
 
         return back()->with('error', 'Terjadi kesalahan saat mendaftar lomba.');
     }
