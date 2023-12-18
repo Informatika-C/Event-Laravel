@@ -51,6 +51,7 @@ jobs:
           echo "DB_DATABASE=testing" >> .env.testing
           echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env.testing
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env.testing
+          echo
 
       - name: test
         run: php artisan test --env=testing
