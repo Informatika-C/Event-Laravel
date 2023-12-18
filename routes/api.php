@@ -28,3 +28,6 @@ Route::get('/event/kategori/{kategori}', [EventController::class, 'byKategori'])
 Route::get('/event/detail/{id}', [EventController::class, 'show']);
 
 Route::get('/lomba/detail/{id}', [LombaController::class, 'show']);
+Route::post('/lomba/register/solo', [LombaController::class, 'registerSolo']);
+Route::post('/lomba/register/grup', [LombaController::class, 'registerGrup']);
+Route::delete('/lomba/unregister', [LombaController::class, 'unRegister']);

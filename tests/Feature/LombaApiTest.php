@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Events\RegisterLomba;
 use App\Models\EventLomba;
 use App\Models\Kategori;
 use App\Models\KategoriLomba;
@@ -10,17 +11,21 @@ use App\Models\KelompokPeserta;
 use App\Models\Lomba;
 use App\Models\LombaKelompok;
 use App\Models\Penyelenggara;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class LombaApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    private function createUser(): int
+    private function createUser($attribute = []): int
     {
-        $user = \App\Models\User::factory()->create();
+        $user = \App\Models\User::factory()->create($attribute);
         return $user->id;
     }
 
@@ -215,5 +220,312 @@ class LombaApiTest extends TestCase
         $response = $this->get('/api/lomba/detail/999999');
 
         $response->assertStatus(404);
+    }
+
+    public function test_user_register_lomba_individu()
+    {
+        // create lomba
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 1,
+                'kuota_lomba' => 10,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+        Sanctum::actingAs($user);
+
+        $response = $this->post(
+            '/api/lomba/register/solo',
+            [
+                'lomba_id' => $lomba->id,
+                'password' => 'katasandi',
+            ]
+        );
+
+        $response->assertJson(
+            [
+                'message' => 'Successfully register to ' . $lomba->nama_lomba
+            ]
+        );
+        $response->assertStatus(200);
+    }
+
+    public function test_user_register_lomba_individu_with_wrong_password()
+    {
+        // create lomba
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 1,
+                'kuota_lomba' => 10,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+        Sanctum::actingAs($user);
+
+        $response = $this->post(
+            '/api/lomba/register/solo',
+            [
+                'lomba_id' => $lomba->id,
+                'password' => 'katasandi_salah',
+            ]
+        );
+
+        $response->assertJson(
+            [
+                'message' => 'Wrong password'
+            ]
+        );
+        $response->assertStatus(422);
+    }
+
+    public function test_user_register_lomba_individu_with_full_lomba()
+    {
+        // create lomba
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 1,
+                'kuota_lomba' => 1,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user1 = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+
+        $user2 = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+
+        Sanctum::actingAs($user1);
+
+        $response = $this->post(
+            '/api/lomba/register/solo',
+            [
+                'lomba_id' => $lomba->id,
+                'password' => 'katasandi',
+            ]
+        );
+
+        $response->assertJson(
+            [
+                'message' => 'Successfully register to ' . $lomba->nama_lomba
+            ]
+        );
+
+        $response->assertStatus(200);
+
+        Sanctum::actingAs($user2);
+
+        $response = $this->post(
+            '/api/lomba/register/solo',
+            [
+                'lomba_id' => $lomba->id,
+                'password' => 'katasandi',
+            ]
+        );
+
+        $response->assertJson(
+            [
+                'message' => 'Lomba is full'
+            ]
+        );
+
+        $response->assertStatus(422);
+    }
+
+    public function test_user_register_lomba_grup()
+    {
+        // create lomba
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 3,
+                'kuota_lomba' => 10,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user1 = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+        Sanctum::actingAs($user1);
+
+        $user2_id = $this->createUser();
+        $user3_id = $this->createUser();
+
+        $response = $this->post(
+            '/api/lomba/register/grup',
+            [
+                'lomba_id' => $lomba->id,
+                'nama_grup' => 'grup_1',
+                'anggota' => [$user1->id, $user2_id, $user3_id],
+                'password' => 'katasandi',
+            ]
+        );
+
+        $response->assertJson(
+            [
+                'message' => 'Successfully register to ' . $lomba->nama_lomba
+            ]
+        );
+        $response->assertStatus(200);
+    }
+
+    public function test_user_register_lomba_grup_with_more_max_anggota()
+    {
+        // create lomba
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 3,
+                'kuota_lomba' => 10,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user1 = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+        Sanctum::actingAs($user1);
+
+        $user2_id = $this->createUser();
+        $user3_id = $this->createUser();
+        $user4_id = $this->createUser();
+
+        $response = $this->post(
+            '/api/lomba/register/grup',
+            [
+                'lomba_id' => $lomba->id,
+                'nama_grup' => 'grup_1',
+                'anggota' => [$user1->id, $user2_id, $user3_id, $user4_id],
+                'password' => 'katasandi',
+            ]
+        );
+
+        $response->assertJson(
+            [
+                'message' => 'Anggota more than max anggota',
+            ]
+        );
+        $response->assertStatus(422);
+    }
+
+    public function test_event_registerLomba_dispatch_when_register_solo()
+    {
+        Event::fake();
+
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 1,
+                'kuota_lomba' => 10,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+        Sanctum::actingAs($user);
+
+        $this->post(
+            '/api/lomba/register/solo',
+            [
+                'lomba_id' => $lomba->id,
+                'password' => 'katasandi',
+            ]
+        );
+
+        Event::assertDispatched(RegisterLomba::class);
+    }
+
+    public function test_event_registerLomba_dispatch_when_register_grup()
+    {
+        Event::fake();
+
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 3,
+                'kuota_lomba' => 10,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user1 = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+        Sanctum::actingAs($user1);
+
+        $user2_id = $this->createUser();
+        $user3_id = $this->createUser();
+
+        $this->post(
+            '/api/lomba/register/grup',
+            [
+                'lomba_id' => $lomba->id,
+                'nama_grup' => 'grup_1',
+                'anggota' => [$user1->id, $user2_id, $user3_id],
+                'password' => 'katasandi',
+            ]
+        );
+
+        Event::assertDispatched(RegisterLomba::class);
     }
 }
