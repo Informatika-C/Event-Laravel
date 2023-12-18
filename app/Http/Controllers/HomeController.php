@@ -111,15 +111,7 @@ class HomeController extends Controller
             }
 
             // check peserta registered
-            $lombaKelompoks = LombaKelompok::where('lomba_id', $lomba->id)->get();
-            $pesertaRegistered = 0;
-
-            foreach ($lombaKelompoks as $lombaKelompok) {
-                $kelompokPesertas = KelompokPeserta::where('kelompok_id', $lombaKelompok->kelompok_id)->get();
-                $pesertaRegistered += count($kelompokPesertas);
-            }
-
-            $lomba->pesertaRegistered = $pesertaRegistered;
+            $lomba->pesertaRegistered = Lomba::getPesertaRegistered($lomba->id);
         }
 
         return view('home.lombapgs', compact('lombas', 'event_id', 'event'));
