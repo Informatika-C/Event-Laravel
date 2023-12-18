@@ -224,10 +224,7 @@ class LombaController extends Controller
             // dispatch event
             RegisterLomba::dispatch($lomba);
 
-            return response()->json([
-                'message' => 'Pendaftaran Berhasil.',
-                'lombaKelompok' => $lombaKelompok,
-            ], 200);
+            return;
         } catch (ValidationException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -289,6 +286,7 @@ class LombaController extends Controller
         }
 
         DB::beginTransaction();
+
         try {
             // get user id
             $user_id = auth()->user()->id;
@@ -323,8 +321,6 @@ class LombaController extends Controller
             $request->merge(['kelompok_id' => $kelompok->id]);
 
             $this->register($request);
-
-            return back()->with('success', 'Berhasil mendaftar ' . $lomba->nama_lomba);
         } catch (\Exception $e) {
             DB::rollback();
             return back()->with('error', 'Terjadi kesalahan saat mendaftar lomba.');
@@ -332,7 +328,7 @@ class LombaController extends Controller
 
         DB::commit();
 
-        return back()->with('error', 'Terjadi kesalahan saat mendaftar lomba.');
+        return back()->with('success', 'Berhasil mendaftar ' . $lomba->nama_lomba);
     }
 
     public function registerGrup(Request $request)
@@ -394,13 +390,13 @@ class LombaController extends Controller
             $request->merge(['kelompok_id' => $kelompok->id]);
 
             $this->register($request);
-
-            return back()->with('success', 'Berhasil mendaftar ' . $lomba->nama_lomba);
         } catch (\Exception $e) {
             DB::rollback();
             return back()->with('error', 'Terjadi kesalahan saat mendaftar lomba.');
         }
 
-        return back()->with('error', 'Terjadi kesalahan saat mendaftar lomba.');
+        DB::commit();
+
+        return back()->with('success', 'Berhasil mendaftar ' . $lomba->nama_lomba);
     }
 }
