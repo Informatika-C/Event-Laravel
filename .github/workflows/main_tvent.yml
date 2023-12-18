@@ -42,11 +42,6 @@ jobs:
           echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
           echo "ASSET_URL=https://tvent.azurewebsites.net" >> .env
-          echo "BROADCAST_DRIVER=pusher" >> .env.testing
-          echo "PUSHER_APP_ID=${{ secrets.PUSHER_APP_ID }}" >> .env.testing
-          echo "PUSHER_APP_KEY=${{ secrets.PUSHER_APP_KEY }}" >> .env.testing
-          echo "PUSHER_APP_SECRET=${{ secrets.PUSHER_APP_SECRET }}" >> .env.testing
-          echo "PUSHER_APP_CLUSTER=${{ secrets.PUSHER_APP_CLUSTER }}" >> .env.testing
 
       - name: set up testing environment variables
         run: |
@@ -56,12 +51,6 @@ jobs:
           echo "DB_DATABASE=testing" >> .env.testing
           echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env.testing
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env.testing
-          echo "ASSET_URL=https://tvent.azurewebsites.net" >> .env.testing
-          echo "BROADCAST_DRIVER=pusher" >> .env.testing
-          echo "PUSHER_APP_ID=${{ secrets.PUSHER_APP_ID }}" >> .env.testing
-          echo "PUSHER_APP_KEY=${{ secrets.PUSHER_APP_KEY }}" >> .env.testing
-          echo "PUSHER_APP_SECRET=${{ secrets.PUSHER_APP_SECRET }}" >> .env.testing
-          echo "PUSHER_APP_CLUSTER=${{ secrets.PUSHER_APP_CLUSTER }}" >> .env.testing
 
       - name: test
         run: php artisan test --env=testing
