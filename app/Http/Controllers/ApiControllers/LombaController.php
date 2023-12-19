@@ -279,4 +279,22 @@ class LombaController extends Controller
             'message' => 'Successfully register to ' . $lomba->nama_lomba,
         ], 200);
     }
+
+    public function userListLomba()
+    {
+        $user = auth()->user();
+        $kelompok = KelompokPeserta::where('peserta_id', $user->id)->get();
+        $lomba = LombaKelompok::whereIn('kelompok_id', $kelompok->pluck('kelompok_id'))->get();
+        $lomba_id = $lomba->pluck('lomba_id');
+        $lomba = Lomba::whereIn('id', $lomba_id)->with('kategori')->get();
+
+        // use Lomba::getPesertaRegistered($lomba->id) to get peserta registered
+        // and chage keterangan to deskripsi
+        foreach ($lomba as $l) {
+            $l->anggota_terdaftar = Lomba::getPesertaRegistered($l->id);
+            $l->deskripsi = $l->keterangan;
+        }
+
+        return response()->json($lomba);
+    }
 }

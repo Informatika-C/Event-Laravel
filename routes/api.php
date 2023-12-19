@@ -28,6 +28,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 Route::get('/user', [AuthController::class, 'user'])->middleware('auth:sanctum');
 Route::put('/user', [AuthController::class, 'update'])->middleware('auth:sanctum');
 
+Route::get('/user/list-lomba', [LombaController::class, 'userListLomba'])->middleware('auth:sanctum');
+
 Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/event/kategori/{kategori}', [EventController::class, 'byKategori']);

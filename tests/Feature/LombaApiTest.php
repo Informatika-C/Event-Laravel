@@ -637,4 +637,69 @@ class LombaApiTest extends TestCase
 
         Event::assertDispatched(RegisterLomba::class);
     }
+
+    public function test_get_user_list_lomba()
+    {
+        // create lomba
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 3,
+                'kuota_lomba' => 10,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user1 = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+
+        Sanctum::actingAs($user1);
+
+        $user2_id = $this->createUser();
+        $user3_id = $this->createUser();
+
+        $this->post(
+            '/api/lomba/register/grup',
+            [
+                'lomba_id' => $lomba->id,
+                'nama_grup' => 'grup_1',
+                'anggota' => [$user1->id, $user2_id, $user3_id],
+                'password' => 'katasandi',
+            ]
+        );
+
+        $response = $this->get('/api/user/list-lomba');
+
+        $response->assertJsonStructure(
+            [
+                "*" => [
+                    "id",
+                    "nama_lomba",
+                    "deskripsi",
+                    "max_anggota",
+                    "anggota_terdaftar",
+                    "biaya_registrasi",
+                    "poster",
+                    "ruangan_lomba",
+                    "kuota_lomba",
+                    "pelaksanaan_lomba",
+                    "kategori" => [
+                        "*" => [
+                            "nama_kategori"
+                        ]
+                    ]
+                ]
+            ]
+        );
+
+        $response->assertStatus(200);
+    }
 }
