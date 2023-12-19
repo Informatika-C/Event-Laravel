@@ -27,13 +27,31 @@ class LombaController extends Controller
 
         $lomba->deskripsi = $lomba->keterangan;
 
-
         // check if lomba is for 1 person or not
         if ($lomba->max_anggota == 1) {
             $lomba->anggota_terdaftar = LombaKelompok::where('lomba_id', $lomba->id)->count();
         }
 
         $lomba->anggota_terdaftar = LombaKelompok::where('lomba_id', $lomba->id)->count() * $lomba->max_anggota;
+
+        $user = auth()->user();
+
+        if ($user != null) {
+            // check if user already registered
+            $kelompok = KelompokPeserta::where('peserta_id', $user->id)->get();
+
+            if ($kelompok->count() > 0) {
+                $lombaKelompok = LombaKelompok::where('lomba_id', $lomba->id)->whereIn('kelompok_id', $kelompok->pluck('kelompok_id'))->first();
+
+                if ($lombaKelompok != null) {
+                    $lomba->sudah_terdaftar = true;
+                } else {
+                    $lomba->sudah_terdaftar = false;
+                }
+            } else {
+                $lomba->sudah_terdaftar = false;
+            }
+        }
 
         return response()->json($lomba);
     }

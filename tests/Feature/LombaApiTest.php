@@ -109,7 +109,7 @@ class LombaApiTest extends TestCase
         return $kategori_lomba->id;
     }
 
-    public function test_get_lomba_detail()
+    public function test_get_lomba_detail_as_guest()
     {
         $kategori_id = $this->createKategori('sport');
         $penyelenggara_id = $this->createPenyelenggara();
@@ -139,13 +139,86 @@ class LombaApiTest extends TestCase
             ]
         );
 
-        $response->assertJson(
+        // JSON ARE MISSING, BECAUSE GUEST CAN'T ACCESS THIS
+        $response->assertJsonMissing(
             [
-                "anggota_terdaftar" => 0,
+                "sudah_terdaftar" => false,
             ]
         );
 
         $response->assertStatus(200);
+    }
+
+    public function test_get_lomba_detail_if_user_registered()
+    {
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba_id = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 1,
+                'kuota_lomba' => 10,
+            ]
+        )->id;
+        $this->createKategoriLomba($lomba_id, $kategori_id);
+
+        // create user
+        $user = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+
+        // login user
+        Sanctum::actingAs($user);
+
+        // register user to lomba
+        $this->post(
+            '/api/lomba/register/solo',
+            [
+                'lomba_id' => $lomba_id,
+                'password' => 'katasandi',
+            ]
+        );
+
+        $response = $this->get('/api/lomba/detail/' . $lomba_id);
+
+        $response->assertJson(
+            [
+                "sudah_terdaftar" => true,
+            ]
+        );
+    }
+
+    public function test_get_lomba_detail_if_user_not_registered()
+    {
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba_id = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 1,
+                'kuota_lomba' => 10,
+            ]
+        )->id;
+        $this->createKategoriLomba($lomba_id, $kategori_id);
+
+        // create user
+        $user = User::factory()->create();
+
+        // login user
+        Sanctum::actingAs($user);
+
+        $response = $this->get('/api/lomba/detail/' . $lomba_id);
+
+        $response->assertJson(
+            [
+                "sudah_terdaftar" => false,
+            ]
+        );
     }
 
     public function test_get_user_solo_registered()
@@ -636,6 +709,119 @@ class LombaApiTest extends TestCase
         );
 
         Event::assertDispatched(RegisterLomba::class);
+    }
+
+    public function test_unregis_lomba_solo()
+    {
+        // create lomba
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 1,
+                'kuota_lomba' => 10,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user1 = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+
+        Sanctum::actingAs($user1);
+
+        $this->post(
+            '/api/lomba/register/solo',
+            [
+                'lomba_id' => $lomba->id,
+                'password' => 'katasandi',
+            ]
+        );
+
+        $response = $this->delete('/api/lomba/unregister', ['lomba_id' => $lomba->id]);
+
+        $response->assertJson(
+            [
+                'message' => 'Successfully unregister from ' . $lomba->nama_lomba
+            ]
+        );
+
+        $response->assertStatus(200);
+
+        $response = $this->get('/api/lomba/detail/' . $lomba->id);
+
+        $response->assertJson(
+            [
+                "anggota_terdaftar" => 0,
+            ]
+        );
+
+        $response->assertStatus(200);
+    }
+
+    public function test_unregis_lomba_grup()
+    {
+        // create lomba
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+                'max_anggota' => 3,
+                'kuota_lomba' => 10,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user1 = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+
+        Sanctum::actingAs($user1);
+
+        $user2_id = $this->createUser();
+        $user3_id = $this->createUser();
+
+        $this->post(
+            '/api/lomba/register/grup',
+            [
+                'lomba_id' => $lomba->id,
+                'nama_grup' => 'grup_1',
+                'anggota' => [$user1->id, $user2_id, $user3_id],
+                'password' => 'katasandi',
+            ]
+        );
+
+        $response = $this->delete('/api/lomba/unregister', ['lomba_id' => $lomba->id]);
+
+        $response->assertJson(
+            [
+                'message' => 'Successfully unregister from ' . $lomba->nama_lomba
+            ]
+        );
+
+        $response->assertStatus(200);
+
+        $response = $this->get('/api/lomba/detail/' . $lomba->id);
+
+        $response->assertJson(
+            [
+                "anggota_terdaftar" => 0,
+            ]
+        );
+
+        $response->assertStatus(200);
     }
 
     public function test_get_user_list_lomba()
