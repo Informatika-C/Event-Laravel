@@ -11,6 +11,7 @@ use App\Models\LombaKelompok;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
 class LombaController extends Controller
 {
@@ -57,7 +58,7 @@ class LombaController extends Controller
             }
 
             // create new LombaKelompok
-            $lombaKelompok = LombaKelompok::create([
+            LombaKelompok::create([
                 'lomba_id' => $lomba->id,
                 'kelompok_id' => $kelompok->id,
             ]);
@@ -94,18 +95,8 @@ class LombaController extends Controller
         // get kelompok by kelompok id
         $kelompok = Kelompok::find($lombaKelompok->kelompok_id);
 
-        // if kelompok is solo, delete only lomba_kelompok
-        if ($kelompok->nama_kelompok == 'solo_' . auth()->user()->id) {
-
-            $lombaKelompok->delete();
-
-            // dispatch event
-            RegisterLomba::dispatch($lomba);
-
-            return response()->json([
-                'message' => 'Successfully unregister from ' . $lomba->nama_lomba,
-            ], 200);
-        }
+        // delete lomba kelompok
+        $lombaKelompok->delete();
 
         // delete kelompok peserta
         KelompokPeserta::where('kelompok_id', $kelompok->id)->delete();
@@ -162,21 +153,17 @@ class LombaController extends Controller
                 ], 422);
             }
 
-            // check 'solo_'.$user_id, if exist return already exist
-            $kelompok = Kelompok::where('nama_kelompok', 'solo_' . $user_id)->first();
-            if (!$kelompok) {
-                // create new kelompok
-                $kelompok = Kelompok::create([
-                    'nama_kelompok' => 'solo_' . $user_id,
-                    'ketua_id' => $user_id,
-                ]);
+            $kelompok = Kelompok::create([
+                'nama_kelompok' => 'solo_' . (string) Str::orderedUuid(),
+                'ketua_id' => $user_id,
+                'is_solo' => true,
+            ]);
 
-                // insert user to kelompok_peserta
-                KelompokPeserta::create([
-                    'kelompok_id' => $kelompok->id,
-                    'peserta_id' => $user_id,
-                ]);
-            }
+            // insert user to kelompok_peserta
+            KelompokPeserta::create([
+                'kelompok_id' => $kelompok->id,
+                'peserta_id' => $user_id,
+            ]);
 
             // set request kelompok_id to kelompok->id
             $request->merge(['kelompok_id' => $kelompok->id]);

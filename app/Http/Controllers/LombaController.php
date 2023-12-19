@@ -15,6 +15,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class LombaController extends Controller
 {
@@ -247,16 +248,8 @@ class LombaController extends Controller
         // get kelompok by kelompok id
         $kelompok = Kelompok::find($lombaKelompok->kelompok_id);
 
-        // if kelompok is solo, delete only lomba_kelompok
-        if ($kelompok->nama_kelompok == 'solo_' . auth()->user()->id) {
-
-            $lombaKelompok->delete();
-
-            // dispatch event
-            RegisterLomba::dispatch($lomba);
-
-            return back()->with('success', 'Berhasil keluar lomba' . $lomba->nama_lomba);
-        }
+        // delete lomba kelompok
+        $lombaKelompok->delete();
 
         // delete kelompok peserta
         KelompokPeserta::where('kelompok_id', $kelompok->id)->delete();
@@ -301,21 +294,18 @@ class LombaController extends Controller
                 return back()->with('error', 'Kuota lomba sudah penuh.');
             }
 
-            // check 'solo_'.$user_id, if exist return already exist
-            $kelompok = Kelompok::where('nama_kelompok', 'solo_' . $user_id)->first();
-            if (!$kelompok) {
-                // create new kelompok
-                $kelompok = Kelompok::create([
-                    'nama_kelompok' => 'solo_' . $user_id,
-                    'ketua_id' => $user_id,
-                ]);
+            // create new kelompok
+            $kelompok = Kelompok::create([
+                'nama_kelompok' => 'solo_' . (string) Str::orderedUuid(),
+                'ketua_id' => $user_id,
+                'is_solo' => true,
+            ]);
 
-                // insert user to kelompok_peserta
-                KelompokPeserta::create([
-                    'kelompok_id' => $kelompok->id,
-                    'peserta_id' => $user_id,
-                ]);
-            }
+            // insert user to kelompok_peserta
+            KelompokPeserta::create([
+                'kelompok_id' => $kelompok->id,
+                'peserta_id' => $user_id,
+            ]);
 
             // set request kelompok_id to kelompok->id
             $request->merge(['kelompok_id' => $kelompok->id]);

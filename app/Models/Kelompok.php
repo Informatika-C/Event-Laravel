@@ -13,7 +13,7 @@ class Kelompok extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['nama_kelompok', 'ketua_id'];
+    protected $fillable = ['nama_kelompok', 'ketua_id', 'is_solo'];
 
     public function ketua()
     {
