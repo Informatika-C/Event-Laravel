@@ -147,7 +147,7 @@ class AuthApiTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->put('/api/user', [
+        $response = $this->post('/api/user', [
             'name' => 'User2',
             'email' => 'user2@gmail.com',
             'npm' => '0987654321',
@@ -178,6 +178,13 @@ class AuthApiTest extends TestCase
                 'phone' => '089876543210'
             ]
         ]);
+
+        $userBaru = User::find($user->id);
+
+        $this->assertEquals('User2', $userBaru->name);
+        $this->assertEquals('user2@gmail.com', $userBaru->email);
+        $this->assertEquals('0987654321', $userBaru->npm);
+        $this->assertEquals('089876543210', $userBaru->phone);
     }
 
     public function test_user_chage_password(): void
@@ -190,7 +197,7 @@ class AuthApiTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->put('/api/user', [
+        $response = $this->post('/api/user', [
             'password' => 'password2',
             'password_confirmation' => 'password2'
         ]);
@@ -214,7 +221,7 @@ class AuthApiTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->put('/api/user', [
+        $response = $this->post('/api/user', [
             'email' => 'user2@gmail.com'
         ]);
 

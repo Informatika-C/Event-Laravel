@@ -26,7 +26,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::get('/user', [AuthController::class, 'user'])->middleware('auth:sanctum');
-Route::put('/user', [AuthController::class, 'update'])->middleware('auth:sanctum');
+Route::post('/user', [AuthController::class, 'update'])->middleware('auth:sanctum');
 
 Route::get('/user/list-lomba', [LombaController::class, 'userListLomba'])->middleware('auth:sanctum');
 

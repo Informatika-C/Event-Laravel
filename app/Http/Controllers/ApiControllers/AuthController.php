@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiControllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Validation\ValidationException;
@@ -82,24 +83,28 @@ class AuthController extends Controller
                 'email' => 'email|unique:users,email,' . $user->id,
                 'password' => 'confirmed'
             ]);
+
+            $user->update([
+                'name' => $validatedData['name'] ?? $user->name,
+                'npm' => $validatedData['npm'] ?? $user->npm,
+                'phone' => $validatedData['phone'] ?? $user->phone,
+                'email' => $validatedData['email'] ?? $user->email,
+                'password' => $validatedData['password'] ?? $user->password
+            ]);
+
+            return response()->json([
+                'message' => 'User updated',
+                'user' => $user
+            ]);
         } catch (ValidationException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
                 'errors' => $e->errors()
             ], $e->status);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
         }
-
-        $user->update([
-            'name' => $validatedData['name'] ?? $user->name,
-            'npm' => $validatedData['npm'] ?? $user->npm,
-            'phone' => $validatedData['phone'] ?? $user->phone,
-            'email' => $validatedData['email'] ?? $user->email,
-            'password' => $validatedData['password'] ?? $user->password
-        ]);
-
-        return response()->json([
-            'message' => 'User updated',
-            'user' => $user
-        ]);
     }
 }
