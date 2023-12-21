@@ -242,6 +242,13 @@ class LombaController extends Controller
             ], 422);
         }
 
+        // check if user is in anggota
+        if (!in_array($user->id, $anggota)) {
+            return response()->json([
+                'message' => 'User not in anggota'
+            ], 422);
+        }
+
         DB::beginTransaction();
         try {
             // check peserta registered

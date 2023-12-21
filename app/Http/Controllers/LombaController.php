@@ -350,6 +350,11 @@ class LombaController extends Controller
             return back()->with('error', 'Password salah.');
         }
 
+        // check if user is in anggota
+        if (!in_array($user->id, $anggota)) {
+            return back()->with('error', 'Anda harus menjadi anggota grup.');
+        }
+
         DB::beginTransaction();
         try {
             // get lomba

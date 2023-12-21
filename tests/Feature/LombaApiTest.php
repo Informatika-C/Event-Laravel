@@ -542,6 +542,50 @@ class LombaApiTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_user_register_lomba_grup_without_himself()
+    {
+        // create lomba
+        $kategori_id = $this->createKategori('sport');
+        $penyelenggara_id = $this->createPenyelenggara();
+
+        $event_id = $this->createEvent($penyelenggara_id);
+        $lomba = Lomba::factory()->create(
+            [
+                'event_id' => $event_id,
+            ]
+        );
+        $this->createKategoriLomba($lomba->id, $kategori_id);
+
+        // create user
+        $user = User::factory()->create(
+            [
+                'password' => Hash::make('katasandi'),
+            ]
+        );
+        $user2_id = $this->createUser();
+        $user3_id = $this->createUser();
+        $user4_id = $this->createUser();
+
+        Sanctum::actingAs($user);
+
+        $response = $this->post(
+            '/api/lomba/register/grup',
+            [
+                'lomba_id' => $lomba->id,
+                'nama_grup' => 'grup_1',
+                'anggota' => [$user2_id, $user3_id, $user4_id],
+                'password' => 'katasandi',
+            ]
+        );
+
+        $response->assertJson(
+            [
+                'message' => 'User not in anggota'
+            ]
+        );
+        $response->assertStatus(422);
+    }
+
     public function test_user_register_lomba_grup_with_more_max_anggota()
     {
         // create lomba
