@@ -107,4 +107,49 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    public function updatePhoto(Request $request)
+    {
+        $user = $request->user();
+
+        try {
+            $validatedData = $request->validate([
+                'photo_profile' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+            ]);
+
+            // Delete old photo profile if exists
+            if ($user->photo_profile) {
+                $photo_profile_path = public_path($user->photo_profile);
+
+                if (file_exists($photo_profile_path)) {
+                    $succsess = unlink($photo_profile_path);
+                    if (!$succsess) throw new Exception('Failed to delete old photo profile');
+                }
+            }
+
+            $photo_profile = $validatedData['photo_profile'];
+
+            $photo_profile_name = time() . '.' . $photo_profile->extension();
+
+            $photo_profile->move(public_path('photo-profile'), $photo_profile_name);
+
+            $user->update([
+                'photo_profile' => 'photo-profile/' . $photo_profile_name
+            ]);
+
+            return response()->json([
+                'message' => 'Photo profile updated',
+                'photo_profile' => $user->photo_profile
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'errors' => $e->errors()
+            ], $e->status);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
@@ -233,5 +234,112 @@ class AuthApiTest extends TestCase
                 'email'
             ]
         ]);
+    }
+
+    public function test_user_change_photo_profile(): void
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $image = UploadedFile::fake()->image('photo_profile.jpg')->size(1000);
+
+        $response = $this->post('/api/user/photo-profile', [
+            'photo_profile' => $image
+        ]);
+
+        $response->assertStatus(200);
+
+        $response->assertJsonStructure([
+            'message',
+            'photo_profile'
+        ]);
+
+        $response->assertJson([
+            'photo_profile' => $user->photo_profile
+        ]);
+
+        $this->assertFileExists(public_path($user->photo_profile));
+    }
+
+    public function test_user_change_photo_profile_with_invalid_file_type(): void
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $image = UploadedFile::fake()->create('photo_profile.pdf')->size(1000);
+
+        $response = $this->post('/api/user/photo-profile', [
+            'photo_profile' => $image
+        ]);
+
+        $response->assertStatus(422);
+
+        $response->assertJsonStructure([
+            'message',
+            'errors' => [
+                'photo_profile'
+            ]
+        ]);
+    }
+
+    public function test_user_change_photo_profile_with_invalid_file_size(): void
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $image = UploadedFile::fake()->image('photo_profile.jpg')->size(6000);
+
+        $response = $this->post('/api/user/photo-profile', [
+            'photo_profile' => $image
+        ]);
+
+        $response->assertStatus(422);
+
+        $response->assertJsonStructure([
+            'message',
+            'errors' => [
+                'photo_profile'
+            ]
+        ]);
+    }
+
+    public function test_user_change_photo_profile_without_file(): void
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $response = $this->post('/api/user/photo-profile');
+
+        $response->assertStatus(422);
+
+        $response->assertJsonStructure([
+            'message',
+            'errors' => [
+                'photo_profile'
+            ]
+        ]);
+    }
+
+    public function test_photo_are_deleted_when_new_photo_is_uploaded()
+    {
+        $user = User::factory()->create([
+            'photo_profile' => 'photo-profile/photo_profile.jpg'
+        ]);
+
+        Sanctum::actingAs($user);
+
+        $image = UploadedFile::fake()->image('photo_profile.jpg')->size(1000);
+
+        $response = $this->post('/api/user/photo-profile', [
+            'photo_profile' => $image
+        ]);
+
+        $response->assertStatus(200);
+
+        $this->assertFileDoesNotExist(public_path('photo-profile/photo_profile.jpg'));
     }
 }
