@@ -40,6 +40,7 @@ class HomeController extends Controller
         return [
             'id' => $event->id,
             'nama_event' => $event->nama_lomba,
+            'deskripsi' => $event->deskripsi,
             'tempat' => $event->tempat,
             'tanggal_pendaftaran' => $event->tanggal_pendaftaran,
             'tanggal_penutupan_pendaftaran' => $event->tanggal_penutupan_pendaftaran,
