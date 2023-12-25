@@ -45,8 +45,8 @@ class HomeController extends Controller
             'tanggal_pendaftaran' => $event->tanggal_pendaftaran,
             'tanggal_penutupan_pendaftaran' => $event->tanggal_penutupan_pendaftaran,
             'tanggal_pelaksanaan' => $event->tanggal_pelaksanaan,
-            'banner' => $event->banner ? '/storage/banner/' . $event->id . '/' . $event->banner : null,
-            'poster' => $event->poster ? '/storage/poster/' . $event->id . '/' . $event->poster : null,
+            'banner' => $event->banner ? $event->banner : null,
+            'poster' => $event->poster ? $event->poster : null,
             'penyelenggara' => $event->penyelenggara ? $event->penyelenggara : null,
         ];
     }
