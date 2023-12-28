@@ -227,6 +227,12 @@ class LombaController extends Controller
                     'message' => 'Anggota more than max anggota',
                 ], 422);
             }
+
+            if (count($anggota) < $lomba->max_anggota) {
+                return response()->json([
+                    'message' => 'Anggota not enough'
+                ], 422);
+            }
         } catch (ValidationException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -243,11 +249,11 @@ class LombaController extends Controller
         }
 
         // check if user is in anggota
-        // if (!in_array($user->id, $anggota)) {
-        //     return response()->json([
-        //         'message' => 'User not in anggota'
-        //     ], 422);
-        // }
+        if (!in_array($user->id, $anggota)) {
+            return response()->json([
+                'message' => 'User not in anggota'
+            ], 422);
+        }
 
         DB::beginTransaction();
         try {
