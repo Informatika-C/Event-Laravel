@@ -34,7 +34,7 @@ class LombaController extends Controller
 
         $lomba->anggota_terdaftar = LombaKelompok::where('lomba_id', $lomba->id)->count() * $lomba->max_anggota;
 
-        $user = auth()->user();
+        $user = auth('sanctum')->user();
 
         if ($user != null) {
             // check if user already registered
@@ -105,7 +105,7 @@ class LombaController extends Controller
         }
 
         // get kelompok by user id and lomba id
-        $kelompoks = KelompokPeserta::where('peserta_id', auth()->user()->id)->get();
+        $kelompoks = KelompokPeserta::where('peserta_id', auth('sanctum')->user()->id)->get();
         $lomba = Lomba::find($validatedData['lomba_id']);
 
         $lombaKelompok = LombaKelompok::where('lomba_id', $lomba->id)->whereIn('kelompok_id', $kelompoks->pluck('kelompok_id'))->first();
@@ -146,7 +146,7 @@ class LombaController extends Controller
 
         // check password with user password
         $hasher = app('hash');
-        $user = auth()->user();
+        $user = auth('sanctum')->user();
         if (!$hasher->check($validatedData['password'], $user->password)) {
             return response()->json([
                 'message' => 'Wrong password',
@@ -157,7 +157,7 @@ class LombaController extends Controller
 
         try {
             // get user id
-            $user_id = auth()->user()->id;
+            $user_id = auth('sanctum')->user()->id;
 
             // get name
             $lomba = Lomba::find($request->input('lomba_id'));
@@ -241,7 +241,7 @@ class LombaController extends Controller
 
         // check password with user password
         $hasher = app('hash');
-        $user = auth()->user();
+        $user = auth('sanctum')->user();
         if (!$hasher->check($validatedData['password'], $user->password)) {
             return response()->json([
                 'message' => 'Wrong password'
@@ -300,7 +300,7 @@ class LombaController extends Controller
 
     public function userListLomba()
     {
-        $user = auth()->user();
+        $user = auth('sanctum')->user();
         $kelompok = KelompokPeserta::where('peserta_id', $user->id)->get();
         $lomba = LombaKelompok::whereIn('kelompok_id', $kelompok->pluck('kelompok_id'))->get();
         $lomba_id = $lomba->pluck('lomba_id');
