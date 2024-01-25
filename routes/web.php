@@ -112,9 +112,7 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('edit-prof
 Route::put('/profile/update', [ProfileController::class, 'update'])->name('update-profile');
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function () {
-    Route::get('/profile', function () {
-        return view('profile');
-    })->name('user.profile');
+    Route::get('/profile', [LombaController::class, 'userListLomba'])->name('user.profile');
 });
 
 Route::group(['middleware' => ['auth']], function () {

@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    {{$lomba}}
     @include('widgets.navbar')
     <div id="profile" class="container-profile">
         <div class="profile">
@@ -72,6 +73,12 @@
                                             <label for="email">{{ __('Email') }}</label>
                                             <input id="email" type="email" class="form-control" name="email"
                                                 value="{{ Auth::user()->email }}" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password">{{ __('Password') }}</label>
+                                            <input id="password" type="password" class="form-control" name="password"
+                                               >
                                         </div>
 
                                         <div class="form-group">
