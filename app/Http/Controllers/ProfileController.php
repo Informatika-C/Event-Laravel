@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Validator;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
 use Illuminate\Http\Request;
@@ -25,23 +27,30 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        $user = User::findOrFail(auth()->user()->id);
-        $data = $request->all();
+        $user = $request->user();
 
-        $rules = [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'npm' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
-        ];
+        try {
+            $validatedData = $request->validate([
+                'name' => 'max:55',
+                'npm' => 'max:10|unique:users,npm,' . $user->id,
+                'phone' => 'max:13|unique:users,phone,' . $user->id,
+                'email' => 'email|unique:users,email,' . $user->id,
+                'password' => 'confirmed'
+            ]);
 
-        $validation = ValidatorFacade::make($data, $rules);
+            $user->update([
+                'name' => $validatedData['name'] ?? $user->name,
+                'npm' => $validatedData['npm'] ?? $user->npm,
+                'phone' => $validatedData['phone'] ?? $user->phone,
+                'email' => $validatedData['email'] ?? $user->email,
+                'password' => $validatedData['password'] ?? $user->password
+            ]);
 
-        if ($validation->passes()) {
-            $user->update($data);
-            return back()->with('success', 'Profil berhasil diperbarui');
+            return back()->with('success', 'Profile updated successfully!');
+        } catch (ValidationException $e) {
+            return back()->with('error', 'Error: ' . $e->getMessage());
+        } catch (Exception $e) {
+            return back()->with('error', 'Error: ' . $e->getMessage());
         }
-
-        return back()->withErrors($validation)->withInput();
     }
 }

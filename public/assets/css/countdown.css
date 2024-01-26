@@ -135,8 +135,9 @@ div.category-letter {
     display: flex;
 }
 #countdown {
-    color: red;
+    color: var(--text-color-rev);
     padding: 20px;
+    font-size: 2rem;
     font-weight: 800;
 }
 #countdown h5 {
