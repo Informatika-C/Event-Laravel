@@ -113,6 +113,7 @@ Route::put('/profile/update', [ProfileController::class, 'update'])->name('updat
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function () {
     Route::get('/profile', [LombaController::class, 'userListLomba'])->name('user.profile');
+    Route::delete('/profile', [LombaController::class, 'unregister'])->name('lomba.unregister');
 });
 
 Route::group(['middleware' => ['auth']], function () {

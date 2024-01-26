@@ -98,6 +98,7 @@
         <section id="count" class="coundown-section">
             {{-- <h5>Ayo Ikuti!</h5> --}}
             <div class="count-wrap">
+                <div class="event-name">{{ $event_first->nama_lomba }}</div>
                 <div class="count-left">
                     <div class="event-name-left">{{ $event_first->nama_lomba }}</div>
                     <div class="img-count"
@@ -143,7 +144,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="count-right">
+                {{-- <div class="count-right">
                     <div class="event-name">{{ $event_first->nama_lomba }}</div>
                     <div class="category-letter">CateGory</div>
                     <div class="horizon-card">
@@ -155,7 +156,7 @@
                         <div class="cardZone">Category 6</div>
                         <div class="cardZone">Category 7</div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <div class="body-count">

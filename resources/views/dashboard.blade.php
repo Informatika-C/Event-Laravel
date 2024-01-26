@@ -62,7 +62,7 @@
                         </span>
                     </a>
                 </li>
-                <li class="{{ Route::currentRouteName() == 'dashboard.schedule' ? 'active' : '' }}">
+                {{-- <li class="{{ Route::currentRouteName() == 'dashboard.schedule' ? 'active' : '' }}">
                     <a href="{{ route('dashboard.schedule') }}">
                         <i class="fa-solid fa-calendar-day"></i>
                         <span class="link-name">Schedule</span>
@@ -73,7 +73,7 @@
                         <i class="fa-solid fa-handshake-angle"></i>
                         <span class="link-name">Sponsor</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="mode">
                     <a href="#">
                         <i class="fa-solid fa-moon"></i>

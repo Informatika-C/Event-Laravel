@@ -23,10 +23,10 @@
         </div>
     </div>
     <div class="wrapper">
-        <li class="add-box">
+        {{-- <li class="add-box">
             <div class="icon"><i class="fa-solid fa-plus"></i></div>
             <p>Add new note</p>
-        </li>
+        </li> --}}
     </div>
 
 
@@ -136,46 +136,6 @@
                     <td>6,239.5</td>
                     <td>Dec 11, 2020</td>
                     <td>Jan 23, 2021</td>
-                </tr>
-                <tr>
-                    <td>#PW-0005</td>
-                    <td>Apple inc</td>
-                    <td>
-                        <span class="status confirmed"><i class="fas fa-circle"> CONFIRMED</i></span>
-                    </td>
-                    <td>187.13 USD</td>
-                    <td>Nov 20, 2020</td>
-                    <td>Jan 09, 2021</td>
-                </tr>
-                <tr>
-                    <td>#PW-0006</td>
-                    <td>Penerang</td>
-                    <td>
-                        <span class="status onprogress"><i class="fas fa-circle"> ONPROGRESS</i></span>
-                    </td>
-                    <td>624.65 USD</td>
-                    <td>Nov 01, 2020</td>
-                    <td>Dec 15, 2020</td>
-                </tr>
-                <tr>
-                    <td>#PW-0007</td>
-                    <td>Paralon Corp</td>
-                    <td>
-                        <span class="status confirmed"><i class="fas fa-circle"> CONFIRMED</i></span>
-                    </td>
-                    <td>2,483.09 USD</td>
-                    <td>Oct 13, 2020</td>
-                    <td>Oct 21, 2020</td>
-                </tr>
-                <tr>
-                    <td>#PW-0008</td>
-                    <td>Coding Scale</td>
-                    <td>
-                        <span class="status onprogress"><i class="fas fa-circle"> ONPROGRESS</i></span>
-                    </td>
-                    <td>1,247.00 USD</td>
-                    <td>Sep 20, 2020</td>
-                    <td>Oct 13, 2020</td>
                 </tr>
             </table>
         </div>

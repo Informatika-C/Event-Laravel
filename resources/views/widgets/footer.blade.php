@@ -3,9 +3,9 @@
         <div class="contact">
             <h3>Contact Us</h3>
             <ul class="contact-text">
-                <li>Email: const@yahoo.com</li>
-                <li>Phone: +6282183503540</li>
-                <li>Address: 123 Main Street, City</li>
+                <li>Email : const@yahoo.com</li>
+                <li>Phone : +6282183503540</li>
+                <li>Address : Universitas Teknokrat Indonesia</li>
             </ul>
         </div>
         <div class="route-page">
@@ -31,6 +31,15 @@
                         <a class="log" href="{{ route('login') }}" title="LogIn">LogIn</a>
                     @endif
                 </li>
+            </ul>
+        </div>
+
+        <div class="download">
+            <h3>Tvent Mobile Apps <i class="fa-solid fa-mobile-screen"></i></h3>
+            <ul class="contact-text">
+                <li><a href="">Android <i class="fa-brands fa-android"></i></a></li>
+                <li> <img src="{{ asset('assets/images/Tvent Mobile Apps.png') }}" alt="Sponsor Logo 5" /></li>
+                {{-- <li><a href="">IOS <i class="fa-brands fa-apple"></i></a></li> --}}
             </ul>
         </div>
 

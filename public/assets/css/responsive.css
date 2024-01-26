@@ -207,9 +207,7 @@
         font-size: 0.7em;
         margin-bottom: 10px;
     }
-    .contact {
-        margin-bottom: 20px;
-    }
+
     .contact-text {
         font-size: 12px;
     }
@@ -473,19 +471,12 @@
         font-size: 1.2rem;
         margin-bottom: 10px;
     }
-    .contact {
-        margin-bottom: 20px;
-    }
     .contact-text {
         font-size: 17px;
     }
     .contact,
     .route-page {
         flex: 0 0 100%;
-    }
-
-    .contact {
-        margin-bottom: 20px;
     }
 
     .copyright {

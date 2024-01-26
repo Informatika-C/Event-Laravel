@@ -1,47 +1,46 @@
-/* .back-button {
-    width: calc(100% - 10px);
-}
-
-.back-button img {
-    cursor: pointer;
-    width: 7%;
-    margin: 20px;
-} */
 .container-profile {
     width: 100%;
     max-width: 100vw;
     height: auto;
     display: flex;
-    flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
-    min-width: 370px;
 }
 
 .profile {
-    width: calc(100% - 60px);
+    width: 100%;
     height: 100%;
-    padding: 25px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     gap: 20px;
 }
 
 .profile-detail {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-right: 20px;
-    width: 300px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    height: 100%;
+    padding: 25px;
+    background-image: url("../images/4.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 2040px;
+    padding-inline: 15%;
 }
-
+.detail-header > .usn {
+    font-size: 3rem;
+}
 .detail-header {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    max-width: 900px;
+    font-size: 20px;
 }
-
+.list-group-item {
+    color: var(--text-color);
+}
 .detail-header h1 {
     font-size: 25px;
 }
@@ -69,7 +68,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    /* border: 1px solid white; */
+    padding-inline: 15%;
     height: auto;
     width: 100%;
 }
@@ -78,21 +77,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 16px;
-    border-radius: 20px;
-    border: 1px rgb(20, 7, 7) solid;
-    padding: 0.6rem 1.2rem;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: fit-content;
-    height: fit-content;
-    background-color: var(--back-drop);
-    backdrop-filter: blur(17px) saturate(90%) contrast(120%);
-    -webkit-backdrop-filter: blur(16px) saturate(100%) contrast(100%);
-    box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.15),
-        0 15px 90px 30px rgba(0, 0, 0, 0.25);
+    gap: 26px;
+    border-bottom: 1px rgb(209, 197, 197) solid;
 }
 .tab-contents {
     display: flex;
@@ -102,10 +88,13 @@
 }
 .tab-detail {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 1.5rem;
 }
 .tab-bar button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     background: none;
     color: var(--text-color);
     border: none;
@@ -113,7 +102,15 @@
     text-wrap: nowrap;
     /* padding: 15px; */
 }
-
+.tab-bar button i {
+    font-size: 1.6rem;
+}
+.tab-bar button p {
+    display: none;
+}
+.tab-button.active p {
+    display: block;
+}
 .tab-button.active {
     border-radius: 5px;
     border-bottom: 6px solid var(--text-hov);
@@ -121,7 +118,11 @@
 }
 
 .tab-button:hover {
-    background-color: #2980b9;
+    border-radius: 0px;
+    border-bottom: 3px solid var(--text-hov);
+}
+.tab-button.active:hover {
+    border-bottom: 6px solid var(--text-hov);
 }
 
 .tab-content {
@@ -190,15 +191,15 @@
 }
 
 @media screen and (max-width: 500px) {
-    .back-button img {
-        width: 15%;
-    }
     .profile {
         justify-content: center;
         gap: 20px;
     }
-    .tab-bar-case {
-        width: 90%;
+    .profile-detail {
+        gap: 10px;
+        height: 100%;
+        padding: 8px;
+        padding-inline: 2%;
     }
     .tab-bar {
         flex-direction: row;
@@ -213,6 +214,9 @@
     .tab-button {
         padding: 7px 20px;
     }
+    .tab-bar-case {
+        padding-inline: 5%;
+    }
     .tab-bar-case h1 {
         font-size: 20px;
         margin-bottom: 10px;
@@ -226,14 +230,40 @@
     #content-tab1 {
         justify-content: center;
     }
+    .img-container {
+        height: 90px;
+        width: 90px;
+    }
+    .detail-header > .usn {
+        font-size: 1.2rem;
+    }
+    .detail-header {
+        max-width: 300px;
+        font-size: 15px;
+    }
+}
+@media screen and (max-width: 300px) {
+    .profile-detail {
+        flex-direction: column;
+        gap: 10px;
+        height: 100%;
+        padding: 8px;
+        padding-inline: 2%;
+    }
+    .tab-bar {
+        flex-direction: row;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .tab-button.active p {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 700px) {
     .profile {
         flex-wrap: wrap;
-    }
-    .tab-bar-case {
-        width: 95%;
     }
 }
 @media screen and (max-width: 1000px) {
